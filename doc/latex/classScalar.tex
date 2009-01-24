@@ -1,0 +1,70 @@
+\section{Scalar Class Reference}
+\label{classScalar}\index{Scalar@{Scalar}}
+Inheritance diagram for Scalar::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4cm]{classScalar}
+\end{center}
+\end{figure}
+
+
+\subsection{Detailed Description}
+returns a scalar \subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf Scalar} (double scalar, const string \&name, const string \&type=\char`\"{}scalar\char`\"{})
+\begin{CompactList}\small\item\em Construct. \item\end{CompactList}\item 
+{\bf Scalar} (double scalar, string unitPrefix, string unitSymbol, const string \&name, const string \&type=\char`\"{}scalar\char`\"{})
+\begin{CompactList}\small\item\em Construct. \item\end{CompactList}\item 
+virtual {\bf $\sim$Scalar} ()\label{classScalar_e2bcc0c8af86161e9220cc68d1f85d29}
+
+\begin{CompactList}\small\item\em Destroy. \item\end{CompactList}\item 
+virtual string {\bf getParameter} (const string \&name)
+\begin{CompactList}\small\item\em Get parameter. \item\end{CompactList}\item 
+virtual void {\bf setParameter} (const string \&name, const string \&value)
+\begin{CompactList}\small\item\em Set parameter. \item\end{CompactList}\item 
+virtual double {\bf calculateCurrentValue} ()\label{classScalar_cca9680da905b4fb1e3a4b2bbe527417}
+
+\begin{CompactList}\small\item\em Calculates the current value based on the current input. \item\end{CompactList}\item 
+virtual double {\bf calculateNextValue} ()\label{classScalar_0aab66e2480c065282c78c52cab3a28b}
+
+\begin{CompactList}\small\item\em Calculates the next value based on the current input. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Scalar@{Scalar}!Scalar@{Scalar}}
+\index{Scalar@{Scalar}!Scalar@{Scalar}}
+\subsubsection[Scalar]{\setlength{\rightskip}{0pt plus 5cm}Scalar::Scalar (double {\em scalar}, \/  const string \& {\em name}, \/  const string \& {\em type} = {\tt \char`\"{}scalar\char`\"{}})}\label{classScalar_2245b31a3fc102f905acb308bde35c01}
+
+
+Construct. 
+
+Construct a scalar with a description. \index{Scalar@{Scalar}!Scalar@{Scalar}}
+\index{Scalar@{Scalar}!Scalar@{Scalar}}
+\subsubsection[Scalar]{\setlength{\rightskip}{0pt plus 5cm}Scalar::Scalar (double {\em scalar}, \/  string {\em unitPrefix}, \/  string {\em unitSymbol}, \/  const string \& {\em name}, \/  const string \& {\em type} = {\tt \char`\"{}scalar\char`\"{}})}\label{classScalar_bc1c7c294a9143c2d940c6d365f57bfe}
+
+
+Construct. 
+
+Construcr a scalar with a description and a physical unit. 
+
+\subsection{Member Function Documentation}
+\index{Scalar@{Scalar}!getParameter@{getParameter}}
+\index{getParameter@{getParameter}!Scalar@{Scalar}}
+\subsubsection[getParameter]{\setlength{\rightskip}{0pt plus 5cm}virtual string Scalar::getParameter (const string \& {\em name})\hspace{0.3cm}{\tt  [virtual]}}\label{classScalar_1bcc13696ba052e1f15aa3bf6bcf5fc5}
+
+
+Get parameter. 
+
+Implements \char`\"{}value\char`\"{}. 
+
+Reimplemented from {\bf Parametric} \doxyref{}{p.}{classParametric_3c39188e1750b8e5d442b9dfa079b1c8}.\index{Scalar@{Scalar}!setParameter@{setParameter}}
+\index{setParameter@{setParameter}!Scalar@{Scalar}}
+\subsubsection[setParameter]{\setlength{\rightskip}{0pt plus 5cm}virtual void Scalar::setParameter (const string \& {\em name}, \/  const string \& {\em value})\hspace{0.3cm}{\tt  [virtual]}}\label{classScalar_9ec6ab9b6716e798ffc9e6bfed1b19fc}
+
+
+Set parameter. 
+
+Implements \char`\"{}value\char`\"{}. 
+
+Reimplemented from {\bf Parametric} \doxyref{}{p.}{classParametric_bba36dc4545219658541ab55251e02e6}.

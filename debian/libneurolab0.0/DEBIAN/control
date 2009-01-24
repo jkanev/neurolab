@@ -1,0 +1,27 @@
+Package: libneurolab0.0
+Source: libneurolab
+Version: 0.0.4
+Architecture: i386
+Maintainer: Jacob Kanev <j_kanev@arcor.de>
+Installed-Size: 3192
+Depends: libc6 (>= 2.7-1), libgcc1 (>= 1:4.1.1), libstdc++6 (>= 4.1.1), libgsl0ldbl, gnuplot
+Suggests: doxygen
+Section: libs
+Priority: optional
+Description: Description: C++ library for simulation of stochastic differential equations in neuroscience
+ .
+ NeuroLab is a C++ class library which allows simulation of stochastic differential
+ equations (SDEs), mainly in the neuroscience field.
+ .
+ SDEs can be simulated, data collected using estimator classes
+ which can for listen for conditional or unconditional samples, means,
+ variances or higher moments. Results can be altered using analytical
+ functions. Pure results, changed results, and analytical functions can
+ saved as raw data (gnuplot readable), displayed with a predined display class,
+ or saved as postscript, ready to be included in your paper.
+ .
+ Any SDE can be simulated, both in Ito and Stratonovich interpretation,
+ switching is allowed even at runtime. Different noises are implemented,
+ a theta neuron and an integrate-and-fire neuron, and different synapses.
+ More neuron types are planned.
+ .

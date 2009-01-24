@@ -1,0 +1,27 @@
+\section{ThetaNeuron Class Reference}
+\label{classThetaNeuron}\index{ThetaNeuron@{ThetaNeuron}}
+Inherits SpikingNeuron.
+
+
+
+\subsection{Detailed Description}
+A Theta \doxyref{Neuron}{p.}{classNeuron}. 
+
+This class implements a theta neuron. The differential equation for the theta neuron has the following form: \[ d\Theta_t = (1-\cos\Theta_t)dt + (1+\cos\Theta_t)dG_t, \] where \[dG_t = \mu + \sigma dW_t.\] \subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf ThetaNeuron} ({\bf Time} $\ast$time, const string \&name=\char`\"{}\char`\"{}, const string \&type=\char`\"{}theta\_\-neuron\char`\"{})\label{classThetaNeuron_084ecba309f5fed1130450566201710b}
+
+\begin{CompactList}\small\item\em Construct. \item\end{CompactList}\item 
+{\bf $\sim$ThetaNeuron} ()\label{classThetaNeuron_82ecbf8e3cbe001af8fac8063ef33c34}
+
+\begin{CompactList}\small\item\em Destruct. \item\end{CompactList}\item 
+void {\bf addStimulus} ({\bf StochasticVariable} $\ast$integrator)\label{classThetaNeuron_ce5db4216a79be0b268da9a0660a0163}
+
+\begin{CompactList}\small\item\em Add stimulus. \item\end{CompactList}\item 
+virtual void {\bf prepareNextState} ()\label{classThetaNeuron_2421556c8772c60e04701665aefa4fab}
+
+\begin{CompactList}\small\item\em Next step. \item\end{CompactList}\item 
+virtual bool {\bf hasEvent} ()\label{classThetaNeuron_86deffa4d898d7417b1a78a91fd4c2e4}
+
+\begin{CompactList}\small\item\em Event? \item\end{CompactList}\end{CompactItemize}

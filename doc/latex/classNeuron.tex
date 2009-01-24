@@ -1,0 +1,60 @@
+\section{Neuron Class Reference}
+\label{classNeuron}\index{Neuron@{Neuron}}
+Inherited by SpikingNeuron.
+
+
+
+\subsection{Detailed Description}
+class implementing a simple integrate-and-fire neuron 
+
+This class implements functions common to all neurons - adding and removing of stimuli. A neuron is implemented as differential equation and inherits from \doxyref{DifferentialEquation}{p.}{classDifferentialEquation}. The neuron can be used with conductances, synapses or simple stochastic input. This class is meant as base class for neurons; the constructor is protected. \subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+virtual int {\bf addStimulus} ({\bf Synapse} $\ast$synapse)=0
+\begin{CompactList}\small\item\em Add a synapse. \item\end{CompactList}\item 
+virtual void {\bf removeStimulus} (int n)=0
+\begin{CompactList}\small\item\em remove a stimulus \item\end{CompactList}\end{CompactItemize}
+\subsection*{Protected Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf Neuron} (string name, string type)
+\begin{CompactList}\small\item\em Construct. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Neuron@{Neuron}!Neuron@{Neuron}}
+\index{Neuron@{Neuron}!Neuron@{Neuron}}
+\subsubsection[Neuron]{\setlength{\rightskip}{0pt plus 5cm}Neuron::Neuron (string {\em name}, \/  string {\em type})\hspace{0.3cm}{\tt  [inline, protected]}}\label{classNeuron_307ba7271f371d7435b3a313f1169fcf}
+
+
+Construct. 
+
+This only calls the \doxyref{DifferentialEquation}{p.}{classDifferentialEquation} constructor. 
+
+\subsection{Member Function Documentation}
+\index{Neuron@{Neuron}!addStimulus@{addStimulus}}
+\index{addStimulus@{addStimulus}!Neuron@{Neuron}}
+\subsubsection[addStimulus]{\setlength{\rightskip}{0pt plus 5cm}virtual int Neuron::addStimulus ({\bf Synapse} $\ast$ {\em synapse})\hspace{0.3cm}{\tt  [pure virtual]}}\label{classNeuron_e53a7c8ecac2512bead30f9e007d0975}
+
+
+Add a synapse. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em synapse}]The synapse to be added. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The index of the integrator/integrand added. Use this number if you want to remove the synapse again. This adds a stimulus which is a synapse. The synapse should have the unit mV $\ast$ mS. \end{Desc}
+
+
+Implemented in {\bf IfNeuron} \doxyref{}{p.}{classIfNeuron_3b4ff5cc17beddb2e61c33bb286c2f49}.\index{Neuron@{Neuron}!removeStimulus@{removeStimulus}}
+\index{removeStimulus@{removeStimulus}!Neuron@{Neuron}}
+\subsubsection[removeStimulus]{\setlength{\rightskip}{0pt plus 5cm}virtual void Neuron::removeStimulus (int {\em n})\hspace{0.3cm}{\tt  [pure virtual]}}\label{classNeuron_9c38540847a8a467354f72235ca25cc4}
+
+
+remove a stimulus 
+
+This removes the stimulus number n from the differential equation 
+
+Implemented in {\bf IfNeuron} \doxyref{}{p.}{classIfNeuron_0a8c5f5733ed221161c2c73aa869d0d1}.

@@ -1,0 +1,52 @@
+\section{Product Class Reference}
+\label{classProduct}\index{Product@{Product}}
+Inheritance diagram for Product::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5cm]{classProduct}
+\end{center}
+\end{figure}
+
+
+\subsection{Detailed Description}
+A product of the function input and a scalar. \subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf Product} (double factor, const string \&name=\char`\"{}\char`\"{}, const string \&type=\char`\"{}product\char`\"{})\label{classProduct_b8605181d2afd73bd3ec6c043d017326}
+
+\begin{CompactList}\small\item\em Create. \item\end{CompactList}\item 
+virtual {\bf $\sim$Product} ()\label{classProduct_18f26095e25405579968c6ede367484f}
+
+\begin{CompactList}\small\item\em Destroy. \item\end{CompactList}\item 
+virtual double {\bf calculateCurrentValue} ()\label{classProduct_f54c958e082fa36cde289a09a6ba9765}
+
+\begin{CompactList}\small\item\em Return current product value. \item\end{CompactList}\item 
+virtual double {\bf calculateNextValue} ()\label{classProduct_d8fae226e9ad34bc3ed33dd294fd7186}
+
+\begin{CompactList}\small\item\em Return next product value. \item\end{CompactList}\item 
+virtual string {\bf getParameter} (const string \&name)
+\begin{CompactList}\small\item\em Get parameter. \item\end{CompactList}\item 
+virtual void {\bf setParameter} (const string \&name, const string \&value)
+\begin{CompactList}\small\item\em Set parameter. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{Product@{Product}!getParameter@{getParameter}}
+\index{getParameter@{getParameter}!Product@{Product}}
+\subsubsection[getParameter]{\setlength{\rightskip}{0pt plus 5cm}virtual string Product::getParameter (const string \& {\em name})\hspace{0.3cm}{\tt  [virtual]}}\label{classProduct_d9c5ec64bd836a6714b76f62e78562a9}
+
+
+Get parameter. 
+
+Implements \char`\"{}value\char`\"{}. 
+
+Reimplemented from {\bf Parametric} \doxyref{}{p.}{classParametric_3c39188e1750b8e5d442b9dfa079b1c8}.\index{Product@{Product}!setParameter@{setParameter}}
+\index{setParameter@{setParameter}!Product@{Product}}
+\subsubsection[setParameter]{\setlength{\rightskip}{0pt plus 5cm}virtual void Product::setParameter (const string \& {\em name}, \/  const string \& {\em value})\hspace{0.3cm}{\tt  [virtual]}}\label{classProduct_7009c5b4f1b459230f5754a3675d38de}
+
+
+Set parameter. 
+
+Implements \char`\"{}value\char`\"{}. 
+
+Reimplemented from {\bf Parametric} \doxyref{}{p.}{classParametric_bba36dc4545219658541ab55251e02e6}.

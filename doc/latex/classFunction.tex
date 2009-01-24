@@ -1,0 +1,489 @@
+\section{Function Class Reference}
+\label{classFunction}\index{Function@{Function}}
+Inheritance diagram for Function::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2cm]{classFunction}
+\end{center}
+\end{figure}
+
+
+\subsection{Detailed Description}
+Class for mathematical functions. 
+
+This class implements mathematical functions for use with the \doxyref{Display}{p.}{classDisplay} class (which supports only gnuplot output at the moment. Functions are created from Variables using +, -, $\ast$, /, exp, ln, sqrt, square, sqrt, power, or root. Note the special variables X and Y. Functions use referencing, and form an execution tree. When any variable in the function changes, the function output changes. Appending a function to a \doxyref{Display}{p.}{classDisplay} (using $<$$<$) will append the output with the current variable setting. That way you can append the same function to the same display, with different values of its variables, and the result will be different curves on top of each other. The function can be appended to any string using the $<$$<$ operator. \subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf Function} (const {\bf Function} \&)\label{classFunction_a67985378d13c39d0a9fee4107ed346d}
+
+\begin{CompactList}\small\item\em Copy. \item\end{CompactList}\item 
+{\bf Function} (double d)
+\begin{CompactList}\small\item\em Double to \doxyref{Function}{p.}{classFunction}. \item\end{CompactList}\item 
+virtual {\bf $\sim$Function} ()\label{classFunction_8697b2e490a4314a7ccbb17aea8ce537}
+
+\begin{CompactList}\small\item\em Destructor. \item\end{CompactList}\item 
+virtual string {\bf getName} () const 
+\begin{CompactList}\small\item\em Returns the name. \item\end{CompactList}\item 
+{\bf Function} \& {\bf setVerbose} (bool verbose=true, ostream $\ast$log=\&cout)
+\begin{CompactList}\small\item\em Set function to be verbose. \item\end{CompactList}\item 
+virtual double {\bf getValue} () const 
+\begin{CompactList}\small\item\em Returns the value. \item\end{CompactList}\item 
+double {\bf operator()} (double x)
+\begin{CompactList}\small\item\em Returns the value at a point. \item\end{CompactList}\item 
+double {\bf operator()} (double x, double y)
+\begin{CompactList}\small\item\em Returns the value at a point. \item\end{CompactList}\item 
+void {\bf setXInput} (double)
+\begin{CompactList}\small\item\em Set x input. \item\end{CompactList}\item 
+void {\bf setYInput} (double)
+\begin{CompactList}\small\item\em Set y input. \item\end{CompactList}\item 
+double {\bf getXInput} ()
+\begin{CompactList}\small\item\em Get x input. \item\end{CompactList}\item 
+double {\bf getYInput} ()
+\begin{CompactList}\small\item\em Get y input. \item\end{CompactList}\item 
+virtual double {\bf getLastValue} () const 
+\begin{CompactList}\small\item\em Returns the value. \item\end{CompactList}\item 
+{\bf Function} \& {\bf setPhysical} (string s, {\bf Unit} u)
+\begin{CompactList}\small\item\em Returns the function graph. \item\end{CompactList}\item 
+virtual {\bf Function} \& {\bf setXRange} (double min, double max, double stepsize)
+\begin{CompactList}\small\item\em Set the x range. \item\end{CompactList}\item 
+virtual {\bf Function} \& {\bf setYRange} (double min, double max, double stepsize)
+\begin{CompactList}\small\item\em Set the y range. \item\end{CompactList}\item 
+string {\bf getXInputName} ()
+\begin{CompactList}\small\item\em Get input name. \item\end{CompactList}\item 
+string {\bf getYInputName} ()
+\begin{CompactList}\small\item\em Get input name. \item\end{CompactList}\item 
+{\bf Function} \& {\bf setName} (string s)
+\begin{CompactList}\small\item\em Sets the name. \item\end{CompactList}\item 
+void {\bf operator+=} ({\bf Function} \&function)
+\begin{CompactList}\small\item\em Add. \item\end{CompactList}\item 
+void {\bf operator-=} ({\bf Function} \&function)
+\begin{CompactList}\small\item\em Subtract. \item\end{CompactList}\item 
+void {\bf operator$\ast$=} ({\bf Function} \&function)
+\begin{CompactList}\small\item\em Multiply. \item\end{CompactList}\item 
+void {\bf operator/=} ({\bf Function} \&function)
+\begin{CompactList}\small\item\em Divide. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Protected Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf Function} ()
+\begin{CompactList}\small\item\em Default Constructor. \item\end{CompactList}\item 
+void {\bf unvalidate} ()
+\begin{CompactList}\small\item\em Set unvalid. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Protected Attributes}
+\begin{CompactItemize}
+\item 
+int {\bf nRefs}\label{classFunction_666c742742a8e5d4ec9e8a7233ec8070}
+
+\begin{CompactList}\small\item\em we do reference counting \item\end{CompactList}\item 
+vector$<$ {\bf Function} $\ast$ $>$ {\bf vParents}\label{classFunction_eea1b04b45e7df26a23f7bc2c7f22cc2}
+
+\begin{CompactList}\small\item\em parents, for ref counting \item\end{CompactList}\end{CompactItemize}
+\subsection*{Friends}
+\begin{CompactItemize}
+\item 
+{\bf Function} \& {\bf operator/} ({\bf Function} \&left, {\bf Function} \&right)
+\begin{CompactList}\small\item\em Divide. \item\end{CompactList}\item 
+{\bf Function} \& {\bf exp} ({\bf Function} \&right)
+\begin{CompactList}\small\item\em Exponential. \item\end{CompactList}\item 
+{\bf Function} \& {\bf ln} ({\bf Function} \&right)
+\begin{CompactList}\small\item\em Logarithm. \item\end{CompactList}\item 
+{\bf Function} \& {\bf sin} ({\bf Function} \&right)
+\begin{CompactList}\small\item\em Sine. \item\end{CompactList}\item 
+{\bf Function} \& {\bf cos} ({\bf Function} \&right)
+\begin{CompactList}\small\item\em Cosine. \item\end{CompactList}\item 
+{\bf Function} \& {\bf sqrt} ({\bf Function} \&right)
+\begin{CompactList}\small\item\em \doxyref{Square}{p.}{classSquare} root. \item\end{CompactList}\item 
+{\bf Function} \& {\bf square} ({\bf Function} \&right)
+\begin{CompactList}\small\item\em \doxyref{Square}{p.}{classSquare}. \item\end{CompactList}\item 
+{\bf Function} \& {\bf root} ({\bf Function} \&left, {\bf Function} \&n)
+\begin{CompactList}\small\item\em Root. \item\end{CompactList}\item 
+{\bf Function} \& {\bf power} ({\bf Function} \&left, {\bf Function} \&n)
+\begin{CompactList}\small\item\em Power. \item\end{CompactList}\item 
+{\bf Function} \& {\bf integral} ({\bf Function} \&integrand, {\bf Function} \&integrator)
+\begin{CompactList}\small\item\em Integral.. \item\end{CompactList}\item 
+{\bf Function} \& {\bf increments} ({\bf Function} \&right)
+\begin{CompactList}\small\item\em Increments. \item\end{CompactList}\item 
+{\bf Function} \& {\bf greater} ({\bf Function} \&left, {\bf Function} \&right)
+\begin{CompactList}\small\item\em Comparison. \item\end{CompactList}\item 
+{\bf Function} \& {\bf smaller} ({\bf Function} \&left, {\bf Function} \&right)
+\begin{CompactList}\small\item\em Comparison. \item\end{CompactList}\item 
+{\bf Function} \& {\bf operator$>$} ({\bf Function} \&left, {\bf Function} \&right)
+\begin{CompactList}\small\item\em Comparison. \item\end{CompactList}\item 
+{\bf Function} \& {\bf operator$<$} ({\bf Function} \&left, {\bf Function} \&right)
+\begin{CompactList}\small\item\em Comparison. \item\end{CompactList}\item 
+{\bf Function} \& {\bf operator$<$=} ({\bf Function} \&left, {\bf Function} \&right)
+\begin{CompactList}\small\item\em Comparison. \item\end{CompactList}\item 
+{\bf Function} \& {\bf operator$>$=} ({\bf Function} \&left, {\bf Function} \&right)
+\begin{CompactList}\small\item\em Comparison. \item\end{CompactList}\item 
+{\bf Function} \& {\bf sign} ({\bf Function} \&right)\label{classFunction_df655fce3b180e7806ee0d18fe23d860}
+
+\begin{CompactList}\small\item\em Sign of a number. \item\end{CompactList}\item 
+ostream \& {\bf operator$<$$<$} (ostream \&os, {\bf Function} \&f)
+\begin{CompactList}\small\item\em Special function. \item\end{CompactList}\item 
+{\bf Function} \& {\bf input} (string)
+\begin{CompactList}\small\item\em Create input. \item\end{CompactList}\item 
+{\bf Function} \& {\bf cnst} (double)\label{classFunction_2f453abcf4b2dbba550b6a0554870a71}
+
+\begin{CompactList}\small\item\em Create a function from a constant. \item\end{CompactList}\item 
+{\bf Function} \& {\bf cnst} (double, string)\label{classFunction_9df54b1e3e773a2fb406fc53d8fca72d}
+
+\begin{CompactList}\small\item\em Create a function from a constant and a name. \item\end{CompactList}\item 
+{\bf Function} \& {\bf xtable} ({\bf Matrix} \&, {\bf Function} \&right)\label{classFunction_ba4441b9c4511c5b91652619fbf42842}
+
+\begin{CompactList}\small\item\em Create a function from a matrix. \item\end{CompactList}\item 
+{\bf Function} \& {\bf empty} ()\label{classFunction_d3cbd0ad309882be27c65606dad834f3}
+
+\begin{CompactList}\small\item\em An empty function. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Function@{Function}!Function@{Function}}
+\index{Function@{Function}!Function@{Function}}
+\subsubsection[Function]{\setlength{\rightskip}{0pt plus 5cm}Function::Function ()\hspace{0.3cm}{\tt  [inline, protected]}}\label{classFunction_e206568fd4fd4c885e3ccff76345c4e6}
+
+
+Default Constructor. 
+
+Constructs an empty function. This is mainly for use in the derived classes X and Y. \index{Function@{Function}!Function@{Function}}
+\index{Function@{Function}!Function@{Function}}
+\subsubsection[Function]{\setlength{\rightskip}{0pt plus 5cm}Function::Function (double {\em d})}\label{classFunction_c635791a85db1c996e7f5c61fbb85a4a}
+
+
+Double to \doxyref{Function}{p.}{classFunction}. 
+
+Constructs a constant from a double. Same as \doxyref{cnst(double)}{p.}{classFunction_2f453abcf4b2dbba550b6a0554870a71}. 
+
+\subsection{Member Function Documentation}
+\index{Function@{Function}!unvalidate@{unvalidate}}
+\index{unvalidate@{unvalidate}!Function@{Function}}
+\subsubsection[unvalidate]{\setlength{\rightskip}{0pt plus 5cm}void Function::unvalidate ()\hspace{0.3cm}{\tt  [protected]}}\label{classFunction_e6e675f3b15268c4b7b6cf8d1a414b46}
+
+
+Set unvalid. 
+
+After this, the function will perform a full computation, if \doxyref{getValue()}{p.}{classFunction_4b9a4768f2376dee3b454a6a515adb4f} is called. Otherwise just the last value is return. This function needs to be called if some input has changed lower down in the execution tree. \index{Function@{Function}!getName@{getName}}
+\index{getName@{getName}!Function@{Function}}
+\subsubsection[getName]{\setlength{\rightskip}{0pt plus 5cm}virtual string Function::getName () const\hspace{0.3cm}{\tt  [virtual]}}\label{classFunction_ef952b6da4ffbf889132dced1154ae2c}
+
+
+Returns the name. 
+
+\begin{Desc}
+\item[Returns:]The name of the \doxyref{Function}{p.}{classFunction}. This is the string which has been set with \doxyref{setName()}{p.}{classFunction_b468f53ea4f187d1db23cdc6246b49c3}, and which will appear as a gnuplot lable when this function is appended to a gnuplot display. \end{Desc}
+\index{Function@{Function}!setVerbose@{setVerbose}}
+\index{setVerbose@{setVerbose}!Function@{Function}}
+\subsubsection[setVerbose]{\setlength{\rightskip}{0pt plus 5cm}{\bf Function}\& Function::setVerbose (bool {\em verbose} = {\tt true}, \/  ostream $\ast$ {\em log} = {\tt \&cout})}\label{classFunction_ed47fdc9ac3a18c684d5ebc8afcb0326}
+
+
+Set function to be verbose. 
+
+If this is set, the function will append its current value and its name to a stream, each time \doxyref{getValue()}{p.}{classFunction_4b9a4768f2376dee3b454a6a515adb4f} is called. \doxyref{setVerbose()}{p.}{classFunction_ed47fdc9ac3a18c684d5ebc8afcb0326} will set all subfunctions to be verbose as well. This way a log of the whole calculation will be appended to a stream. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+verbose}]whether the function is verbose (sends state log-messages to a stream) \item[{\em 
+log}]the stream receiving the log messages \end{description}
+\end{Desc}
+\index{Function@{Function}!getValue@{getValue}}
+\index{getValue@{getValue}!Function@{Function}}
+\subsubsection[getValue]{\setlength{\rightskip}{0pt plus 5cm}virtual double Function::getValue () const\hspace{0.3cm}{\tt  [virtual]}}\label{classFunction_4b9a4768f2376dee3b454a6a515adb4f}
+
+
+Returns the value. 
+
+Computes the current value of the function. This is dependent on variables and input. \index{Function@{Function}!operator()@{operator()}}
+\index{operator()@{operator()}!Function@{Function}}
+\subsubsection[operator()]{\setlength{\rightskip}{0pt plus 5cm}double Function::operator() (double {\em x})\hspace{0.3cm}{\tt  [inline]}}\label{classFunction_5e0ef850e9dbb03992a1519a457bb65a}
+
+
+Returns the value at a point. 
+
+Computes the current value of the function. This is dependent on variables and input. \index{Function@{Function}!operator()@{operator()}}
+\index{operator()@{operator()}!Function@{Function}}
+\subsubsection[operator()]{\setlength{\rightskip}{0pt plus 5cm}double Function::operator() (double {\em x}, \/  double {\em y})\hspace{0.3cm}{\tt  [inline]}}\label{classFunction_6eae1c5aec4d57092f766f8882a2a4d3}
+
+
+Returns the value at a point. 
+
+Computes the current value of the function. This is dependent on variables and input. \index{Function@{Function}!setXInput@{setXInput}}
+\index{setXInput@{setXInput}!Function@{Function}}
+\subsubsection[setXInput]{\setlength{\rightskip}{0pt plus 5cm}void Function::setXInput (double)}\label{classFunction_43e1241ed50a3be57e6d080bee9d81dc}
+
+
+Set x input. 
+
+This sets the x input of the whole tree to the given value. \index{Function@{Function}!setYInput@{setYInput}}
+\index{setYInput@{setYInput}!Function@{Function}}
+\subsubsection[setYInput]{\setlength{\rightskip}{0pt plus 5cm}void Function::setYInput (double)}\label{classFunction_1dac64645492d7d3978bdb1f5c35c11c}
+
+
+Set y input. 
+
+This sets the y input of the whole tree to the given value. \index{Function@{Function}!getXInput@{getXInput}}
+\index{getXInput@{getXInput}!Function@{Function}}
+\subsubsection[getXInput]{\setlength{\rightskip}{0pt plus 5cm}double Function::getXInput ()}\label{classFunction_bb74c41cbcae22938cb968a21b6a6193}
+
+
+Get x input. 
+
+This gets the x input of the whole tree. If input values are different at different branches, the first which is encountered will be returned. \index{Function@{Function}!getYInput@{getYInput}}
+\index{getYInput@{getYInput}!Function@{Function}}
+\subsubsection[getYInput]{\setlength{\rightskip}{0pt plus 5cm}double Function::getYInput ()}\label{classFunction_e5653bf7957c6ff0e1b055baa0589a23}
+
+
+Get y input. 
+
+This gets the y input of the whole tree. If input values are different at different branches, the first which is encountered will be returned. \index{Function@{Function}!getLastValue@{getLastValue}}
+\index{getLastValue@{getLastValue}!Function@{Function}}
+\subsubsection[getLastValue]{\setlength{\rightskip}{0pt plus 5cm}virtual double Function::getLastValue () const\hspace{0.3cm}{\tt  [virtual]}}\label{classFunction_26304dab8171cfac8a05ed7cbcefeb26}
+
+
+Returns the value. 
+
+Returns the last value of the function. This is the value which was produced by the last \doxyref{getValue()}{p.}{classFunction_4b9a4768f2376dee3b454a6a515adb4f} call. No recomputation is executed. \index{Function@{Function}!setPhysical@{setPhysical}}
+\index{setPhysical@{setPhysical}!Function@{Function}}
+\subsubsection[setPhysical]{\setlength{\rightskip}{0pt plus 5cm}{\bf Function}\& Function::setPhysical (string {\em s}, \/  {\bf Unit} {\em u})}\label{classFunction_7f9cfd7346ff78a78d5a45cdf5f261dc}
+
+
+Returns the function graph. 
+
+Returns the function graph. This is dependent on variables and input range. Sets the physical type. This sets a physical name (like 'voltage'), and a unit (like mV). \index{Function@{Function}!setXRange@{setXRange}}
+\index{setXRange@{setXRange}!Function@{Function}}
+\subsubsection[setXRange]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf Function}\& Function::setXRange (double {\em min}, \/  double {\em max}, \/  double {\em stepsize})\hspace{0.3cm}{\tt  [virtual]}}\label{classFunction_0f2cafa6b421dc98f3fbd4b3faee863b}
+
+
+Set the x range. 
+
+Sets the x range of the function, i.e. the function will be plotted in a range from minimum to maximum, with the given step size. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+min}]minimum \item[{\em 
+max}]maximum \item[{\em 
+stepsize}]step size \end{description}
+\end{Desc}
+\index{Function@{Function}!setYRange@{setYRange}}
+\index{setYRange@{setYRange}!Function@{Function}}
+\subsubsection[setYRange]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf Function}\& Function::setYRange (double {\em min}, \/  double {\em max}, \/  double {\em stepsize})\hspace{0.3cm}{\tt  [virtual]}}\label{classFunction_938e23a7397589b0720f996866a839ed}
+
+
+Set the y range. 
+
+Sets the y range of the function, i.e. the function will be plotted in a range from minimum to maximum, with the given step size. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+min}]minimum \item[{\em 
+max}]maximum \item[{\em 
+stepsize}]step size \end{description}
+\end{Desc}
+\index{Function@{Function}!getXInputName@{getXInputName}}
+\index{getXInputName@{getXInputName}!Function@{Function}}
+\subsubsection[getXInputName]{\setlength{\rightskip}{0pt plus 5cm}string Function::getXInputName ()}\label{classFunction_d8e6e7e39497be6f988d4f06f3d9a17b}
+
+
+Get input name. 
+
+Returns the name of the first input, for instance 't' or 'x'. \index{Function@{Function}!getYInputName@{getYInputName}}
+\index{getYInputName@{getYInputName}!Function@{Function}}
+\subsubsection[getYInputName]{\setlength{\rightskip}{0pt plus 5cm}string Function::getYInputName ()}\label{classFunction_5c85c2c4f610df2c2dd902a6903546bf}
+
+
+Get input name. 
+
+Returns the name of the second input, for instance 't' or 'x'. \index{Function@{Function}!setName@{setName}}
+\index{setName@{setName}!Function@{Function}}
+\subsubsection[setName]{\setlength{\rightskip}{0pt plus 5cm}{\bf Function}\& Function::setName (string {\em s})}\label{classFunction_b468f53ea4f187d1db23cdc6246b49c3}
+
+
+Sets the name. 
+
+This function returns a reference to its object for convenience. \index{Function@{Function}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!Function@{Function}}
+\subsubsection[operator+=]{\setlength{\rightskip}{0pt plus 5cm}void Function::operator+= ({\bf Function} \& {\em function})}\label{classFunction_db974205a94ef77cbf6937d743bbd089}
+
+
+Add. 
+
+Adds the given function to this function object. \index{Function@{Function}!operator-=@{operator-=}}
+\index{operator-=@{operator-=}!Function@{Function}}
+\subsubsection[operator-=]{\setlength{\rightskip}{0pt plus 5cm}void Function::operator-= ({\bf Function} \& {\em function})}\label{classFunction_2198a75a34afd3432e60344d8ea4310f}
+
+
+Subtract. 
+
+Subtracts the given function from the object.. \index{Function@{Function}!operator$\ast$=@{operator$\ast$=}}
+\index{operator$\ast$=@{operator$\ast$=}!Function@{Function}}
+\subsubsection[operator$\ast$=]{\setlength{\rightskip}{0pt plus 5cm}void Function::operator$\ast$= ({\bf Function} \& {\em function})}\label{classFunction_21781e0c171d70b1c22ed90395f38c1f}
+
+
+Multiply. 
+
+Multiplies the given function to this function object. \index{Function@{Function}!operator/=@{operator/=}}
+\index{operator/=@{operator/=}!Function@{Function}}
+\subsubsection[operator/=]{\setlength{\rightskip}{0pt plus 5cm}void Function::operator/= ({\bf Function} \& {\em function})}\label{classFunction_a0e1c1dc0faf02d18b1e62306f3f8cdd}
+
+
+Divide. 
+
+Divides the given function to this function object. 
+
+\subsection{Friends And Related Function Documentation}
+\index{Function@{Function}!operator/@{operator/}}
+\index{operator/@{operator/}!Function@{Function}}
+\subsubsection[operator/]{\setlength{\rightskip}{0pt plus 5cm}{\bf Function}\& operator/ ({\bf Function} \& {\em left}, \/  {\bf Function} \& {\em right})\hspace{0.3cm}{\tt  [friend]}}\label{classFunction_8fbd5147acbca4240c33791ebc491b8c}
+
+
+Divide. 
+
+Creates a \doxyref{Function}{p.}{classFunction} which is the quotient of the two input functions. \index{Function@{Function}!exp@{exp}}
+\index{exp@{exp}!Function@{Function}}
+\subsubsection[exp]{\setlength{\rightskip}{0pt plus 5cm}{\bf Function}\& exp ({\bf Function} \& {\em right})\hspace{0.3cm}{\tt  [friend]}}\label{classFunction_3ab71b52094f77d2252b82c3be320d83}
+
+
+Exponential. 
+
+Creates a \doxyref{Function}{p.}{classFunction} which is the exponential of the input function. \index{Function@{Function}!ln@{ln}}
+\index{ln@{ln}!Function@{Function}}
+\subsubsection[ln]{\setlength{\rightskip}{0pt plus 5cm}{\bf Function}\& ln ({\bf Function} \& {\em right})\hspace{0.3cm}{\tt  [friend]}}\label{classFunction_7eccf0453dfd8b915002fe95dbb369ec}
+
+
+Logarithm. 
+
+Creates a \doxyref{Function}{p.}{classFunction} which is the logarithm of the input function. \index{Function@{Function}!sin@{sin}}
+\index{sin@{sin}!Function@{Function}}
+\subsubsection[sin]{\setlength{\rightskip}{0pt plus 5cm}{\bf Function}\& sin ({\bf Function} \& {\em right})\hspace{0.3cm}{\tt  [friend]}}\label{classFunction_b950ca7b3cf75e6ccaa417ce276e05f3}
+
+
+Sine. 
+
+Creates a \doxyref{Function}{p.}{classFunction} which is the logarithm of the input function. \index{Function@{Function}!cos@{cos}}
+\index{cos@{cos}!Function@{Function}}
+\subsubsection[cos]{\setlength{\rightskip}{0pt plus 5cm}{\bf Function}\& cos ({\bf Function} \& {\em right})\hspace{0.3cm}{\tt  [friend]}}\label{classFunction_85d924f624b9765af1b6d998ff779860}
+
+
+Cosine. 
+
+Creates a \doxyref{Function}{p.}{classFunction} which is the logarithm of the input function. \index{Function@{Function}!sqrt@{sqrt}}
+\index{sqrt@{sqrt}!Function@{Function}}
+\subsubsection[sqrt]{\setlength{\rightskip}{0pt plus 5cm}{\bf Function}\& sqrt ({\bf Function} \& {\em right})\hspace{0.3cm}{\tt  [friend]}}\label{classFunction_8b38fdefcd4d2d8462fb1d26de07e67e}
+
+
+\doxyref{Square}{p.}{classSquare} root. 
+
+Creates a \doxyref{Function}{p.}{classFunction} which is the sqare root of the input function. \index{Function@{Function}!square@{square}}
+\index{square@{square}!Function@{Function}}
+\subsubsection[square]{\setlength{\rightskip}{0pt plus 5cm}{\bf Function}\& square ({\bf Function} \& {\em right})\hspace{0.3cm}{\tt  [friend]}}\label{classFunction_ed81f59420f6f1851cc29696ce5d26a5}
+
+
+\doxyref{Square}{p.}{classSquare}. 
+
+Creates a \doxyref{Function}{p.}{classFunction} which is the sqare of the input function. \index{Function@{Function}!root@{root}}
+\index{root@{root}!Function@{Function}}
+\subsubsection[root]{\setlength{\rightskip}{0pt plus 5cm}{\bf Function}\& root ({\bf Function} \& {\em left}, \/  {\bf Function} \& {\em n})\hspace{0.3cm}{\tt  [friend]}}\label{classFunction_a86b67eab5bb117b185e38ed20e05f1b}
+
+
+Root. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em left}]Input function. \item[{\em n}]Base function. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]A \doxyref{Function}{p.}{classFunction} which is the nth root of the input.. \end{Desc}
+\index{Function@{Function}!power@{power}}
+\index{power@{power}!Function@{Function}}
+\subsubsection[power]{\setlength{\rightskip}{0pt plus 5cm}{\bf Function}\& power ({\bf Function} \& {\em left}, \/  {\bf Function} \& {\em n})\hspace{0.3cm}{\tt  [friend]}}\label{classFunction_23d56856ed2015e9634ea7dd09f17e60}
+
+
+Power. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em left}]Input function. \item[{\em n}]Exponent function. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]A \doxyref{Function}{p.}{classFunction} which is the nth power of the input.. \end{Desc}
+\index{Function@{Function}!integral@{integral}}
+\index{integral@{integral}!Function@{Function}}
+\subsubsection[integral]{\setlength{\rightskip}{0pt plus 5cm}{\bf Function}\& integral ({\bf Function} \& {\em integrand}, \/  {\bf Function} \& {\em integrator})\hspace{0.3cm}{\tt  [friend]}}\label{classFunction_c5df9616a73031139f34c8febafa0caa}
+
+
+Integral.. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em right}]Integrand. Creates the undefinite integral of the given integrand. If plotted, you will see the function \[ \mbox{Function(t)} = \int_0^t f(x) dx\]. \end{description}
+\end{Desc}
+\index{Function@{Function}!increments@{increments}}
+\index{increments@{increments}!Function@{Function}}
+\subsubsection[increments]{\setlength{\rightskip}{0pt plus 5cm}{\bf Function}\& increments ({\bf Function} \& {\em right})\hspace{0.3cm}{\tt  [friend]}}\label{classFunction_c46cdc95818eae7662056a5164d3b847}
+
+
+Increments. 
+
+Creates the differential df(x) of a given integrand f(x). If plotted, you will see the function \[ \mbox{Function(t)} = d f(x) \]. \index{Function@{Function}!greater@{greater}}
+\index{greater@{greater}!Function@{Function}}
+\subsubsection[greater]{\setlength{\rightskip}{0pt plus 5cm}{\bf Function}\& greater ({\bf Function} \& {\em left}, \/  {\bf Function} \& {\em right})\hspace{0.3cm}{\tt  [friend]}}\label{classFunction_4590e10d0612588f7424ae6e5d615088}
+
+
+Comparison. 
+
+Returns 1.0 at places where the comparison is true, and 0.0 at places where the comparison is false. \index{Function@{Function}!smaller@{smaller}}
+\index{smaller@{smaller}!Function@{Function}}
+\subsubsection[smaller]{\setlength{\rightskip}{0pt plus 5cm}{\bf Function}\& smaller ({\bf Function} \& {\em left}, \/  {\bf Function} \& {\em right})\hspace{0.3cm}{\tt  [friend]}}\label{classFunction_39fde0fa03ffbfe168542d8ecac599f1}
+
+
+Comparison. 
+
+Returns 1.0 at places where the comparison is true, and 0.0 at places where the comparison is false. \index{Function@{Function}!operator$>$@{operator$>$}}
+\index{operator$>$@{operator$>$}!Function@{Function}}
+\subsubsection[operator$>$]{\setlength{\rightskip}{0pt plus 5cm}{\bf Function}\& operator$>$ ({\bf Function} \& {\em left}, \/  {\bf Function} \& {\em right})\hspace{0.3cm}{\tt  [friend]}}\label{classFunction_68ed472b18023ba4f7623bd9153f3584}
+
+
+Comparison. 
+
+Returns 1.0 at places where the comparison is true, and 0.0 at places where the comparison is false. \index{Function@{Function}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!Function@{Function}}
+\subsubsection[operator$<$]{\setlength{\rightskip}{0pt plus 5cm}{\bf Function}\& operator$<$ ({\bf Function} \& {\em left}, \/  {\bf Function} \& {\em right})\hspace{0.3cm}{\tt  [friend]}}\label{classFunction_8fea19529411fd50713d6f9e50d1eae8}
+
+
+Comparison. 
+
+Returns 1.0 at places where the comparison is true, and 0.0 at places where the comparison is false. \index{Function@{Function}!operator$<$=@{operator$<$=}}
+\index{operator$<$=@{operator$<$=}!Function@{Function}}
+\subsubsection[operator$<$=]{\setlength{\rightskip}{0pt plus 5cm}{\bf Function}\& operator$<$= ({\bf Function} \& {\em left}, \/  {\bf Function} \& {\em right})\hspace{0.3cm}{\tt  [friend]}}\label{classFunction_2c54e43858616cfbc63d6610778e9280}
+
+
+Comparison. 
+
+Returns 1.0 at places where the comparison is true, and 0.0 at places where the comparison is false. \index{Function@{Function}!operator$>$=@{operator$>$=}}
+\index{operator$>$=@{operator$>$=}!Function@{Function}}
+\subsubsection[operator$>$=]{\setlength{\rightskip}{0pt plus 5cm}{\bf Function}\& operator$>$= ({\bf Function} \& {\em left}, \/  {\bf Function} \& {\em right})\hspace{0.3cm}{\tt  [friend]}}\label{classFunction_d50376b664208bfb759d79c886493897}
+
+
+Comparison. 
+
+Returns 1.0 at places where the comparison is true, and 0.0 at places where the comparison is false. \index{Function@{Function}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Function@{Function}}
+\subsubsection[operator$<$$<$]{\setlength{\rightskip}{0pt plus 5cm}ostream\& operator$<$$<$ (ostream \& {\em os}, \/  {\bf Function} \& {\em f})\hspace{0.3cm}{\tt  [friend]}}\label{classFunction_4024a393e7ec74d7f907b00c0af58fae}
+
+
+Special function. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em s}]Specification. Creates a function from a gnuplot string s. Appends the function specification string to a stream. The appended string is gnuplot readable, and may contain lots of parentheses, depending on the complexity of the function. \end{description}
+\end{Desc}
+\index{Function@{Function}!input@{input}}
+\index{input@{input}!Function@{Function}}
+\subsubsection[input]{\setlength{\rightskip}{0pt plus 5cm}{\bf Function}\& input (string)\hspace{0.3cm}{\tt  [friend]}}\label{classFunction_dc57460f30bd58b6185a841569876ce7}
+
+
+Create input. 
+
+Creates a function which serves as input for other functions. 

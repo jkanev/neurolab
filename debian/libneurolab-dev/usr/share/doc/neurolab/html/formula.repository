@@ -1,0 +1,55 @@
+\form#0:\[X_t\]
+\form#1:\[ Y_\tau = \{ X_{t+\tau} | c(t+\tau) \hat \not c(t+s), s \in [-pre,post]/0\}\]
+\form#2:$X_t$
+\form#3:$Y_t$
+\form#4:\[ \left[X,Y\right]_t = \int X_t dY_t + \int Y_t dX_t - X_tY_t. \]
+\form#5:$\left[X,Y\right]_t = \int dX_t dY_t $
+\form#6:\[ dX = \sum_i f_i(X) dY_i \]
+\form#7:\[ dX = \sum_i f_i(X) \circ dY_i \]
+\form#8:$f_i$
+\form#9:\[ X - X_0 = \sum_i \intop f_i(X) dY_i \]
+\form#10:\[ X - X_0 = \sum_i \intop f_i(X) \circ dY_i \]
+\form#11:$dX_t = aX_tdt + bX_tdW_t$
+\form#12:$dX_t = aX_tdt + bX_t\circ dW_t$
+\form#13:$a=-8.0$
+\form#14:$b=0.8$
+\form#15:$f_i(X_t)$
+\form#16:$dY_i$
+\form#17:\[ \mbox{Function(t)} = \int_0^t f(x) dx\]
+\form#18:\[ \mbox{Function(t)} = d f(x) \]
+\form#19:\[dX_t = aX_tdt + bX_tdW_t\]
+\form#20:\[dX_t = aX_tdt + bX_t\circ dW_t\]
+\form#21:\[ \omega -> dXt -> dPt / dWt \]
+\form#22:\[ \left<\left[G^i,G^j\right]\right> = \sigma_jc_{ij} c_j w_j\lambda_j \]
+\form#23:\[ c_j = \sqrt{\frac{2}{\pi}} \frac {e^{-\frac{\lambda_j^2dt}{2\mbox{Var}\left\{dX^i_t\right\}}}} {\left(1-\mbox{erf}{\frac{\lambda_j\sqrt{dt}}{\sqrt{2\mbox{Var}\left\{dX^i_t\right\}}}}\right)\sqrt{\mbox{Var}\left\{dX^i_t\right\}}}. \]
+\form#24:$ \left[X^n,X^m\right]_t = st$
+\form#25:\[ d\Theta_t = (1-\cos\Theta_t)dt + (1+\cos\Theta_t)dG_t, \]
+\form#26:\[dG_t = \mu + \sigma dW_t.\]
+\form#27:$\mu t$
+\form#28:$\sigma^2 t$
+\form#29:$s^i_t, i=1..n$
+\form#30:$t$
+\form#31:$i$
+\form#32:$w_i$
+\form#33:$s^i_t$
+\form#34:$0$
+\form#35:$1$
+\form#36:$\lambda_i$
+\form#37:\[s_t = \sum_i w_i s^i_t.\]
+\form#38:$s^c_i$
+\form#39:$w_c$
+\form#40:$\lambda_c$
+\form#41:$s_i$
+\form#42:$\lambda_i - \frac{w_c\lambda_c}{\sum_iw_i}$
+\form#43:$s_t$
+\form#44:$\mbox{E}{s_t}$
+\form#45:\[ s_t = \sum_{i}w_is^i_t + w_cs^c_t. \]
+\form#46:\[ \mbox{E}{s_t} = \sum_i w_i\left(\lambda_i - \frac{w_c\lambda_c}{\sum_iw_i}\right) + w_c\lambda_c \]
+\form#47:\[ = \sum_i w_i\lambda_i \]
+\form#48:\[\mbox{Var}\{s_t\} = \sum_i w_i^2\left(\lambda_i - \frac{w_c\lambda_c}{\sum_iw_i}\right) + w_c^2\lambda_c.\]
+\form#49:$n_c$
+\form#50:$\lambda$
+\form#51:\[n_{rc} = \frac{n_c}{n},\]
+\form#52:\[\lambda_{rc} = \frac{\lambda_c}{\lambda}\]
+\form#53:\[ \mu := nw\lambda \]
+\form#54:\[ \sigma^2 := nw^2\lambda\left(1 - n_{rc} \lambda_{rc} + nn_{rc}^2\lambda_{rc} \right) \]

@@ -1,0 +1,136 @@
+\section{SimpleSynapse Class Reference}
+\label{classSimpleSynapse}\index{SimpleSynapse@{SimpleSynapse}}
+Inheritance diagram for SimpleSynapse::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5cm]{classSimpleSynapse}
+\end{center}
+\end{figure}
+
+
+\subsection{Detailed Description}
+A synapse. 
+
+This class implements a synapse which is characterized by a differential equation. Main feature is the transformation of digital signals from an Event object (usually a neuron) to analog values of a \doxyref{StochasticProcess}{p.}{classStochasticProcess} object, which then are part of the membrane equation of another neuron. It also possible to use a noise source (such as a \doxyref{Wiener}{p.}{classWiener} process) as input. This depends on the constructor you use. Since a synapse usually connects from one single neuron to another single neuron, this class is set to be active as default, i.e. is forwarded automatically and you don't have to use \doxyref{proceedToNextState()}{p.}{classSimpleSynapse_af49bacea075b5b2d4824a348ee2ecb2} and \doxyref{prepareNextState()}{p.}{classSimpleSynapse_4a737cab949dbf6c74e4990f7d7daeca} inside your program. \subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf SimpleSynapse} ({\bf Time} $\ast$time, {\bf StochasticEventGenerator} $\ast$e, double weight, double revPot, double peak, double tau)
+\begin{CompactList}\small\item\em Construct. \item\end{CompactList}\item 
+{\bf SimpleSynapse} ({\bf Time} $\ast$time, {\bf StochasticVariable} $\ast$s, double weight, double revPot, double tau)
+\begin{CompactList}\small\item\em Construct. \item\end{CompactList}\item 
+virtual void {\bf prepareNextState} ()\label{classSimpleSynapse_4a737cab949dbf6c74e4990f7d7daeca}
+
+\begin{CompactList}\small\item\em Calculate next state. \item\end{CompactList}\item 
+virtual void {\bf proceedToNextState} ()\label{classSimpleSynapse_af49bacea075b5b2d4824a348ee2ecb2}
+
+\begin{CompactList}\small\item\em Apply nex time step. \item\end{CompactList}\item 
+virtual double {\bf calculateNextValue} ()\label{classSimpleSynapse_4753862000caa1957f572325644e9780}
+
+\begin{CompactList}\small\item\em Calculate next value. \item\end{CompactList}\item 
+virtual double {\bf calculateCurrentValue} ()\label{classSimpleSynapse_519447f6b2f414f9e6ec6475808fda15}
+
+\begin{CompactList}\small\item\em Calculate current value. \item\end{CompactList}\item 
+{\bf $\sim$SimpleSynapse} ()\label{classSimpleSynapse_bb981be345280d99d0634549b1b7b5fa}
+
+\begin{CompactList}\small\item\em Destruct. \item\end{CompactList}\item 
+virtual void {\bf setParameter} (const string \&name, const string \&value)
+\begin{CompactList}\small\item\em Set parameter. \item\end{CompactList}\item 
+virtual string {\bf getParameter} (const string \&name)
+\begin{CompactList}\small\item\em Get parameter. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Protected Attributes}
+\begin{CompactItemize}
+\item 
+{\bf DifferentialEquation} {\bf differential}
+\begin{CompactList}\small\item\em Differential equation. \item\end{CompactList}\item 
+{\bf StochasticVariable} $\ast$ {\bf stochastic}
+\begin{CompactList}\small\item\em \doxyref{Noise}{p.}{classNoise} source. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{SimpleSynapse@{SimpleSynapse}!SimpleSynapse@{SimpleSynapse}}
+\index{SimpleSynapse@{SimpleSynapse}!SimpleSynapse@{SimpleSynapse}}
+\subsubsection[SimpleSynapse]{\setlength{\rightskip}{0pt plus 5cm}SimpleSynapse::SimpleSynapse ({\bf Time} $\ast$ {\em time}, \/  {\bf StochasticEventGenerator} $\ast$ {\em e}, \/  double {\em weight}, \/  double {\em revPot}, \/  double {\em peak}, \/  double {\em tau})}\label{classSimpleSynapse_9a0eb5672f207026418a1b072bcd0d75}
+
+
+Construct. 
+
+Will construct a synapse, which will set its value to the peak conductance just after the pre-synaptic spike, and decay the value according to the given time constant. At the next pre-synaptic spike the value will be set to the peak conductance again. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+time}]pointer to main time object \item[{\em 
+e}]The object providing the events (spikes), i.e. the pre-synaptic neuron. \item[{\em 
+weight}]Weight of the synapse. \item[{\em 
+revPot}]Reversal potential of synapse. \item[{\em 
+peak}]Peak conductance of synapse. \item[{\em 
+tau}]Decay time constant. \end{description}
+\end{Desc}
+\index{SimpleSynapse@{SimpleSynapse}!SimpleSynapse@{SimpleSynapse}}
+\index{SimpleSynapse@{SimpleSynapse}!SimpleSynapse@{SimpleSynapse}}
+\subsubsection[SimpleSynapse]{\setlength{\rightskip}{0pt plus 5cm}SimpleSynapse::SimpleSynapse ({\bf Time} $\ast$ {\em time}, \/  {\bf StochasticVariable} $\ast$ {\em s}, \/  double {\em weight}, \/  double {\em revPot}, \/  double {\em tau})}\label{classSimpleSynapse_91d71de8828c8ce87fbbe703053ed4eb}
+
+
+Construct. 
+
+Will construct a synapse, which will set its value to the peak conductance just after the pre-synaptic spike, and decay the value according to the given time constant. At the next pre-synaptic spike the value will be set to the peak conductance again. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+time}]pointer to main time object \item[{\em 
+s}]The object providing the stimulus. \item[{\em 
+weight}]Weight of the synapse. \item[{\em 
+revPot}]Reversal potential of synapse. \item[{\em 
+tau}]Decay time constant. \end{description}
+\end{Desc}
+
+
+\subsection{Member Function Documentation}
+\index{SimpleSynapse@{SimpleSynapse}!setParameter@{setParameter}}
+\index{setParameter@{setParameter}!SimpleSynapse@{SimpleSynapse}}
+\subsubsection[setParameter]{\setlength{\rightskip}{0pt plus 5cm}virtual void SimpleSynapse::setParameter (const string \& {\em name}, \/  const string \& {\em value})\hspace{0.3cm}{\tt  [virtual]}}\label{classSimpleSynapse_6a9584eea4c121415068e539d6603783}
+
+
+Set parameter. 
+
+Sets the value of a parameter using strings. If a parameter is described using multiple strings separated by space, this indicates a parameter of a parameter. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+name}]name of parameter \item[{\em 
+value}]value of parameter (used with operator$<$$<$) \end{description}
+\end{Desc}
+
+
+Reimplemented from {\bf Synapse} \doxyref{}{p.}{classSynapse_abe8f9af570c03d381475c6e4b5912d7}.\index{SimpleSynapse@{SimpleSynapse}!getParameter@{getParameter}}
+\index{getParameter@{getParameter}!SimpleSynapse@{SimpleSynapse}}
+\subsubsection[getParameter]{\setlength{\rightskip}{0pt plus 5cm}virtual string SimpleSynapse::getParameter (const string \& {\em name})\hspace{0.3cm}{\tt  [virtual]}}\label{classSimpleSynapse_9c88f99370d1349d00c9707f8fa1c7cd}
+
+
+Get parameter. 
+
+In a derived class, override this to handle every parameter you implement. If a parameter is described using multiple strings separated by space, this indicates a parameter of a parameter. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+name}]name of parameter \end{description}
+\end{Desc}
+
+
+Reimplemented from {\bf Synapse} \doxyref{}{p.}{classSynapse_8d70e1e7f33cef4e1a1b4d8f504fd4bd}.
+
+\subsection{Member Data Documentation}
+\index{SimpleSynapse@{SimpleSynapse}!differential@{differential}}
+\index{differential@{differential}!SimpleSynapse@{SimpleSynapse}}
+\subsubsection[differential]{\setlength{\rightskip}{0pt plus 5cm}{\bf DifferentialEquation} {\bf SimpleSynapse::differential}\hspace{0.3cm}{\tt  [protected]}}\label{classSimpleSynapse_62f65ca9d7e8c3b6d28d760ee4655907}
+
+
+Differential equation. 
+
+The rate equation. \index{SimpleSynapse@{SimpleSynapse}!stochastic@{stochastic}}
+\index{stochastic@{stochastic}!SimpleSynapse@{SimpleSynapse}}
+\subsubsection[stochastic]{\setlength{\rightskip}{0pt plus 5cm}{\bf StochasticVariable}$\ast$ {\bf SimpleSynapse::stochastic}\hspace{0.3cm}{\tt  [protected]}}\label{classSimpleSynapse_7e8b5ba04e34caac789ca71278636c14}
+
+
+\doxyref{Noise}{p.}{classNoise} source. 
+
+only used when the noise constructor was used 

@@ -1,0 +1,28 @@
+libneurolab (0.0.4) unstable; urgency=low
+
+  * repackaged for sid
+
+ -- Jacob Kanev <j_kanev@arcor.de>  Wed,  27 Aug 2008 03:20:47 +0200
+
+libneurolab (0.0.3) etch; urgency=low
+
+  * Adjusted seeding of random number generator (takes /dev/urandom now when created anew)
+  * Fixed various memory leaks, and included smart pointers from the boost library in the Matrix class
+  * Removed bug in ConditionalEstimator (results had been shifted one
+    time point to the future).
+
+ -- Jacob Kanev <j_kanev@arcor.de>  Thu, 31 May 2007 09:04:10 +0200
+
+libneurolab (0.0.2) etch; urgency=low
+
+  * Upgrade for etch.
+  * Minor adjustments to comply with more rigid gcc behaviour.
+
+ -- Jacob Kanev <j_kanev@arcor.de>  Tue,  17 Oct 2006 17:53:30 +0200
+
+libneurolab (0.0.1) sarge; urgency=low
+
+  * Initial Release.
+
+ -- Jacob Kanev <j_kanev@arcor.de>  Wed,  2 Aug 2006 18:33:39 +0200
+

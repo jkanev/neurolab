@@ -1,0 +1,41 @@
+\section{StochVariable Class Reference}
+\label{classStochVariable}\index{StochVariable@{StochVariable}}
+Inheritance diagram for StochVariable::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=6.03077cm]{classStochVariable}
+\end{center}
+\end{figure}
+
+
+\subsection{Detailed Description}
+A simple stochastic variable. 
+
+This is the simplest stochastic process available. All stochastic processes which are not parametrised at every time step should inherit from this class. If you derive from this class, you must provide a \doxyref{next()}{p.}{classStochastic_eabb113d791b85414440801f20f444a1} function, which sets dNextValue by using dCurrentValue. \subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf StochVariable} (class {\bf Time} $\ast$time, string name=\char`\"{}\char`\"{}, string type=\char`\"{}stochastic\_\-variable\char`\"{})\label{classStochVariable_bbb56eb072df97242ea35a4103b5985b}
+
+\begin{CompactList}\small\item\em Create. \item\end{CompactList}\item 
+virtual double {\bf operator()} ()
+\begin{CompactList}\small\item\em Returns the value at the current time step. \item\end{CompactList}\item 
+virtual double {\bf d} ()
+\begin{CompactList}\small\item\em Returns the increment at the current time step. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{StochVariable@{StochVariable}!operator()@{operator()}}
+\index{operator()@{operator()}!StochVariable@{StochVariable}}
+\subsubsection[operator()]{\setlength{\rightskip}{0pt plus 5cm}virtual double StochVariable::operator() ()\hspace{0.3cm}{\tt  [inline, virtual]}}\label{classStochVariable_66d2c382ae93d0a873a1921bb4ac0f07}
+
+
+Returns the value at the current time step. 
+
+This is mainly a callback function for the \doxyref{DifferentialEquation}{p.}{classDifferentialEquation} class. If the process is active this also proceeds the object's time. Implementing this function is compulsary. \index{StochVariable@{StochVariable}!d@{d}}
+\index{d@{d}!StochVariable@{StochVariable}}
+\subsubsection[d]{\setlength{\rightskip}{0pt plus 5cm}virtual double StochVariable::d ()\hspace{0.3cm}{\tt  [inline, virtual]}}\label{classStochVariable_12b71edfbd4fa84f9f2c6805ddead8dc}
+
+
+Returns the increment at the current time step. 
+
+This is mainly a callback function for the \doxyref{DifferentialEquation}{p.}{classDifferentialEquation} class. If the process is active this also proceeds the object's time. 

@@ -1,0 +1,74 @@
+\section{StochasticFunction Class Reference}
+\label{classStochasticFunction}\index{StochasticFunction@{StochasticFunction}}
+Inheritance diagram for StochasticFunction::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.67454cm]{classStochasticFunction}
+\end{center}
+\end{figure}
+
+
+\subsection{Detailed Description}
+A parametrized stochastic variable. 
+
+Any function which receives a stochastic variable as input, or has some inherent stochastic behaviour, should derive from this class. The members stochCurrentValue and stochNextValue are used for the input to the function. Deriving classes must proved \doxyref{calculateCurrentValue()}{p.}{classStochasticFunction_58551585df52e82ba5b653b17a61bc25}, which returns the value based on stochCurrentValue, and \doxyref{calculateNextValue()}{p.}{classStochasticFunction_8cbed92a69d44112ff269da5b4fa7420}, which returns the the value based on stochNextValue. \subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf StochasticFunction} (class {\bf Time} $\ast$time, const string \&name=\char`\"{}\char`\"{}, const string \&type=\char`\"{}stochastic\_\-function\char`\"{})\label{classStochasticFunction_a8bb66a782a75a12b68f1b48a955aa51}
+
+\begin{CompactList}\small\item\em Create. \item\end{CompactList}\item 
+double {\bf operator()} (double x)
+\begin{CompactList}\small\item\em Returns the value at the current time step. \item\end{CompactList}\item 
+double {\bf d} (double x)
+\begin{CompactList}\small\item\em Returns the increment at the current time step. \item\end{CompactList}\item 
+virtual double {\bf getCurrentValue} (double x)
+\begin{CompactList}\small\item\em Returns the value at the next time step. \item\end{CompactList}\item 
+virtual double {\bf getNextValue} (double x)
+\begin{CompactList}\small\item\em Returns the value at the next time step. \item\end{CompactList}\item 
+virtual double {\bf getIncrement} (double xt)
+\begin{CompactList}\small\item\em Returns the increment at the current time step. \item\end{CompactList}\item 
+virtual double {\bf calculateCurrentValue} ()=0\label{classStochasticFunction_58551585df52e82ba5b653b17a61bc25}
+
+\begin{CompactList}\small\item\em Calculates the current value based on the current input. \item\end{CompactList}\item 
+virtual double {\bf calculateNextValue} ()=0\label{classStochasticFunction_8cbed92a69d44112ff269da5b4fa7420}
+
+\begin{CompactList}\small\item\em Calculates the next value based on the current input. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{StochasticFunction@{StochasticFunction}!operator()@{operator()}}
+\index{operator()@{operator()}!StochasticFunction@{StochasticFunction}}
+\subsubsection[operator()]{\setlength{\rightskip}{0pt plus 5cm}double StochasticFunction::operator() (double {\em x})\hspace{0.3cm}{\tt  [inline]}}\label{classStochasticFunction_70d4c1f8e848863d312aef3c1e4f22d3}
+
+
+Returns the value at the current time step. 
+
+Same as getCurrentValue(x). \index{StochasticFunction@{StochasticFunction}!d@{d}}
+\index{d@{d}!StochasticFunction@{StochasticFunction}}
+\subsubsection[d]{\setlength{\rightskip}{0pt plus 5cm}double StochasticFunction::d (double {\em x})\hspace{0.3cm}{\tt  [inline]}}\label{classStochasticFunction_4bf8046e41a000f7caf1af2708944ed0}
+
+
+Returns the increment at the current time step. 
+
+Same as getIncrement(x). \index{StochasticFunction@{StochasticFunction}!getCurrentValue@{getCurrentValue}}
+\index{getCurrentValue@{getCurrentValue}!StochasticFunction@{StochasticFunction}}
+\subsubsection[getCurrentValue]{\setlength{\rightskip}{0pt plus 5cm}virtual double StochasticFunction::getCurrentValue (double {\em x})\hspace{0.3cm}{\tt  [inline, virtual]}}\label{classStochasticFunction_ff32e493c89012b2e4d1327b91c24eab}
+
+
+Returns the value at the next time step. 
+
+Calling this method sets the function input. \index{StochasticFunction@{StochasticFunction}!getNextValue@{getNextValue}}
+\index{getNextValue@{getNextValue}!StochasticFunction@{StochasticFunction}}
+\subsubsection[getNextValue]{\setlength{\rightskip}{0pt plus 5cm}virtual double StochasticFunction::getNextValue (double {\em x})\hspace{0.3cm}{\tt  [inline, virtual]}}\label{classStochasticFunction_90683e7f63d34995330fc2889a5da9fb}
+
+
+Returns the value at the next time step. 
+
+Calling this method sets the function input. \index{StochasticFunction@{StochasticFunction}!getIncrement@{getIncrement}}
+\index{getIncrement@{getIncrement}!StochasticFunction@{StochasticFunction}}
+\subsubsection[getIncrement]{\setlength{\rightskip}{0pt plus 5cm}virtual double StochasticFunction::getIncrement (double {\em xt})\hspace{0.3cm}{\tt  [inline, virtual]}}\label{classStochasticFunction_ff431ec9603dfb1a8c194937919004b0}
+
+
+Returns the increment at the current time step. 
+
+Calling this method sets the function input. This method does not proceed the object's time. 

@@ -1,0 +1,136 @@
+\section{ComplexSynapse Class Reference}
+\label{classComplexSynapse}\index{ComplexSynapse@{ComplexSynapse}}
+Inheritance diagram for ComplexSynapse::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5cm]{classComplexSynapse}
+\end{center}
+\end{figure}
+
+
+\subsection{Detailed Description}
+A synapse. 
+
+This class implements a synapse which is characterized by a differential equation. Main feature is the transformation of digital signals from an Event object (usually a neuron) to analog values of a \doxyref{StochasticProcess}{p.}{classStochasticProcess} object, which then are part of the membrane equation of another neuron. It also possible to use a noise source (such as a \doxyref{Wiener}{p.}{classWiener} process) as input. This depends on the constructor you use. Since a synapse usually connects from one single neuron to another single neuron, this class is set to be active as default, i.e. is forwarded automatically and you don't have to use \doxyref{proceedToNextState()}{p.}{classComplexSynapse_62db52fb6f3eb4ea6e4df62afca2d8b4} and \doxyref{prepareNextState()}{p.}{classComplexSynapse_5d2453f2a7a9c149fc285aaa2e0519c0} inside your program. \subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf ComplexSynapse} ({\bf Time} $\ast$time, {\bf StochasticEventGenerator} $\ast$e, double weight, double revPot, double peak, double tau)
+\begin{CompactList}\small\item\em Construct. \item\end{CompactList}\item 
+{\bf ComplexSynapse} ({\bf Time} $\ast$time, {\bf StochasticVariable} $\ast$s, double weight, double revPot, double tau)
+\begin{CompactList}\small\item\em Construct. \item\end{CompactList}\item 
+virtual void {\bf prepareNextState} ()\label{classComplexSynapse_5d2453f2a7a9c149fc285aaa2e0519c0}
+
+\begin{CompactList}\small\item\em Calculate next state. \item\end{CompactList}\item 
+virtual void {\bf proceedToNextState} ()\label{classComplexSynapse_62db52fb6f3eb4ea6e4df62afca2d8b4}
+
+\begin{CompactList}\small\item\em Apply nex time step. \item\end{CompactList}\item 
+virtual double {\bf calculateNextValue} ()\label{classComplexSynapse_7718e756d8373b266ceddfc9ca39adb6}
+
+\begin{CompactList}\small\item\em Calculate next value. \item\end{CompactList}\item 
+virtual double {\bf calculateCurrentValue} ()\label{classComplexSynapse_656673d476af3ce8e7e6bfed6a1946f5}
+
+\begin{CompactList}\small\item\em Calculate current value. \item\end{CompactList}\item 
+{\bf $\sim$ComplexSynapse} ()\label{classComplexSynapse_f4632fb45ae19cd6283e6a421a29f5a9}
+
+\begin{CompactList}\small\item\em Destruct. \item\end{CompactList}\item 
+virtual void {\bf setParameter} (const string \&name, const string \&value)
+\begin{CompactList}\small\item\em Set parameter. \item\end{CompactList}\item 
+virtual string {\bf getParameter} (const string \&name)
+\begin{CompactList}\small\item\em Get parameter. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Protected Attributes}
+\begin{CompactItemize}
+\item 
+{\bf DifferentialEquation} {\bf differential}
+\begin{CompactList}\small\item\em Differential equation. \item\end{CompactList}\item 
+{\bf StochasticVariable} $\ast$ {\bf stochastic}
+\begin{CompactList}\small\item\em \doxyref{Noise}{p.}{classNoise} source. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{ComplexSynapse@{ComplexSynapse}!ComplexSynapse@{ComplexSynapse}}
+\index{ComplexSynapse@{ComplexSynapse}!ComplexSynapse@{ComplexSynapse}}
+\subsubsection[ComplexSynapse]{\setlength{\rightskip}{0pt plus 5cm}ComplexSynapse::ComplexSynapse ({\bf Time} $\ast$ {\em time}, \/  {\bf StochasticEventGenerator} $\ast$ {\em e}, \/  double {\em weight}, \/  double {\em revPot}, \/  double {\em peak}, \/  double {\em tau})}\label{classComplexSynapse_a58c45376b6d6ef32500c551714d2850}
+
+
+Construct. 
+
+Will construct a synapse, which will set its value to the peak conductance just after the pre-synaptic spike, and decay the value according to the given time constant. At the next pre-synaptic spike the value will be set to the peak conductance again. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+time}]pointer to main time object \item[{\em 
+e}]The object providing the events (spikes), i.e. the pre-synaptic neuron. \item[{\em 
+weight}]Weight of the synapse. \item[{\em 
+revPot}]Reversal potential of synapse. \item[{\em 
+peak}]Peak conductance of synapse. \item[{\em 
+tau}]Decay time constant. \end{description}
+\end{Desc}
+\index{ComplexSynapse@{ComplexSynapse}!ComplexSynapse@{ComplexSynapse}}
+\index{ComplexSynapse@{ComplexSynapse}!ComplexSynapse@{ComplexSynapse}}
+\subsubsection[ComplexSynapse]{\setlength{\rightskip}{0pt plus 5cm}ComplexSynapse::ComplexSynapse ({\bf Time} $\ast$ {\em time}, \/  {\bf StochasticVariable} $\ast$ {\em s}, \/  double {\em weight}, \/  double {\em revPot}, \/  double {\em tau})}\label{classComplexSynapse_1dc8c93a92886c76edf39120f29140b5}
+
+
+Construct. 
+
+Will construct a synapse, which will set its value to the peak conductance just after the pre-synaptic spike, and decay the value according to the given time constant. At the next pre-synaptic spike the value will be set to the peak conductance again. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+time}]pointer to main time object \item[{\em 
+s}]The object providing the stimulus. \item[{\em 
+weight}]Weight of the synapse. \item[{\em 
+revPot}]Reversal potential of synapse. \item[{\em 
+tau}]Decay time constant. \end{description}
+\end{Desc}
+
+
+\subsection{Member Function Documentation}
+\index{ComplexSynapse@{ComplexSynapse}!setParameter@{setParameter}}
+\index{setParameter@{setParameter}!ComplexSynapse@{ComplexSynapse}}
+\subsubsection[setParameter]{\setlength{\rightskip}{0pt plus 5cm}virtual void ComplexSynapse::setParameter (const string \& {\em name}, \/  const string \& {\em value})\hspace{0.3cm}{\tt  [virtual]}}\label{classComplexSynapse_2e4cb6c35fc22535f9d058a3937b2872}
+
+
+Set parameter. 
+
+Sets the value of a parameter using strings. If a parameter is described using multiple strings separated by space, this indicates a parameter of a parameter. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+name}]name of parameter \item[{\em 
+value}]value of parameter (used with operator$<$$<$) \end{description}
+\end{Desc}
+
+
+Reimplemented from {\bf Synapse} \doxyref{}{p.}{classSynapse_abe8f9af570c03d381475c6e4b5912d7}.\index{ComplexSynapse@{ComplexSynapse}!getParameter@{getParameter}}
+\index{getParameter@{getParameter}!ComplexSynapse@{ComplexSynapse}}
+\subsubsection[getParameter]{\setlength{\rightskip}{0pt plus 5cm}virtual string ComplexSynapse::getParameter (const string \& {\em name})\hspace{0.3cm}{\tt  [virtual]}}\label{classComplexSynapse_9294e8a8f5de47b1052024a0cadcb8ba}
+
+
+Get parameter. 
+
+In a derived class, override this to handle every parameter you implement. If a parameter is described using multiple strings separated by space, this indicates a parameter of a parameter. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+name}]name of parameter \end{description}
+\end{Desc}
+
+
+Reimplemented from {\bf Synapse} \doxyref{}{p.}{classSynapse_8d70e1e7f33cef4e1a1b4d8f504fd4bd}.
+
+\subsection{Member Data Documentation}
+\index{ComplexSynapse@{ComplexSynapse}!differential@{differential}}
+\index{differential@{differential}!ComplexSynapse@{ComplexSynapse}}
+\subsubsection[differential]{\setlength{\rightskip}{0pt plus 5cm}{\bf DifferentialEquation} {\bf ComplexSynapse::differential}\hspace{0.3cm}{\tt  [protected]}}\label{classComplexSynapse_0e53cbbfbe735f915bf337624b25e9bd}
+
+
+Differential equation. 
+
+The rate equation. \index{ComplexSynapse@{ComplexSynapse}!stochastic@{stochastic}}
+\index{stochastic@{stochastic}!ComplexSynapse@{ComplexSynapse}}
+\subsubsection[stochastic]{\setlength{\rightskip}{0pt plus 5cm}{\bf StochasticVariable}$\ast$ {\bf ComplexSynapse::stochastic}\hspace{0.3cm}{\tt  [protected]}}\label{classComplexSynapse_3b78c59cdef6943933d7e0d3b2d8f30a}
+
+
+\doxyref{Noise}{p.}{classNoise} source. 
+
+only used when the noise constructor was used 

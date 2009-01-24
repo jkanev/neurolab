@@ -1,0 +1,46 @@
+\section{Covariation Class Reference}
+\label{classCovariation}\index{Covariation@{Covariation}}
+Inheritance diagram for Covariation::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3cm]{classCovariation}
+\end{center}
+\end{figure}
+
+
+\subsection{Detailed Description}
+\doxyref{Covariation}{p.}{classCovariation} process. 
+
+The covariation process of two stochastic processes $X_t$ and $Y_t$ is defined as \[ \left[X,Y\right]_t = \int X_t dY_t + \int Y_t dX_t - X_tY_t. \] For deterministic processes this equals zero. The mean of this process is zero, if both processes $X_t$ and $Y_t$ are uncorrelated. The mean can be tested using a \doxyref{ProcessEstimator}{p.}{classProcessEstimator}. A covariation process can be used as integrator in differential equations. The \doxyref{Covariation}{p.}{classCovariation} class estimates the covariation process numerically, by using $\left[X,Y\right]_t = \int dX_t dY_t $. \subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf Covariation} ({\bf StochasticProcess} $\ast$x, {\bf StochasticProcess} $\ast$y, string name=\char`\"{}\char`\"{}, const string \&type=\char`\"{}covariation\_\-process\char`\"{})
+\begin{CompactList}\small\item\em Construct. \item\end{CompactList}\item 
+{\bf $\sim$Covariation} ()\label{classCovariation_e054afdb4b91e25a30151b08c833601d}
+
+\begin{CompactList}\small\item\em Destruct. \item\end{CompactList}\item 
+void {\bf prepareNextState} ()
+\begin{CompactList}\small\item\em Calculate next value. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Covariation@{Covariation}!Covariation@{Covariation}}
+\index{Covariation@{Covariation}!Covariation@{Covariation}}
+\subsubsection[Covariation]{\setlength{\rightskip}{0pt plus 5cm}Covariation::Covariation ({\bf StochasticProcess} $\ast$ {\em x}, \/  {\bf StochasticProcess} $\ast$ {\em y}, \/  string {\em name} = {\tt \char`\"{}\char`\"{}}, \/  const string \& {\em type} = {\tt \char`\"{}covariation\_\-process\char`\"{}})\hspace{0.3cm}{\tt  [inline]}}\label{classCovariation_7fdc96e02c656ffa70356995e0692d48}
+
+
+Construct. 
+
+This constructs a covariation prcoess of thwo stochastic processes. The resulting process is active by default, but can be set passive. 
+
+\subsection{Member Function Documentation}
+\index{Covariation@{Covariation}!prepareNextState@{prepareNextState}}
+\index{prepareNextState@{prepareNextState}!Covariation@{Covariation}}
+\subsubsection[prepareNextState]{\setlength{\rightskip}{0pt plus 5cm}void Covariation::prepareNextState ()\hspace{0.3cm}{\tt  [inline, virtual]}}\label{classCovariation_44472092d0752fb1c485012b46f4d47e}
+
+
+Calculate next value. 
+
+If the process is active, this is called automatically. If it is passive, call \doxyref{proceedToNextState()}{p.}{classStochasticProcess_c79b6846db19a8de5025a2e36b6f6901} first, and then \doxyref{prepareNextState()}{p.}{classCovariation_44472092d0752fb1c485012b46f4d47e}, to complete a full step.. 
+
+Reimplemented from {\bf StochasticProcess} \doxyref{}{p.}{classStochasticProcess_b4c11ea89fa2d41a9f61df1ebdf04f78}.

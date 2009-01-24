@@ -1,0 +1,170 @@
+\section{IfNeuron Class Reference}
+\label{classIfNeuron}\index{IfNeuron@{IfNeuron}}
+Inherits SpikingNeuron.
+
+
+
+\subsection{Detailed Description}
+class implementing a simple integrate-and-fire neuron 
+
+This class implements an integrate-and-fire neuron. The neuron can be used with conductances, synapses or simple stochastic input. Ito and Stratonovitch integrals may be used (use setIto() or setStrat() from \doxyref{DifferentialEquation}{p.}{classDifferentialEquation}), and can be used as a trigger for \doxyref{ConditionalEstimator}{p.}{classConditionalEstimator}. The function is \[ dV_t = \frac{1}{C} (v_L - V_t) g_L dt + \sum_i \frac{1}{C} w_i (v_i - V_t) dG^i_t \] when conductances are used, or \[ dV_t = \frac{1}{C} (v_L - V_t) g_L dt + \frac{1}{C} w dG^i_t \] when currents are used. $ V_t $ is the membrane voltage, $ C $ is the membrane capacity which is always set to $ 1 \mu F $, $ v_L $ is the leak reversal potential, $ g_L $ is the leak conductance. $ w_i, v_i, dG^i $ are weight, reversal potential and conductance of a stimulating synapse. \subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf IfNeuron} ({\bf Time} $\ast$time, double v0, double theta, double spikeheight, double tau, double v\_\-rest, const string \&name=\char`\"{}\char`\"{}, const string \&type=\char`\"{}if\_\-neuron\char`\"{})
+\begin{CompactList}\small\item\em Construct. \item\end{CompactList}\item 
+{\bf $\sim$IfNeuron} ()\label{classIfNeuron_8c1d3f5d9c20cd133ed167198b4ac5d5}
+
+\begin{CompactList}\small\item\em destruct \item\end{CompactList}\item 
+void {\bf calibrate} (int isi, int runs, int maxtime, {\bf NoiseSource} $\ast$noises=0)
+\begin{CompactList}\small\item\em Calibrate the neuron. \item\end{CompactList}\item 
+virtual string {\bf getParameter} (const string \&name)
+\begin{CompactList}\small\item\em Get parameter. \item\end{CompactList}\item 
+virtual void {\bf setParameter} (const string \&name, const string \&value)
+\begin{CompactList}\small\item\em Set parameter. \item\end{CompactList}\item 
+int {\bf addStimulus} ({\bf StochasticVariable} $\ast$integrator)
+\begin{CompactList}\small\item\em add a stimulus \item\end{CompactList}\item 
+int {\bf addStimulus} ({\bf StochasticVariable} $\ast$integrator, double weight)
+\begin{CompactList}\small\item\em add a stimulus \item\end{CompactList}\item 
+int {\bf addStimulus} ({\bf StochasticVariable} $\ast$integrator, double weight, double revpot)
+\begin{CompactList}\small\item\em add a stimulus \item\end{CompactList}\item 
+virtual int {\bf addStimulus} ({\bf Synapse} $\ast$synapse)
+\begin{CompactList}\small\item\em Add a synapse. \item\end{CompactList}\item 
+virtual void {\bf removeStimulus} (int n)
+\begin{CompactList}\small\item\em Remove a stimulus. \item\end{CompactList}\item 
+virtual bool {\bf hasEvent} ()\label{classIfNeuron_e72bd8d0a0adef60f90da5af178f3fbf}
+
+\begin{CompactList}\small\item\em Return whether a spike is happening. \item\end{CompactList}\item 
+virtual void {\bf prepareNextState} ()\label{classIfNeuron_e511a2a61130bacf26be86fcc2dd7a91}
+
+\begin{CompactList}\small\item\em step \item\end{CompactList}\item 
+virtual void {\bf proceedToNextState} ()
+\begin{CompactList}\small\item\em Proceed one time step. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{IfNeuron@{IfNeuron}!IfNeuron@{IfNeuron}}
+\index{IfNeuron@{IfNeuron}!IfNeuron@{IfNeuron}}
+\subsubsection[IfNeuron]{\setlength{\rightskip}{0pt plus 5cm}IfNeuron::IfNeuron ({\bf Time} $\ast$ {\em time}, \/  double {\em v0}, \/  double {\em theta}, \/  double {\em spikeheight}, \/  double {\em tau}, \/  double {\em v\_\-rest}, \/  const string \& {\em name} = {\tt \char`\"{}\char`\"{}}, \/  const string \& {\em type} = {\tt \char`\"{}if\_\-neuron\char`\"{}})}\label{classIfNeuron_957ff40da313cd06dce90d638d83f385}
+
+
+Construct. 
+
+Default constructor only to be used by derived classes. construct Creates a neuron. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+time}]Address of global ime object \item[{\em 
+v0}]Reset potential \item[{\em 
+theta}]Threshold potential \item[{\em 
+spikeheight}]Hight of a spike in mV \item[{\em 
+tau}]Membrane time constant \item[{\em 
+v\_\-rest}]Resting potential \item[{\em 
+name}]name of object \item[{\em 
+type}]type of object, only use this when calling from a deriving class \end{description}
+\end{Desc}
+
+
+\subsection{Member Function Documentation}
+\index{IfNeuron@{IfNeuron}!calibrate@{calibrate}}
+\index{calibrate@{calibrate}!IfNeuron@{IfNeuron}}
+\subsubsection[calibrate]{\setlength{\rightskip}{0pt plus 5cm}void IfNeuron::calibrate (int {\em isi}, \/  int {\em runs}, \/  int {\em maxtime}, \/  {\bf NoiseSource} $\ast$ {\em noises} = {\tt 0})}\label{classIfNeuron_60f709212179b39774a1553463cd1b3a}
+
+
+Calibrate the neuron. 
+
+Set the neuron to a specific reponse rate. This is achieved by internally adjusting the threshold. If you do not give a \doxyref{NoiseSource}{p.}{classNoiseSource} object, all inputs to the neuron must be active for this to work. If the neuron receives passive processes (like correlated noise from a \doxyref{NoiseSource}{p.}{classNoiseSource}), you $\ast$must$\ast$ give the address of the \doxyref{NoiseSource}{p.}{classNoiseSource} object driving them. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+isi}]Desired inter-spike interval, given in time steps. \item[{\em 
+runs}]Number of runs used to estimate threshold. 50 is a good compromise. \item[{\em 
+maxtime}]Maximum time for one run to take. 2$\ast$isi is a good compromise \item[{\em 
+noises}]Address of a \doxyref{NoiseSource}{p.}{classNoiseSource} object. \end{description}
+\end{Desc}
+\index{IfNeuron@{IfNeuron}!getParameter@{getParameter}}
+\index{getParameter@{getParameter}!IfNeuron@{IfNeuron}}
+\subsubsection[getParameter]{\setlength{\rightskip}{0pt plus 5cm}virtual string IfNeuron::getParameter (const string \& {\em name})\hspace{0.3cm}{\tt  [virtual]}}\label{classIfNeuron_a2491c69e51d8d2f93eacf6b2067b192}
+
+
+Get parameter. 
+
+In a derived class, override this to handle every parameter you implement. If a parameter is described using multiple strings separated by space, this indicates a parameter of a parameter. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+name}]name of parameter \end{description}
+\end{Desc}
+
+
+Reimplemented from {\bf Parametric} \doxyref{}{p.}{classParametric_3c39188e1750b8e5d442b9dfa079b1c8}.\index{IfNeuron@{IfNeuron}!setParameter@{setParameter}}
+\index{setParameter@{setParameter}!IfNeuron@{IfNeuron}}
+\subsubsection[setParameter]{\setlength{\rightskip}{0pt plus 5cm}virtual void IfNeuron::setParameter (const string \& {\em name}, \/  const string \& {\em value})\hspace{0.3cm}{\tt  [virtual]}}\label{classIfNeuron_657741be3d616bd029ff1eab9136247a}
+
+
+Set parameter. 
+
+Sets the value of a parameter using strings. If a parameter is described using multiple strings separated by space, this indicates a parameter of a parameter. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+name}]name of parameter \item[{\em 
+value}]value of parameter (used with operator$<$$<$) \end{description}
+\end{Desc}
+
+
+Reimplemented from {\bf Parametric} \doxyref{}{p.}{classParametric_bba36dc4545219658541ab55251e02e6}.\index{IfNeuron@{IfNeuron}!addStimulus@{addStimulus}}
+\index{addStimulus@{addStimulus}!IfNeuron@{IfNeuron}}
+\subsubsection[addStimulus]{\setlength{\rightskip}{0pt plus 5cm}int IfNeuron::addStimulus ({\bf StochasticVariable} $\ast$ {\em integrator})}\label{classIfNeuron_331ac02cfc9e7692bed845359db487ca}
+
+
+add a stimulus 
+
+This adds a stimulus without a reversal potential, i.e. the value is added purely onto the membrane potential. The variable must have the unit mA $\ast$ ms. \index{IfNeuron@{IfNeuron}!addStimulus@{addStimulus}}
+\index{addStimulus@{addStimulus}!IfNeuron@{IfNeuron}}
+\subsubsection[addStimulus]{\setlength{\rightskip}{0pt plus 5cm}int IfNeuron::addStimulus ({\bf StochasticVariable} $\ast$ {\em integrator}, \/  double {\em weight})}\label{classIfNeuron_18780c358a6778a1c351f3853b317a93}
+
+
+add a stimulus 
+
+This adds a stimulus without a reversal potential, but the value is multiplied by the given weight before being added onto the membrane potential. The weight must be a dimensionless scalar, and the integrator must have the unit mA $\ast$$\ast$ ms. \index{IfNeuron@{IfNeuron}!addStimulus@{addStimulus}}
+\index{addStimulus@{addStimulus}!IfNeuron@{IfNeuron}}
+\subsubsection[addStimulus]{\setlength{\rightskip}{0pt plus 5cm}int IfNeuron::addStimulus ({\bf StochasticVariable} $\ast$ {\em integrator}, \/  double {\em weight}, \/  double {\em revpot})}\label{classIfNeuron_c541c98619104cbd76fbd03df93cbf4b}
+
+
+add a stimulus 
+
+This adds a stimulus with a reversal potential. The value is multiplied by the given weight and by the distance of the voltage from the reversal potential before being added onto the membrane potential. \index{IfNeuron@{IfNeuron}!addStimulus@{addStimulus}}
+\index{addStimulus@{addStimulus}!IfNeuron@{IfNeuron}}
+\subsubsection[addStimulus]{\setlength{\rightskip}{0pt plus 5cm}virtual int IfNeuron::addStimulus ({\bf Synapse} $\ast$ {\em synapse})\hspace{0.3cm}{\tt  [virtual]}}\label{classIfNeuron_3b4ff5cc17beddb2e61c33bb286c2f49}
+
+
+Add a synapse. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em synapse}]The synapse to be added. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The index of the integrator/integrand added. Use this number if you want to remove the synapse again. This adds a stimulus which is a synapse. The synapse should have the unit mV $\ast$ mS. \end{Desc}
+
+
+Implements {\bf Neuron} \doxyref{}{p.}{classNeuron_e53a7c8ecac2512bead30f9e007d0975}.\index{IfNeuron@{IfNeuron}!removeStimulus@{removeStimulus}}
+\index{removeStimulus@{removeStimulus}!IfNeuron@{IfNeuron}}
+\subsubsection[removeStimulus]{\setlength{\rightskip}{0pt plus 5cm}virtual void IfNeuron::removeStimulus (int {\em n})\hspace{0.3cm}{\tt  [virtual]}}\label{classIfNeuron_0a8c5f5733ed221161c2c73aa869d0d1}
+
+
+Remove a stimulus. 
+
+This removes the nth stimulus from the differential equation 
+
+Implements {\bf Neuron} \doxyref{}{p.}{classNeuron_9c38540847a8a467354f72235ca25cc4}.\index{IfNeuron@{IfNeuron}!proceedToNextState@{proceedToNextState}}
+\index{proceedToNextState@{proceedToNextState}!IfNeuron@{IfNeuron}}
+\subsubsection[proceedToNextState]{\setlength{\rightskip}{0pt plus 5cm}virtual void IfNeuron::proceedToNextState ()\hspace{0.3cm}{\tt  [virtual]}}\label{classIfNeuron_7604467649fbffaf8e6bf908b5cff631}
+
+
+Proceed one time step. 
+
+This method can be overridden to implement the proceeding of one time step. This makes new information available at the current time. (See also \doxyref{proceedToNextState()}{p.}{classIfNeuron_7604467649fbffaf8e6bf908b5cff631}). The default just writes stochNextValue into stochCurrentValue. 
+
+Reimplemented from {\bf StochasticProcess} \doxyref{}{p.}{classStochasticProcess_c79b6846db19a8de5025a2e36b6f6901}.

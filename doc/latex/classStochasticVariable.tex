@@ -1,0 +1,41 @@
+\section{StochasticVariable Class Reference}
+\label{classStochasticVariable}\index{StochasticVariable@{StochasticVariable}}
+Inheritance diagram for StochasticVariable::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.35329cm]{classStochasticVariable}
+\end{center}
+\end{figure}
+
+
+\subsection{Detailed Description}
+A simple stochastic variable. 
+
+This is the simplest stochastic process available. All stochastic processes which are not parametrised at every time step should inherit from this class. If you derive from this class, you must provide a \doxyref{prepareNextState()}{p.}{classStochasticProcess_b4c11ea89fa2d41a9f61df1ebdf04f78} function, which sets stochNextValue by using stochCurrentValue. \subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf StochasticVariable} (class {\bf Time} $\ast$time, const string \&name=\char`\"{}\char`\"{}, const string \&type=\char`\"{}stochastic\_\-variable\char`\"{})\label{classStochasticVariable_ed24486b8b1a716451e45534add79652}
+
+\begin{CompactList}\small\item\em Create. \item\end{CompactList}\item 
+double {\bf operator()} ()
+\begin{CompactList}\small\item\em Returns the value at the current time step. \item\end{CompactList}\item 
+double {\bf d} ()
+\begin{CompactList}\small\item\em Returns the increment at the current time step. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{StochasticVariable@{StochasticVariable}!operator()@{operator()}}
+\index{operator()@{operator()}!StochasticVariable@{StochasticVariable}}
+\subsubsection[operator()]{\setlength{\rightskip}{0pt plus 5cm}double StochasticVariable::operator() ()\hspace{0.3cm}{\tt  [inline]}}\label{classStochasticVariable_16ba25f463def3cf8dc343c4a93f9add}
+
+
+Returns the value at the current time step. 
+
+This is mainly a callback function for the \doxyref{DifferentialEquation}{p.}{classDifferentialEquation} class. If the process is active this also proceeds the object's time. Implementing this function is compulsary. \index{StochasticVariable@{StochasticVariable}!d@{d}}
+\index{d@{d}!StochasticVariable@{StochasticVariable}}
+\subsubsection[d]{\setlength{\rightskip}{0pt plus 5cm}double StochasticVariable::d ()\hspace{0.3cm}{\tt  [inline]}}\label{classStochasticVariable_3d53c5dafa300b1477adde8a359c793d}
+
+
+Returns the increment at the current time step. 
+
+This is mainly a callback function for the \doxyref{DifferentialEquation}{p.}{classDifferentialEquation} class. If the process is active this also proceeds the object's time. 

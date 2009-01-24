@@ -1,0 +1,140 @@
+
+
+FLAGS = -g -Wall
+LIBRARYVERSION = 0:0:0
+PACKAGENAME = libneurolab
+IPATHS = -I/usr/include/boost
+LPATHS = -L/home/jacob/c++/neurolab/lib
+LIBS = -lm
+LIBRARY = $(DESTDIR)/usr/lib/libneurolab.so
+DEFINES = -D_GNUPLOT_CALL="\"/usr/bin/gnuplot \""
+
+OBJECTS = obj/parametric.o obj/stochastic.o obj/differentiable.o obj/processes.o obj/display.o obj/processestimator.o obj/conditionalestimator.o obj/scalarestimator.o obj/intervalestimator.o obj/matrix.o obj/ifneuron.o obj/synapse.o obj/wiener.o obj/function.o obj/physical.o obj/neuron.o obj/thetaneuron.o obj/noises.o obj/stochastic.o obj/dependanceestimator.o obj/seriesestimator.o obj/timedependent.o obj/estimator.o
+
+TESTPROGRAMS = bin/CoupledNeurons bin/ItoVsStrat bin/ItoVsStrat2 bin/ItoVsStrat3 bin/Functions bin/NoiseTest
+
+
+all: link
+
+docs:
+	doxygen neurolab.doxygen
+
+archive: clean
+	cd ..; tar cvvjf neurolab.tar.bz2 libneurolab/ --exclude *~ --exclude *.data --exclude *.gnuplot --exclude *.ps; cd libneurolab
+
+install: installDocs installLib installHeaders
+
+installDocs: docs
+	install -d $(DESTDIR)/usr/share/doc/neurolab/html/
+	install -m555 doc/html/* $(DESTDIR)/usr/share/doc/neurolab/html/
+
+installTestProgs: $(TESTPROGRAMS)
+	install -d $(DESTDIR)/usr/bin/neurolab
+	install -m555 bin/* $(DESTDIR)/usr/bin/neurolab
+	 
+installLib:
+	install -d $(DESTDIR)/usr/lib
+	libtool --mode=install install -m555 lib/libneurolab.* $(DESTDIR)/usr/lib/
+	libtool --finish $(DESTDIR)/usr/lib
+	
+installHeaders:
+	install -d $(DESTDIR)/usr/include/neurolab/
+	install -m555 h/* $(DESTDIR)/usr/include/neurolab/
+	
+link: $(OBJECTS)
+	libtool --mode=link g++ -rpath /usr/lib/ -version-info $(LIBRARYVERSION) $(IPATHS) $(LPATHS) -o lib/libneurolab.la obj/*.lo
+
+testProgs: $(TESTPROGRAMS)
+	
+
+bin/NoiseTest: src/NoiseTest.cxx h/covariation.hxx $(LIBRARY)
+	g++ $(FLAGS) $(DEFINES) $(IPATHS) $(LPATHS) src/NoiseTest.cxx -o bin/NoiseTest $(LIBS) -lneurolab
+
+bin/Functions: src/Functions.cxx $(LIBRARY)
+	g++ $(FLAGS) $(DEFINES) $(IPATHS) $(LPATHS) src/Functions.cxx -o bin/Functions $(LIBS) -lneurolab
+
+bin/TestStratonovich: src/TestStratonovich.cxx $(LIBRARY)
+	g++ $(FLAGS) $(DEFINES) $(IPATHS) $(LPATHS) src/TestStratonovich.cxx -o bin/TestStratonovich $(LIBS) -lneurolab
+
+bin/ItoVsStrat: src/ItoVsStrat.cxx $(LIBRARY)
+	g++ $(FLAGS) $(DEFINES) $(IPATHS) $(LPATHS) src/ItoVsStrat.cxx -o bin/ItoVsStrat $(LIBS) -lneurolab
+
+bin/ItoVsStrat2: src/ItoVsStrat2.cxx $(LIBRARY)
+	g++ $(FLAGS) $(DEFINES) $(IPATHS) $(LPATHS) src/ItoVsStrat2.cxx -o bin/ItoVsStrat2 $(LIBS) -lneurolab
+
+bin/ItoVsStrat3: src/TestStratonovich.cxx $(LIBRARY)
+	g++ $(FLAGS) $(DEFINES) $(IPATHS) $(LPATHS) src/TestStratonovich.cxx -o bin/ItoVsStrat3 $(LIBS) -lneurolab
+
+bin/CoupledNeurons: src/CoupledNeurons.cxx $(LIBRARY)
+	g++ $(FLAGS) $(DEFINES) $(IPATHS) $(LPATHS) src/CoupledNeurons.cxx -o bin/CoupledNeurons $(LIBS) -lneurolab
+
+# object files
+
+obj/matrix.o: src/matrix.cxx h/matrix.hxx obj/physical.o
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS)  src/matrix.cxx -o obj/matrix.o
+
+obj/function.o: src/function.cxx h/function.hxx
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS)  src/function.cxx -o obj/function.o
+
+obj/display.o: src/display.cxx h/display.hxx src/function.cxx h/function.hxx
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS)  src/display.cxx -o obj/display.o
+
+obj/processes.o: obj/differentiable.o h/processes.hxx obj/stochastic.o h/physical.hxx src/processes.cxx
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS)  src/processes.cxx -o obj/processes.o
+
+obj/wiener.o: obj/differentiable.o h/wiener.hxx obj/stochastic.o h/physical.hxx src/wiener.cxx
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS)  src/wiener.cxx -o obj/wiener.o
+
+obj/estimator.o: src/estimator.cxx h/estimator.hxx obj/stochastic.o h/timedependent.hxx
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS)  src/estimator.cxx -o obj/estimator.o
+
+obj/scalarestimator.o: src/scalarestimator.cxx h/scalarestimator.hxx h/estimator.hxx h/ring.hxx obj/stochastic.o obj/matrix.o h/graph.hxx
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS)  src/scalarestimator.cxx -o obj/scalarestimator.o
+
+obj/intervalestimator.o: src/intervalestimator.cxx h/intervalestimator.hxx h/estimator.hxx h/ring.hxx obj/stochastic.o
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS)  src/intervalestimator.cxx -o obj/intervalestimator.o
+
+obj/processestimator.o: src/processestimator.cxx h/processestimator.hxx h/estimator.hxx h/ring.hxx obj/stochastic.o h/matrix.hxx h/graph.hxx h/physical.hxx
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS)  src/processestimator.cxx -o obj/processestimator.o
+
+obj/dependanceestimator.o: src/dependanceestimator.cxx h/dependanceestimator.hxx h/estimator.hxx h/ring.hxx obj/stochastic.o h/matrix.hxx h/graph.hxx h/physical.hxx
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS) src/dependanceestimator.cxx -o obj/dependanceestimator.o
+
+obj/seriesestimator.o: src/seriesestimator.cxx h/seriesestimator.hxx h/estimator.hxx h/ring.hxx obj/stochastic.o h/matrix.hxx h/graph.hxx h/physical.hxx
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS) src/seriesestimator.cxx -o obj/seriesestimator.o
+
+obj/physical.o: h/physical.hxx src/physical.cxx
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS)  src/physical.cxx -o obj/physical.o
+
+obj/conditionalestimator.o: src/conditionalestimator.cxx h/conditionalestimator.hxx h/estimator.hxx h/ring.hxx obj/stochastic.o h/matrix.hxx h/graph.hxx h/physical.hxx
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS)  src/conditionalestimator.cxx -o obj/conditionalestimator.o
+
+obj/differentiable.o: h/differentiable.hxx src/differentiable.cxx obj/stochastic.o
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS)  src/differentiable.cxx -o obj/differentiable.o
+
+obj/neuron.o: src/neuron.cxx h/neuron.hxx obj/differentiable.o obj/processes.o
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS)  src/neuron.cxx -o obj/neuron.o
+
+obj/ifneuron.o: src/ifneuron.cxx h/ifneuron.hxx h/noises.hxx obj/neuron.o
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS)  src/ifneuron.cxx -o obj/ifneuron.o
+
+obj/thetaneuron.o: src/thetaneuron.cxx h/thetaneuron.hxx obj/neuron.o
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS)  src/thetaneuron.cxx -o obj/thetaneuron.o
+
+obj/synapse.o: src/synapse.cxx h/synapse.hxx obj/differentiable.o obj/parametric.o
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS)  src/synapse.cxx -o obj/synapse.o
+	
+obj/noises.o: src/noises.cxx h/noises.hxx obj/stochastic.o obj/matrix.o
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS) src/noises.cxx -o obj/noises.o
+
+obj/stochastic.o: h/stochastic.hxx src/stochastic.cxx
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS) src/stochastic.cxx -o obj/stochastic.o
+
+obj/parametric.o: h/parametric.hxx src/parametric.cxx
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS) src/parametric.cxx -o obj/parametric.o
+
+obj/timedependent.o: h/timedependent.hxx
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS) src/timedependent.cxx -o obj/timedependent.o
+
+clean:
+	rm -r obj/*; rm bin/*; rm lib/*; rm lib/.libs/*; echo "";

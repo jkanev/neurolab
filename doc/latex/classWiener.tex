@@ -1,0 +1,60 @@
+\section{Wiener Class Reference}
+\label{classWiener}\index{Wiener@{Wiener}}
+Inheritance diagram for Wiener::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5cm]{classWiener}
+\end{center}
+\end{figure}
+
+
+\subsection{Detailed Description}
+Properties for all \doxyref{Wiener}{p.}{classWiener} processes. 
+
+Standard Functions of \doxyref{Wiener}{p.}{classWiener} processes. This class implements a \doxyref{Wiener}{p.}{classWiener} processes. The process can have a time-proportional mean $\mu t$ and variance $\sigma^2 t$. \subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+virtual void {\bf init} ()\label{classWiener_605e29d819949fa5c4220aa09dd212ea}
+
+\begin{CompactList}\small\item\em Initialise time-dependent values. \item\end{CompactList}\item 
+virtual void {\bf prepareNextState} ()
+\begin{CompactList}\small\item\em Calculate next value (preparing next step). \item\end{CompactList}\item 
+virtual string {\bf getParameter} (const string \&)
+\begin{CompactList}\small\item\em Get parameter. \item\end{CompactList}\item 
+virtual void {\bf setParameter} (const string \&, const string \&)
+\begin{CompactList}\small\item\em Set parameter. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{Wiener@{Wiener}!prepareNextState@{prepareNextState}}
+\index{prepareNextState@{prepareNextState}!Wiener@{Wiener}}
+\subsubsection[prepareNextState]{\setlength{\rightskip}{0pt plus 5cm}virtual void Wiener::prepareNextState ()\hspace{0.3cm}{\tt  [virtual]}}\label{classWiener_8784d5493dabf67deb75d1494450ea9b}
+
+
+Calculate next value (preparing next step). 
+
+This method should be overridden to implement the calculation of the next value, using information wich is available at the current time. The method sets stochNextStateIsPrepared to true if successful. 
+
+Reimplemented from {\bf StochasticProcess} \doxyref{}{p.}{classStochasticProcess_b4c11ea89fa2d41a9f61df1ebdf04f78}.\index{Wiener@{Wiener}!getParameter@{getParameter}}
+\index{getParameter@{getParameter}!Wiener@{Wiener}}
+\subsubsection[getParameter]{\setlength{\rightskip}{0pt plus 5cm}virtual string Wiener::getParameter (const string \& {\em name})\hspace{0.3cm}{\tt  [virtual]}}\label{classWiener_313637cdbd6ae2865897bf48fa1ced4b}
+
+
+Get parameter. 
+
+In a derived class, override this to handle every parameter you implement. If a parameter is described using multiple strings separated by space, this indicates a parameter of a parameter. 
+
+Reimplemented from {\bf Parametric} \doxyref{}{p.}{classParametric_3c39188e1750b8e5d442b9dfa079b1c8}.
+
+Reimplemented in {\bf WienerCpp} \doxyref{}{p.}{classWienerCpp_6e9dd9a019c621a7990f4133d476c92c}.\index{Wiener@{Wiener}!setParameter@{setParameter}}
+\index{setParameter@{setParameter}!Wiener@{Wiener}}
+\subsubsection[setParameter]{\setlength{\rightskip}{0pt plus 5cm}virtual void Wiener::setParameter (const string \& {\em name}, \/  const string \& {\em value})\hspace{0.3cm}{\tt  [virtual]}}\label{classWiener_69c25adbb4bcad391350812d7f59f84c}
+
+
+Set parameter. 
+
+Sets the value of a parameter using strings. If a parameter is described using multiple strings separated by space, this indicates a parameter of a parameter (not implemented yet). 
+
+Reimplemented from {\bf Parametric} \doxyref{}{p.}{classParametric_bba36dc4545219658541ab55251e02e6}.
+
+Reimplemented in {\bf WienerCpp} \doxyref{}{p.}{classWienerCpp_afdaaadb8175a259d4bc420c823829a0}.

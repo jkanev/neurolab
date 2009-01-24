@@ -1,0 +1,104 @@
+\section{StochFunction Class Reference}
+\label{classStochFunction}\index{StochFunction@{StochFunction}}
+Inheritance diagram for StochFunction::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.9886cm]{classStochFunction}
+\end{center}
+\end{figure}
+
+
+\subsection{Detailed Description}
+A parametrized stochastic variable. 
+
+Any function which receives a stochastic variable as input, or has some inherent stochastic behaviour, should derive from this class. At every time step t a value x has to be given. This value x influences the value of the function at time t. Therefore the next future value (dNextValue) and the delta (difference next value - current value) cannot be given without receiving a (hypothetical) future value of x. This behaviour is unsuitable for circular dependencies, which should always be created using \doxyref{StochVariable}{p.}{classStochVariable}, or otherwise the ()-operator should be re-implemented. For the same reason this process is active as default.
+
+If you derive from this class, you must provide a \doxyref{next()}{p.}{classStochastic_eabb113d791b85414440801f20f444a1} function, which sets dNextValue by using dCurrentValue and dXt. \subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf StochFunction} (class {\bf Time} $\ast$time, string name=\char`\"{}\char`\"{}, string type=\char`\"{}stochastic\_\-function\char`\"{})\label{classStochFunction_606445265f84457e0ad6b8032e8a72fb}
+
+\begin{CompactList}\small\item\em Create. \item\end{CompactList}\item 
+virtual double {\bf operator()} (double xt)
+\begin{CompactList}\small\item\em Returns the value at the current time step. \item\end{CompactList}\item 
+virtual double {\bf d} (double xt)
+\begin{CompactList}\small\item\em Returns the increment at the current time step. \item\end{CompactList}\item 
+virtual double {\bf getCurrentValue} (double xt)
+\begin{CompactList}\small\item\em Returns the value at the current time step. \item\end{CompactList}\item 
+virtual double {\bf getIncrement} (double xt)
+\begin{CompactList}\small\item\em Returns the increment at the current time step. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Protected Attributes}
+\begin{CompactItemize}
+\item 
+double {\bf dXt}
+\begin{CompactList}\small\item\em The current input. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{StochFunction@{StochFunction}!operator()@{operator()}}
+\index{operator()@{operator()}!StochFunction@{StochFunction}}
+\subsubsection[operator()]{\setlength{\rightskip}{0pt plus 5cm}virtual double StochFunction::operator() (double {\em xt})\hspace{0.3cm}{\tt  [inline, virtual]}}\label{classStochFunction_296a032d9c5b698497c78b1b538f36aa}
+
+
+Returns the value at the current time step. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em xt}]The input of the function, at the current time step. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The value at the current time step. Calling this method sets the function input. If the process is active this also proceeds the object's time, after calculating the return value. This method has been written mainly as a callback for the \doxyref{DifferentialEquation}{p.}{classDifferentialEquation} class. \end{Desc}
+\index{StochFunction@{StochFunction}!d@{d}}
+\index{d@{d}!StochFunction@{StochFunction}}
+\subsubsection[d]{\setlength{\rightskip}{0pt plus 5cm}virtual double StochFunction::d (double {\em xt})\hspace{0.3cm}{\tt  [inline, virtual]}}\label{classStochFunction_e82628090932887c46dda4fa0c71077f}
+
+
+Returns the increment at the current time step. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em xt}]The input of the function at the next (future) time step. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The difference to the value at the next time step. Calling this method does not set the function input. The returned difference is the difference of the current value to the value at the next time step, if the input value xt where given at the next time step. This hypothetical calculation of the future is useful for fixed point iteration in stratonovich SDEs. If the process is active this also proceeds the object's time, after calculating the return value. This method has been written mainly as a callback for the \doxyref{DifferentialEquation}{p.}{classDifferentialEquation} class. \end{Desc}
+\index{StochFunction@{StochFunction}!getCurrentValue@{getCurrentValue}}
+\index{getCurrentValue@{getCurrentValue}!StochFunction@{StochFunction}}
+\subsubsection[getCurrentValue]{\setlength{\rightskip}{0pt plus 5cm}virtual double StochFunction::getCurrentValue (double {\em xt})\hspace{0.3cm}{\tt  [inline, virtual]}}\label{classStochFunction_4f3e4f614d564944a780bd66779bfc89}
+
+
+Returns the value at the current time step. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em xt}]The input of the function. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The value at the current time step. Calling this method sets the function input. This method does not proceed the object's time. \end{Desc}
+\index{StochFunction@{StochFunction}!getIncrement@{getIncrement}}
+\index{getIncrement@{getIncrement}!StochFunction@{StochFunction}}
+\subsubsection[getIncrement]{\setlength{\rightskip}{0pt plus 5cm}virtual double StochFunction::getIncrement (double {\em xt})\hspace{0.3cm}{\tt  [inline, virtual]}}\label{classStochFunction_02f32aa293509cafef819af67ebab8e2}
+
+
+Returns the increment at the current time step. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em xt}]The input of the function. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The difference to the value at the next time step. Calling this method sets the function input. This method does not proceed the object's time. \end{Desc}
+
+
+\subsection{Member Data Documentation}
+\index{StochFunction@{StochFunction}!dXt@{dXt}}
+\index{dXt@{dXt}!StochFunction@{StochFunction}}
+\subsubsection[dXt]{\setlength{\rightskip}{0pt plus 5cm}double {\bf StochFunction::dXt}\hspace{0.3cm}{\tt  [protected]}}\label{classStochFunction_7942d19940521bb060a10931d70ce0e5}
+
+
+The current input. 
+
+This should be used by the \doxyref{next()}{p.}{classStochastic_eabb113d791b85414440801f20f444a1} function. 

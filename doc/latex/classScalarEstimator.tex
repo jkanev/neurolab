@@ -1,0 +1,32 @@
+\section{ScalarEstimator Class Reference}
+\label{classScalarEstimator}\index{ScalarEstimator@{ScalarEstimator}}
+Inheritance diagram for ScalarEstimator::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4cm]{classScalarEstimator}
+\end{center}
+\end{figure}
+
+
+\subsection{Detailed Description}
+estimates mean, variance, etc. of a scalar stochastic variable \subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+virtual void {\bf collect} ()\label{classScalarEstimator_fa275bacad14fae90cf403d42034112a}
+
+\begin{CompactList}\small\item\em Eat next piece of data. \item\end{CompactList}\item 
+virtual void {\bf init} ()\label{classScalarEstimator_8d86d47438a830cdf232565f69c178ae}
+
+\begin{CompactList}\small\item\em reset all values \item\end{CompactList}\item 
+virtual {\bf Matrix} {\bf mResult} (const Property \&)\label{classScalarEstimator_0b89bead8f660dc70a29f27c04a84211}
+
+\begin{CompactList}\small\item\em return result of estimation \item\end{CompactList}\item 
+{\bf ScalarEstimator} (const Property \&, {\bf StochasticProcess} $\ast$, {\bf Time} $\ast$)\label{classScalarEstimator_fe3a8e544172fa276c63404f9568e5a8}
+
+\begin{CompactList}\small\item\em Constructor. \item\end{CompactList}\item 
+void {\bf setProperty} (const Property \&, double)\label{classScalarEstimator_b6f834caacc81731a3ac8680f4ef133f}
+
+\begin{CompactList}\small\item\em set distribution-related properties \item\end{CompactList}\item 
+virtual {\bf $\sim$ScalarEstimator} ()\label{classScalarEstimator_47ce0d225e027640e8bc27488917cd59}
+
+\begin{CompactList}\small\item\em Destructor. \item\end{CompactList}\end{CompactItemize}

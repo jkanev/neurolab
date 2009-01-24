@@ -1,0 +1,85 @@
+\section{Synapse Class Reference}
+\label{classSynapse}\index{Synapse@{Synapse}}
+Inheritance diagram for Synapse::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5cm]{classSynapse}
+\end{center}
+\end{figure}
+
+
+\subsection{Detailed Description}
+A synapse. 
+
+This class implements a simple synapse. Main feature is the transformation of digital signals from an Event object (usually a neuron) to analog values of a \doxyref{StochasticProcess}{p.}{classStochasticProcess} object, which then are part of the membrane equation of another neuron. Since a synapse usually connects from one single neuron to another single neuron, this class is set to be active as default, i.e. is forwarded automatically and you don't have to use \doxyref{proceedToNextState()}{p.}{classStochasticProcess_c79b6846db19a8de5025a2e36b6f6901} and \doxyref{prepareNextState()}{p.}{classStochasticProcess_b4c11ea89fa2d41a9f61df1ebdf04f78} inside your program. \subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf Synapse} ({\bf Time} $\ast$time, {\bf StochasticEventGenerator} $\ast$e, double weight, double revPot, const string \&name=\char`\"{}\char`\"{}, const string \&type=\char`\"{}synapse\char`\"{})
+\begin{CompactList}\small\item\em Construct. \item\end{CompactList}\item 
+virtual double {\bf calculateCurrentValue} ()\label{classSynapse_fc7963a6071c4d061b97af5b8acbe75c}
+
+\begin{CompactList}\small\item\em Return current value. \item\end{CompactList}\item 
+virtual double {\bf calculateNextValue} ()\label{classSynapse_73033c8f9ce82f2bf77ad15dec2c6fd3}
+
+\begin{CompactList}\small\item\em Return next value. \item\end{CompactList}\item 
+{\bf $\sim$Synapse} ()\label{classSynapse_14b4fd7dfc88489ef9a40c404e6f2d20}
+
+\begin{CompactList}\small\item\em Destruct. \item\end{CompactList}\item 
+virtual void {\bf setParameter} (const string \&name, const string \&value)
+\begin{CompactList}\small\item\em Set parameter. \item\end{CompactList}\item 
+virtual string {\bf getParameter} (const string \&name)
+\begin{CompactList}\small\item\em Get parameter. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Synapse@{Synapse}!Synapse@{Synapse}}
+\index{Synapse@{Synapse}!Synapse@{Synapse}}
+\subsubsection[Synapse]{\setlength{\rightskip}{0pt plus 5cm}Synapse::Synapse ({\bf Time} $\ast$ {\em time}, \/  {\bf StochasticEventGenerator} $\ast$ {\em e}, \/  double {\em weight}, \/  double {\em revPot}, \/  const string \& {\em name} = {\tt \char`\"{}\char`\"{}}, \/  const string \& {\em type} = {\tt \char`\"{}synapse\char`\"{}})}\label{classSynapse_17f9941bccca078d4320c05839ea258c}
+
+
+Construct. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em e}]The object providing the events (spikes), i.e. the pre-synaptic neuron. This will construct a simple synapse, which only has the values 1.0 (just after a pre-synaptic spike) or 0.0 (otherwise). \end{description}
+\end{Desc}
+
+
+\subsection{Member Function Documentation}
+\index{Synapse@{Synapse}!setParameter@{setParameter}}
+\index{setParameter@{setParameter}!Synapse@{Synapse}}
+\subsubsection[setParameter]{\setlength{\rightskip}{0pt plus 5cm}virtual void Synapse::setParameter (const string \& {\em name}, \/  const string \& {\em value})\hspace{0.3cm}{\tt  [virtual]}}\label{classSynapse_abe8f9af570c03d381475c6e4b5912d7}
+
+
+Set parameter. 
+
+Sets the value of a parameter using strings. If a parameter is described using multiple strings separated by space, this indicates a parameter of a parameter. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+name}]name of parameter \item[{\em 
+value}]value of parameter (used with operator$<$$<$) \end{description}
+\end{Desc}
+
+
+Reimplemented from {\bf Parametric} \doxyref{}{p.}{classParametric_bba36dc4545219658541ab55251e02e6}.
+
+Reimplemented in {\bf SimpleSynapse} \doxyref{}{p.}{classSimpleSynapse_6a9584eea4c121415068e539d6603783}.\index{Synapse@{Synapse}!getParameter@{getParameter}}
+\index{getParameter@{getParameter}!Synapse@{Synapse}}
+\subsubsection[getParameter]{\setlength{\rightskip}{0pt plus 5cm}virtual string Synapse::getParameter (const string \& {\em name})\hspace{0.3cm}{\tt  [virtual]}}\label{classSynapse_8d70e1e7f33cef4e1a1b4d8f504fd4bd}
+
+
+Get parameter. 
+
+In a derived class, override this to handle every parameter you implement. If a parameter is described using multiple strings separated by space, this indicates a parameter of a parameter. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+name}]name of parameter \end{description}
+\end{Desc}
+
+
+Reimplemented from {\bf Parametric} \doxyref{}{p.}{classParametric_3c39188e1750b8e5d442b9dfa079b1c8}.
+
+Reimplemented in {\bf SimpleSynapse} \doxyref{}{p.}{classSimpleSynapse_9c88f99370d1349d00c9707f8fa1c7cd}.

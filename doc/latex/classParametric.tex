@@ -1,0 +1,103 @@
+\section{Parametric Class Reference}
+\label{classParametric}\index{Parametric@{Parametric}}
+Inheritance diagram for Parametric::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.35329cm]{classParametric}
+\end{center}
+\end{figure}
+
+
+\subsection{Detailed Description}
+Class describing objects which can be parametrized. 
+
+Objects of this class (such as stochastic variables) can be parametrized in various ways. A paremeter (const Property\&) is an integer constant which identifies the parameter. \subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+string {\bf getType} ()\label{classParametric_96ec2935d9515d39d535e914673c9888}
+
+\begin{CompactList}\small\item\em Type of object. \item\end{CompactList}\item 
+string {\bf getName} ()\label{classParametric_ec30d634a65641c3f372fc6c8922bb56}
+
+\begin{CompactList}\small\item\em Name of object. \item\end{CompactList}\item 
+void {\bf setName} (const string \&name)\label{classParametric_b514e8d91defbdb10a70c99fcd411128}
+
+\begin{CompactList}\small\item\em Name of object. \item\end{CompactList}\item 
+string {\bf getConfiguration} ()
+\begin{CompactList}\small\item\em Returns the configuration of the object. \item\end{CompactList}\item 
+string {\bf getAllParameters} ()\label{classParametric_fc22f13591e806ac13fa4750f5cf9f84}
+
+\begin{CompactList}\small\item\em String with all parameter settings. \item\end{CompactList}\item 
+void {\bf addParameter} (const string \&name)
+\begin{CompactList}\small\item\em Add a parameter. \item\end{CompactList}\item 
+void {\bf rmParameter} (const string \&name)
+\begin{CompactList}\small\item\em Remove a parameter. \item\end{CompactList}\item 
+virtual void {\bf setParameter} (const string \&name, const string \&value)
+\begin{CompactList}\small\item\em Set parameter. \item\end{CompactList}\item 
+virtual string {\bf getParameter} (const string \&name)
+\begin{CompactList}\small\item\em Get parameter. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Protected Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf Parametric} (const string \&name, const string \&type)\label{classParametric_417f00c101447dd2e8eca91c40cd6843}
+
+\begin{CompactList}\small\item\em Create object of type and name. \item\end{CompactList}\item 
+virtual {\bf $\sim$Parametric} ()\label{classParametric_600bc5f4c9cb58d44aa1f91a72c2caac}
+
+\begin{CompactList}\small\item\em Destroy object. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{Parametric@{Parametric}!getConfiguration@{getConfiguration}}
+\index{getConfiguration@{getConfiguration}!Parametric@{Parametric}}
+\subsubsection[getConfiguration]{\setlength{\rightskip}{0pt plus 5cm}string Parametric::getConfiguration ()}\label{classParametric_4ca566f675c36cb40afb68561fd9df3c}
+
+
+Returns the configuration of the object. 
+
+This includes object type and name, and a list with all settings. \index{Parametric@{Parametric}!addParameter@{addParameter}}
+\index{addParameter@{addParameter}!Parametric@{Parametric}}
+\subsubsection[addParameter]{\setlength{\rightskip}{0pt plus 5cm}void Parametric::addParameter (const string \& {\em name})}\label{classParametric_d96495ef7f226ec3360bd8971c3bf4de}
+
+
+Add a parameter. 
+
+Adds another string definition to the class. If the parameter already exists, it is not added. \index{Parametric@{Parametric}!rmParameter@{rmParameter}}
+\index{rmParameter@{rmParameter}!Parametric@{Parametric}}
+\subsubsection[rmParameter]{\setlength{\rightskip}{0pt plus 5cm}void Parametric::rmParameter (const string \& {\em name})}\label{classParametric_f4b8fa2dd141c55610825f495ed6d542}
+
+
+Remove a parameter. 
+
+Removes the string from the parameter list. \index{Parametric@{Parametric}!setParameter@{setParameter}}
+\index{setParameter@{setParameter}!Parametric@{Parametric}}
+\subsubsection[setParameter]{\setlength{\rightskip}{0pt plus 5cm}virtual void Parametric::setParameter (const string \& {\em name}, \/  const string \& {\em value})\hspace{0.3cm}{\tt  [virtual]}}\label{classParametric_bba36dc4545219658541ab55251e02e6}
+
+
+Set parameter. 
+
+Sets the value of a parameter using strings. If a parameter is described using multiple strings separated by space, this indicates a parameter of a parameter (not implemented yet). \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+name}]name of parameter \item[{\em 
+value}]value of parameter (used with operator$<$$<$) \end{description}
+\end{Desc}
+
+
+Reimplemented in {\bf IfNeuron} \doxyref{}{p.}{classIfNeuron_657741be3d616bd029ff1eab9136247a}, {\bf Noise} \doxyref{}{p.}{classNoise_2dee7f54aab2701376c9500c69f5d5e4}, {\bf Scalar} \doxyref{}{p.}{classScalar_9ec6ab9b6716e798ffc9e6bfed1b19fc}, {\bf Product} \doxyref{}{p.}{classProduct_7009c5b4f1b459230f5754a3675d38de}, {\bf Conductance} \doxyref{}{p.}{classConductance_f554e9cb35c3204747b1ce14a1024893}, {\bf Poisson} \doxyref{}{p.}{classPoisson_6301e62f1bc91eda792bc8d1412f4e1e}, {\bf Synapse} \doxyref{}{p.}{classSynapse_abe8f9af570c03d381475c6e4b5912d7}, {\bf SimpleSynapse} \doxyref{}{p.}{classSimpleSynapse_6a9584eea4c121415068e539d6603783}, {\bf Wiener} \doxyref{}{p.}{classWiener_69c25adbb4bcad391350812d7f59f84c}, and {\bf WienerCpp} \doxyref{}{p.}{classWienerCpp_afdaaadb8175a259d4bc420c823829a0}.\index{Parametric@{Parametric}!getParameter@{getParameter}}
+\index{getParameter@{getParameter}!Parametric@{Parametric}}
+\subsubsection[getParameter]{\setlength{\rightskip}{0pt plus 5cm}virtual string Parametric::getParameter (const string \& {\em name})\hspace{0.3cm}{\tt  [virtual]}}\label{classParametric_3c39188e1750b8e5d442b9dfa079b1c8}
+
+
+Get parameter. 
+
+In a derived class, override this to handle every parameter you implement. If a parameter is described using multiple strings separated by space, this indicates a parameter of a parameter. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+name}]name of parameter \end{description}
+\end{Desc}
+
+
+Reimplemented in {\bf DifferentialEquation} \doxyref{}{p.}{classDifferentialEquation_8edfa603b974d803268a604dff8ff964}, {\bf IfNeuron} \doxyref{}{p.}{classIfNeuron_a2491c69e51d8d2f93eacf6b2067b192}, {\bf Noise} \doxyref{}{p.}{classNoise_426f116ca5396f47710f604f1085c4fe}, {\bf Scalar} \doxyref{}{p.}{classScalar_1bcc13696ba052e1f15aa3bf6bcf5fc5}, {\bf Product} \doxyref{}{p.}{classProduct_d9c5ec64bd836a6714b76f62e78562a9}, {\bf Conductance} \doxyref{}{p.}{classConductance_e7a8b09fa5096cbf0cb4fd2e08696a63}, {\bf Poisson} \doxyref{}{p.}{classPoisson_f4bf48e6e02c4c72ed43561fc62a1cc2}, {\bf Synapse} \doxyref{}{p.}{classSynapse_8d70e1e7f33cef4e1a1b4d8f504fd4bd}, {\bf SimpleSynapse} \doxyref{}{p.}{classSimpleSynapse_9c88f99370d1349d00c9707f8fa1c7cd}, {\bf Wiener} \doxyref{}{p.}{classWiener_313637cdbd6ae2865897bf48fa1ced4b}, and {\bf WienerCpp} \doxyref{}{p.}{classWienerCpp_6e9dd9a019c621a7990f4133d476c92c}.

@@ -1,0 +1,63 @@
+\section{WienerNoise Class Reference}
+\label{classWienerNoise}\index{WienerNoise@{WienerNoise}}
+Inheritance diagram for WienerNoise::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5cm]{classWienerNoise}
+\end{center}
+\end{figure}
+
+
+\subsection{Detailed Description}
+A \doxyref{Wiener}{p.}{classWiener} process (white) noise source. 
+
+Internal class: You never need to acces this class directly, since all public members are defined in \doxyref{Noise}{p.}{classNoise}. This special derivation of \doxyref{Noise}{p.}{classNoise} is only important internally, for the \doxyref{NoiseSource}{p.}{classNoiseSource} class. \subsection*{Protected Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf WienerNoise} (class {\bf NoiseSource} $\ast$parent, int index, const string \&name=\char`\"{}\char`\"{}, const string \&type=\char`\"{}correlated\_\-wiener\_\-process\char`\"{})
+\begin{CompactList}\small\item\em Construct. \item\end{CompactList}\item 
+{\bf WienerNoise} (const {\bf WienerNoise} \&)
+\begin{CompactList}\small\item\em Construct. \item\end{CompactList}\item 
+virtual void {\bf setNext} (double indicator)
+\begin{CompactList}\small\item\em Set the next values. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Friends}
+\begin{CompactItemize}
+\item 
+class {\bf NoiseSource}\label{classWienerNoise_14268df5638debed66cad6d85946916f}
+
+\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{WienerNoise@{WienerNoise}!WienerNoise@{WienerNoise}}
+\index{WienerNoise@{WienerNoise}!WienerNoise@{WienerNoise}}
+\subsubsection[WienerNoise]{\setlength{\rightskip}{0pt plus 5cm}WienerNoise::WienerNoise (class {\bf NoiseSource} $\ast$ {\em parent}, \/  int {\em index}, \/  const string \& {\em name} = {\tt \char`\"{}\char`\"{}}, \/  const string \& {\em type} = {\tt \char`\"{}correlated\_\-wiener\_\-process\char`\"{}})\hspace{0.3cm}{\tt  [protected]}}\label{classWienerNoise_11d57548e324527ca0e82391bd6640d2}
+
+
+Construct. 
+
+This constructor is protected, because this class can only be instantiated by calls from the \doxyref{NoiseSource}{p.}{classNoiseSource} class. \index{WienerNoise@{WienerNoise}!WienerNoise@{WienerNoise}}
+\index{WienerNoise@{WienerNoise}!WienerNoise@{WienerNoise}}
+\subsubsection[WienerNoise]{\setlength{\rightskip}{0pt plus 5cm}WienerNoise::WienerNoise (const {\bf WienerNoise} \&)\hspace{0.3cm}{\tt  [protected]}}\label{classWienerNoise_312b3a41b91f25610bac9f198701716d}
+
+
+Construct. 
+
+This class mustn't be copied. 
+
+\subsection{Member Function Documentation}
+\index{WienerNoise@{WienerNoise}!setNext@{setNext}}
+\index{setNext@{setNext}!WienerNoise@{WienerNoise}}
+\subsubsection[setNext]{\setlength{\rightskip}{0pt plus 5cm}virtual void WienerNoise::setNext (double {\em indicator})\hspace{0.3cm}{\tt  [protected, virtual]}}\label{classWienerNoise_562ca2825d5fc8bed63339893b6abbbb}
+
+
+Set the next values. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em indicator}]The stochastic indicator. This is the main method. The \doxyref{NoiseSource}{p.}{classNoiseSource} class uses this to set the indicator values. If the indicator is above the current threshold, the value is set to w (the weight of the process), otherwise to 0.0. \end{description}
+\end{Desc}
+
+
+Implements {\bf Noise} \doxyref{}{p.}{classNoise}.

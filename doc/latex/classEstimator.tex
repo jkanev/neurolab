@@ -1,0 +1,62 @@
+\section{Estimator Class Reference}
+\label{classEstimator}\index{Estimator@{Estimator}}
+Inheritance diagram for Estimator::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4cm]{classEstimator}
+\end{center}
+\end{figure}
+
+
+\subsection{Detailed Description}
+Base class for estimation of various stochastic properties. 
+
+Estimates various properties of stochastic variables (like mean, variance, density). An estimator receives a source of the type \doxyref{StochasticProcess}{p.}{classStochasticProcess}, of which it receives the data during every step (every time proceedToNextState() is called). \subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf Estimator} ({\bf StochasticProcess} $\ast$src, {\bf Time} $\ast$time, const string \&name=\char`\"{}\char`\"{}, const string \&type=\char`\"{}estimator\char`\"{})
+\begin{CompactList}\small\item\em Construct. \item\end{CompactList}\item 
+virtual void {\bf init} ()=0\label{classEstimator_02466dbd2cd9dd016c9d34e6ddfe0500}
+
+\begin{CompactList}\small\item\em Reset all estimation dependent values. \item\end{CompactList}\item 
+virtual {\bf $\sim$Estimator} ()
+\begin{CompactList}\small\item\em Destroy. \item\end{CompactList}\item 
+virtual void {\bf collect} ()=0\label{classEstimator_412c13e686e39bbabdc6d1a2405f35dd}
+
+\begin{CompactList}\small\item\em Eat the next data point. \item\end{CompactList}\item 
+virtual {\bf Matrix} {\bf mResult} (const Property \&)=0\label{classEstimator_ff1c3031eea5b7c93c2d3efd23550eda}
+
+\begin{CompactList}\small\item\em Return an estimation. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Protected Attributes}
+\begin{CompactItemize}
+\item 
+Property {\bf nEstimate}\label{classEstimator_295e284fbc86aaca93e9c0a05a7ff80d}
+
+\begin{CompactList}\small\item\em what to record \item\end{CompactList}\item 
+{\bf StochasticProcess} $\ast$ {\bf pSource}\label{classEstimator_536a0926982bbe5d01fdb0d54f258523}
+
+\begin{CompactList}\small\item\em the source of data \item\end{CompactList}\item 
+uint {\bf nSamples}\label{classEstimator_1da705bea2733f5ade41b487e2a449dd}
+
+\begin{CompactList}\small\item\em number of samples recorded \item\end{CompactList}\item 
+{\bf Time} $\ast$ {\bf estimatorTime}\label{classEstimator_53aed902d3be7985bcc13ce6d10f1e8a}
+
+\begin{CompactList}\small\item\em \doxyref{Time}{p.}{classTime} process for registering and running. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Estimator@{Estimator}!Estimator@{Estimator}}
+\index{Estimator@{Estimator}!Estimator@{Estimator}}
+\subsubsection[Estimator]{\setlength{\rightskip}{0pt plus 5cm}Estimator::Estimator ({\bf StochasticProcess} $\ast$ {\em src}, \/  {\bf Time} $\ast$ {\em time}, \/  const string \& {\em name} = {\tt \char`\"{}\char`\"{}}, \/  const string \& {\em type} = {\tt \char`\"{}estimator\char`\"{}})}\label{classEstimator_97ed6bfc0537ff146b66d558c6a91e7f}
+
+
+Construct. 
+
+Registers the class with the \doxyref{Time}{p.}{classTime} class for automatic running. \index{Estimator@{Estimator}!$\sim$Estimator@{$\sim$Estimator}}
+\index{$\sim$Estimator@{$\sim$Estimator}!Estimator@{Estimator}}
+\subsubsection[$\sim$Estimator]{\setlength{\rightskip}{0pt plus 5cm}virtual Estimator::$\sim$Estimator ()\hspace{0.3cm}{\tt  [virtual]}}\label{classEstimator_7bc891ec48c2defac30742ff8abf9ef6}
+
+
+Destroy. 
+
+Un-Registers the class with the \doxyref{Time}{p.}{classTime} class for automatic running. 

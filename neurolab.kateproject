@@ -1,0 +1,15 @@
+[Dir h]
+Dirs=
+Files=conditionalestimator.hxx/differentiable.hxx/display.hxx/estimator.hxx/function.hxx/ifneuron.hxx/intervalestimator.hxx/main.hxx/matrix.hxx/physical.hxx/processes.hxx/processestimator.hxx/ring.hxx/scalarestimator.hxx/simplesynapse.hxx/stochastic.hxx/wiener.hxx/noises.hxx/covariation.hxx/neuron.hxx/parametric.hxx/synapse.hxx/thetaneuron.hxx/timedependent.hxx
+
+[Dir src]
+Dirs=
+Files=conditionalestimator.cxx/differentiable.cxx/display.cxx/function.cxx/ifneuron.cxx/intervalestimator.cxx/matrix.cxx/processes.cxx/processestimator.cxx/scalarestimator.cxx/simplesynapse.cxx/wiener.cxx/Functions.cxx/ItoVsStrat.cxx/ItoVsStrat2.cxx/neuron.cxx/noises.cxx/NoiseTest.cxx/synapse.cxx/TestStratonovich.cxx/thetaneuron.cxx/noises.hxx/physical.cxx/stochastic.cxx/CoupledNeurons.cxx/rsc_conditional_voltage.cxx/rsc_conditional_voltage_high.cxx/rsc_conditional_voltage_oup.cxx/rsc_negative.cxx/rsc_resetless_voltage.cxx/rsc_signal_transmission.cxx/rsc_singleStimulus.cxx/rsc_synapticRelations.cxx/rsc_tug_of_war.cxx/rsc_unconditional_voltage.cxx/simple_neuron_experiment.cxx
+
+[Project Dir]
+Dirs=src/h
+Files=Makefile/Makefile.linux/Makefile.solaris/neurolab.doxygen
+
+[Project File]
+Name=NeuroLab
+Type=Default

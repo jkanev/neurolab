@@ -1,0 +1,197 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE KDevPrjSession>
+<KDevPrjSession>
+ <DocsAndViews NumberOfDocuments="56" >
+  <Doc0 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/debian/libneurolab-dev/usr/include/neurolab/conditionalestimator.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc0>
+  <Doc1 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/processes.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc1>
+  <Doc2 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/differentiable.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc2>
+  <Doc3 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/parametric.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc3>
+  <Doc4 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/synapse.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc4>
+  <Doc5 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/synapse.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc5>
+  <Doc6 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/differentiable.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc6>
+  <Doc7 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/ifneuron.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc7>
+  <Doc8 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/ifneuron.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc8>
+  <Doc9 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/processes.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc9>
+  <Doc10 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/matrix.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc10>
+  <Doc11 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/intervalestimator.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc11>
+  <Doc12 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/neuron.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc12>
+  <Doc13 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/CoupledNeurons.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc13>
+  <Doc14 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/neuron.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc14>
+  <Doc15 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/stochastic.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc15>
+  <Doc16 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/conditionalestimator.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc16>
+  <Doc17 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/intervalestimator.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc17>
+  <Doc18 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/display.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc18>
+  <Doc19 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/wiener.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc19>
+  <Doc20 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/Functions.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc20>
+  <Doc21 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/ItoVsStrat.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc21>
+  <Doc22 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/estimator.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc22>
+  <Doc23 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/TestStratonovich.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc23>
+  <Doc24 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/timedependent.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc24>
+  <Doc25 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/NoiseTest.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc25>
+  <Doc26 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/noises.hxx" >
+   <View0 Encoding="ISO 8859-1" Type="Source" />
+  </Doc26>
+  <Doc27 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/noises.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc27>
+  <Doc28 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/covariation.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc28>
+  <Doc29 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/neurolab" >
+   <View0 Encoding="" Type="Source" />
+  </Doc29>
+  <Doc30 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/processestimator.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc30>
+  <Doc31 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/Makefile.debian" >
+   <View0 Encoding="" Type="Source" />
+  </Doc31>
+  <Doc32 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/dependanceestimator.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc32>
+  <Doc33 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/dependanceestimator.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc33>
+  <Doc34 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/seriesestimator.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc34>
+  <Doc35 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/seriesestimator.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc35>
+  <Doc36 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/queue.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc36>
+  <Doc37 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/physical.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc37>
+  <Doc38 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/conditionalestimator.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc38>
+  <Doc39 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/processestimator.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc39>
+  <Doc40 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/scalarestimator.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc40>
+  <Doc41 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/scalarestimator.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc41>
+  <Doc42 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/wiener.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc42>
+  <Doc43 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/function.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc43>
+  <Doc44 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/function.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc44>
+  <Doc45 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/estimator.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc45>
+  <Doc46 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/chris_talk.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc46>
+  <Doc47 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/timedependent.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc47>
+  <Doc48 NumberOfViews="1" URL="file:///usr/include/c%2B%2B/4.3/bits/stl_vector.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc48>
+  <Doc49 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/thetaneuron.hxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc49>
+  <Doc50 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/thetaneuron.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc50>
+  <Doc51 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/stochastic.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc51>
+  <Doc52 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/matrix.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc52>
+  <Doc53 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/parametric.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc53>
+  <Doc54 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/src/physical.cxx" >
+   <View0 Encoding="" Type="Source" />
+  </Doc54>
+  <Doc55 NumberOfViews="1" URL="file:///home/jacob/c%2B%2B/libneurolab/h/graph.hxx" >
+   <View0 Encoding="" line="36" Type="Source" />
+  </Doc55>
+ </DocsAndViews>
+ <pluginList>
+  <kdevdebugger>
+   <breakpointList>
+    <breakpoint0 location="/home/jacob/c++/libneurolab/h/parametric.hxx:88" type="1" tracingFormatString="" traceFormatStringEnabled="0" condition="" tracingEnabled="0" enabled="1" >
+     <tracedExpressions/>
+    </breakpoint0>
+   </breakpointList>
+   <showInternalCommands value="0" />
+  </kdevdebugger>
+  <kdevastyle>
+   <Extensions ext="*.cpp *.h *.hpp,*.c *.h,*.cxx *.hxx,*.c++ *.h++,*.cc *.hh,*.C *.H,*.diff ,*.inl,*.java,*.moc,*.patch,*.tlh,*.xpm" />
+   <AStyle IndentPreprocessors="0" FillCount="4" PadParenthesesOut="1" IndentNamespaces="1" IndentLabels="0" Fill="Tabs" MaxStatement="40" Brackets="Break" MinConditional="-1" IndentBrackets="0" PadParenthesesUn="1" BlockBreak="0" KeepStatements="1" KeepBlocks="1" BlockIfElse="0" IndentSwitches="1" PadOperators="0" FStyle="UserDefined" IndentCases="0" FillEmptyLines="0" BracketsCloseHeaders="0" BlockBreakAll="0" PadParenthesesIn="1" IndentClasses="1" IndentBlocks="0" FillForce="1" />
+  </kdevastyle>
+  <kdevbookmarks>
+   <bookmarks/>
+  </kdevbookmarks>
+  <kdevvalgrind>
+   <executable path="" params="" />
+   <valgrind path="" params="" />
+   <calltree path="" params="" />
+   <kcachegrind path="" />
+  </kdevvalgrind>
+ </pluginList>
+</KDevPrjSession>

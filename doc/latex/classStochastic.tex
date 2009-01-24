@@ -1,0 +1,105 @@
+\section{Stochastic Class Reference}
+\label{classStochastic}\index{Stochastic@{Stochastic}}
+Inheritance diagram for Stochastic::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=7.56757cm]{classStochastic}
+\end{center}
+\end{figure}
+
+
+\subsection{Detailed Description}
+A stochastic variable. 
+
+This class implements a stochastic process, either has a simple process, or as a function of another variable. It can run in active mode - the ()-operator will then forward it by one step; or in passive mode - in which case the ()-operator will only retrieve value or delta. The value of a stochastic variable changes with each time step - either when a () operator or the d() function is called. All forms of stochastic variables should inherit from this class. \subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf Stochastic} (class {\bf Time} $\ast$time, string name=\char`\"{}\char`\"{}, string type=\char`\"{}stochastic\char`\"{})\label{classStochastic_f6d04ddce0f6027636bb43b4dba571cd}
+
+\begin{CompactList}\small\item\em Create. \item\end{CompactList}\item 
+virtual {\bf $\sim$Stochastic} ()\label{classStochastic_07153539fe186ad236bf4760f12e4276}
+
+\begin{CompactList}\small\item\em Destroy. \item\end{CompactList}\item 
+virtual void {\bf step} ()
+\begin{CompactList}\small\item\em Proceed one time step. \item\end{CompactList}\item 
+virtual void {\bf next} ()
+\begin{CompactList}\small\item\em Calculate next value (preparing next step). \item\end{CompactList}\item 
+virtual double {\bf getIncrement} ()
+\begin{CompactList}\small\item\em Returns the increment. \item\end{CompactList}\item 
+virtual double {\bf getCurrentValue} ()
+\begin{CompactList}\small\item\em Returns the value of the process. \item\end{CompactList}\item 
+virtual double {\bf getNextValue} ()
+\begin{CompactList}\small\item\em Returns the next value of the process. \item\end{CompactList}\item 
+void {\bf setDescription} (string s)\label{classStochastic_51d9f1455d39ae3149b1249badef55bb}
+
+\begin{CompactList}\small\item\em Set the name. \item\end{CompactList}\item 
+string {\bf getDescription} ()
+\begin{CompactList}\small\item\em Get the name. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Protected Attributes}
+\begin{CompactItemize}
+\item 
+double {\bf dCurrentValue}\label{classStochastic_a38ccd84ac1482e21e973ce3fab471bf}
+
+\begin{CompactList}\small\item\em the current value \item\end{CompactList}\item 
+double {\bf dNextValue}\label{classStochastic_df785a9260547130b90abef0b9fb900b}
+
+\begin{CompactList}\small\item\em the next value (direct future) \item\end{CompactList}\item 
+string {\bf stochasticDescription}\label{classStochastic_33d10b387990e6e9b03bb331cecfb9ed}
+
+\begin{CompactList}\small\item\em the name of the quantity \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{Stochastic@{Stochastic}!step@{step}}
+\index{step@{step}!Stochastic@{Stochastic}}
+\subsubsection[step]{\setlength{\rightskip}{0pt plus 5cm}virtual void Stochastic::step ()\hspace{0.3cm}{\tt  [inline, virtual]}}\label{classStochastic_b3b2291145cd4f13dba617f42e747902}
+
+
+Proceed one time step. 
+
+This method can be overridden to implement the proceeding of one time step. This makes new information available at the current time. (See also \doxyref{step()}{p.}{classStochastic_b3b2291145cd4f13dba617f42e747902}). The default just writes dNextValue into dCurrentValue. 
+
+Implements {\bf TimeDependent} \doxyref{}{p.}{classTimeDependent_5f3e55b255b2e04b8d2d3ebca79313ce}.
+
+Reimplemented in {\bf IfNeuron} \doxyref{}{p.}{classIfNeuron_ef295bcd31c5bfe5d57e2b5663dd2066}, {\bf Noise} \doxyref{}{p.}{classNoise_7bdc8791f1641f0e5ea47afdc7320aa6}, {\bf NoiseSource} \doxyref{}{p.}{classNoiseSource_3dd2fa739b39eb0968fd5bc731d65b17}, and {\bf ComplexSynapse} \doxyref{}{p.}{classComplexSynapse_1d7cc010cb1396502e2fe5683fb9cf60}.\index{Stochastic@{Stochastic}!next@{next}}
+\index{next@{next}!Stochastic@{Stochastic}}
+\subsubsection[next]{\setlength{\rightskip}{0pt plus 5cm}virtual void Stochastic::next ()\hspace{0.3cm}{\tt  [inline, virtual]}}\label{classStochastic_eabb113d791b85414440801f20f444a1}
+
+
+Calculate next value (preparing next step). 
+
+This method should be overridden to implement the calculation of the next value, using information wich is available at the current time. 
+
+Implements {\bf TimeDependent} \doxyref{}{p.}{classTimeDependent_528beef322e91645ecec1d3aeec9956e}.
+
+Reimplemented in {\bf Covariation} \doxyref{}{p.}{classCovariation_6e05049470137f3ddfc2c34ceb0a6271}, {\bf DifferentialEquation} \doxyref{}{p.}{classDifferentialEquation_487534b8aa335c8bb735600070bf4eef}, {\bf IfNeuron} \doxyref{}{p.}{classIfNeuron_c21a3e82abb3a2bc88bf9f25b2a7be4d}, {\bf Noise} \doxyref{}{p.}{classNoise_a880f879ce4b06291af33335b04a6efc}, {\bf NoiseSource} \doxyref{}{p.}{classNoiseSource_8a3e4cf4315a33919a50977d718a30a6}, {\bf Product} \doxyref{}{p.}{classProduct_c19a85b41300b640adcca4b3fc2e4d99}, {\bf Square} \doxyref{}{p.}{classSquare_c1aa36807f169951989595d94e6d9fa3}, {\bf Conductance} \doxyref{}{p.}{classConductance_d5aedf19f9f56aeab446632961569487}, {\bf Poisson} \doxyref{}{p.}{classPoisson_0c17d6e182e3c4095198edca2c8fc2de}, {\bf Synapse} \doxyref{}{p.}{classSynapse_8517b53452c0a84ba98de385ab92d4ca}, {\bf ComplexSynapse} \doxyref{}{p.}{classComplexSynapse_4b06b3d87b739277b129421fea747de0}, {\bf ThetaMembrane} \doxyref{}{p.}{classThetaMembrane_2d8403f6a7dff64b994d2f4f7de6a2eb}, {\bf ThetaStimulus} \doxyref{}{p.}{classThetaStimulus_f45371e38687884e8c0d07a3c5a423e1}, {\bf ThetaNeuron} \doxyref{}{p.}{classThetaNeuron_07fa33edab59f50fe89d23ca9eda9260}, and {\bf Wiener} \doxyref{}{p.}{classWiener_7ad68adf0ec1358ec29a0eeddc8ec78c}.\index{Stochastic@{Stochastic}!getIncrement@{getIncrement}}
+\index{getIncrement@{getIncrement}!Stochastic@{Stochastic}}
+\subsubsection[getIncrement]{\setlength{\rightskip}{0pt plus 5cm}virtual double Stochastic::getIncrement ()\hspace{0.3cm}{\tt  [inline, virtual]}}\label{classStochastic_99830d889e69d6af84cf592e3856ac3c}
+
+
+Returns the increment. 
+
+This is the difference to the next time step. The difference to operator()() is that it never proceeds the object's time. \index{Stochastic@{Stochastic}!getCurrentValue@{getCurrentValue}}
+\index{getCurrentValue@{getCurrentValue}!Stochastic@{Stochastic}}
+\subsubsection[getCurrentValue]{\setlength{\rightskip}{0pt plus 5cm}virtual double Stochastic::getCurrentValue ()\hspace{0.3cm}{\tt  [inline, virtual]}}\label{classStochastic_484da91fd679f7675f65d1dfba8fd008}
+
+
+Returns the value of the process. 
+
+This is the current value. The difference to operator()(double) is that it never proceeds the object's time. Implementing this function is compulsary. \index{Stochastic@{Stochastic}!getNextValue@{getNextValue}}
+\index{getNextValue@{getNextValue}!Stochastic@{Stochastic}}
+\subsubsection[getNextValue]{\setlength{\rightskip}{0pt plus 5cm}virtual double Stochastic::getNextValue ()\hspace{0.3cm}{\tt  [inline, virtual]}}\label{classStochastic_a084bb8e86b85b6f86378dcf03f94516}
+
+
+Returns the next value of the process. 
+
+This is the next value. This is the same as \doxyref{getCurrentValue()}{p.}{classStochastic_484da91fd679f7675f65d1dfba8fd008} + \doxyref{getIncrement()}{p.}{classStochastic_99830d889e69d6af84cf592e3856ac3c}. \index{Stochastic@{Stochastic}!getDescription@{getDescription}}
+\index{getDescription@{getDescription}!Stochastic@{Stochastic}}
+\subsubsection[getDescription]{\setlength{\rightskip}{0pt plus 5cm}string Stochastic::getDescription ()\hspace{0.3cm}{\tt  [inline, virtual]}}\label{classStochastic_3a594fb1312491be64fb15e338180621}
+
+
+Get the name. 
+
+Returns the stochastic name 
+
+Reimplemented from {\bf Physical} \doxyref{}{p.}{classPhysical_e01f498fa44a20cabcc1a1b723551514}.
