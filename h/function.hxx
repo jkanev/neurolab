@@ -67,20 +67,15 @@ Function &sqrt(Function &right);
 Function &square(Function &right);
 
 /// Root.
-/** \param left Input function.
-\param n Base function.
-\returns A Function which is the nth root of the input.. */
+/** \returns A Function which is the nth root of the input.. */
 Function &root(Function &left, Function &n);
 
 /// Power.
-/** \param left Input function.
-\param n Exponent function.
-\returns A Function which is the nth power of the input.. */
+/** \returns A Function which is the nth power of the input. */
 Function &power(Function &left, Function &n);
 
 /// Integral..
-/** \param right Integrand.
-Creates the undefinite integral of the given integrand. If plotted, you will see the function \f[ \mbox{Function(t)} = \int_0^t f(x) dx\f]. */
+/** Creates the undefinite integral of the given integrand. If plotted, you will see the function \f[ \mbox{Function(t)} = \int_0^t f(x) dx\f]. */
 Function &integral(Function &integrand, Function &integrator);
 
 /// Increments.
@@ -114,11 +109,6 @@ Function &operator>=(Function &left, Function &right);
 /// Sign of a number.
 /* Returns 1.0 if x>0.0, 0.0 if x=0.0, -1.0 otherwise. */
 Function &sign(Function &right);	
-
-/// Special function.
-/** \param s Specification.
-Creates a function from a gnuplot string s. */
-//Function &special(string s);
 
 /// Appends the function specification string to a stream.
 /** The appended string is gnuplot readable, and may contain lots of parentheses, depending on the complexity of the function. */

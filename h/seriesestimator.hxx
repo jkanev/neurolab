@@ -28,6 +28,10 @@ __________________________________________________________________________
 #include "estimator.hxx"
 #include "stochastic.hxx"
 
+/// Recorder for stochastic properties of series.
+/** Records first, second and third centralised moments of series, i.e. mean, variance and skew of inter-event
+intervals, as well as distributions. */
+
 class SeriesEstimator : public Estimator
 {
 protected:

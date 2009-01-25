@@ -98,7 +98,7 @@ if (name == "mean")
 	else if (name == "variance")
 		param << wienerStdDev*wienerStdDev;
 	else
-		param << StochasticVariable::getParameter(name) const;
+		param << StochasticVariable::getParameter(name);
 		
 	return param.str();
 }
@@ -170,7 +170,7 @@ string WienerCpp::getParameter(const string& name) const
 	else if (name == "coincidence-rate")
 		param << condCoincRate;
 	else
-		param << Wiener::getParameter( name ) const;
+		param << Wiener::getParameter( name );
 
 	return param.str();
 }
@@ -192,6 +192,6 @@ void WienerCpp::setParameter(const string& name, const string& value)
 	else if (name == "coincidence-rate")
 		param >> condCoincRate;
 	else
-		Wiener::getParameter( name ) const;
+		Wiener::getParameter( name );
 }
 

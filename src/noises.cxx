@@ -148,7 +148,7 @@ string Noise::getParameter( const string& name ) const
 	else if (name == "rate")
 		param << noiseRate;
 	else
-		param << StochasticVariable::getParameter(name) const;
+		param << StochasticVariable::getParameter(name);
 		
 	return param.str();
 };

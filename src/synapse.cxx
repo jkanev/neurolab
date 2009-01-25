@@ -141,9 +141,9 @@ string Synapse::getParameter( const string& name ) const
 	else if (name == "weight")
 		param << dWeight;
 	else if (name == "pre-synaptic-neuron")
-		param << simplePreNeuron->getName() + ": "  + simplePreNeuron->getType();
+		param << '\"' << simplePreNeuron->getName() + "\" "  + simplePreNeuron->getType();
 	else
-		param << StochasticFunction::getParameter(name) const;
+		param << StochasticFunction::getParameter(name);
 		
 	return param.str();
 }
@@ -161,14 +161,15 @@ void SimpleSynapse::setParameter( const string& name, const string& value )
 }
 
 
-string SimpleSynapse::getParameter( const string& name ) const {
+string SimpleSynapse::getParameter( const string& name ) const
+{
 	stringstream param;
 	if (name == "time-constant")
 		param << simpleTimeConstant;
 	else if (name == "peak-conductance")
 		param << simplePeakCnd;
 	else
-		return Synapse::getParameter(name) const;
+		return Synapse::getParameter(name);
 	
 	return param.str();
 }

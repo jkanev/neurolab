@@ -84,8 +84,8 @@ The variance of this process \f$s_t\f$ will be:
 These parameters will be used to construct a white-noise (Wiener) process, which feeds the neuron: Let's assume the neuron is connected to many synapses which each have small weights. 
 Lets substitute the correlation weight \f$w_c\f$ - since all weights are the same - by the amount \f$n_c\f$ of synapses taking part in a coincident pulse times their weight. We will call this amount the <i>Coincidence Width</i>.
 
-Since the \textit{coincidence rate} \f$\lambda_c\f$ will not be higher than the overall rate \f$\lambda\f$, and the \textit{coincidence width} \f$n_c\f$ will not be higher than the overall number of synapses, it makes sense to use a <i>relative coincidence width</i> which ranges from \f$0\f$ to \f$1\f$ 
-\f[n_{rc} =  \frac{n_c}{n},\f]
+Since the coincidence rate \f$ \lambda_c \f$ will not be higher than the overall rate \f$ \lambda \f$, and the coincidence width \f$ n_c \f$ will not be higher than the overall number of synapses, it makes sense to use a <i>relative coincidence width</i> which ranges from \f$ 0 \f$ to \f$ 1 \f$ 
+\f[ n_{rc} =  \frac{n_c}{n},\f]
 and a <i>relative coincidence rate</i> which ranges from \f$0\f$ to \f$1\f$ 
 \f[\lambda_{rc} =  \frac{\lambda_c}{\lambda}\f]
 This amounts to the following expressions for mean and variance of the white-noise process:

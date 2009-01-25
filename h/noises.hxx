@@ -51,9 +51,7 @@ protected:
 	double noiseMu;
 	
 	/// Construct.
-	/** This constructor is protected, because this class should only be instantiated by calls from the NoiseSource class. 
-	\param parent The generating noise source
-	\param index The number in the parent's noise tables */
+	/** This constructor is protected, because this class should only be instantiated by calls from the NoiseSource class. */
 	Noise(class NoiseSource *parent, int index, const string& name="", const string& type="correlated_noise");
 	
 	/// Construct.
@@ -110,7 +108,7 @@ public:
 	/** In a derived class, override this to handle every parameter you implement. If a parameter is described using multiple strings separated by space, this indicates a parameter of a parameter.  */
 	virtual string getParameter (
 		const string& name   ///< name of parameter
-	);
+	) const;
 	
 friend class NoiseSource;
 };

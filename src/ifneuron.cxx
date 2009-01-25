@@ -26,7 +26,7 @@ __________________________________________________________________________
 #include "../h/matrix.hxx"
 
 IfNeuron::IfNeuron(Time *time, double v_0, double theta, double spikeheight, double tau, double v_rest, const string& name, const string& type)
-	: SpikingNeuron(time, name, type), ifneuronMembrane(time, v_0, 0.0, name, type)
+	: SpikingNeuron(time, name, type), ifneuronMembrane(time, v_0, 0.0, "V(t)")
 {
 	// parameter accessors
 	addParameter("threshold");
@@ -148,7 +148,7 @@ string IfNeuron::getParameter(const string& name) const
 	else if (name=="membrane")
 		param << ifneuronMembrane.getConfiguration();
 	else
-		return SpikingNeuron::getParameter(name) const;
+		return SpikingNeuron::getParameter(name);
 		
 	return param.str();
 }

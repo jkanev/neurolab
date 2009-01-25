@@ -54,11 +54,16 @@ public:
 	virtual void removeStimulus( int n ) = 0;
 };
 
+/// Base class for all spiking neurons.
 class SpikingNeuron: public Neuron, public StochasticEventGenerator
 {
 	protected:
 	/// Construct.
-	SpikingNeuron(Time *time, string name, string type="spiking_neuron") : Neuron(name, type), StochasticEventGenerator(time, name, type) {};
+	SpikingNeuron (
+		Time *time,   ///< global time object
+		string name,   ///< object name
+		string type="spiking_neuron"   ///< object type
+	) : Neuron(name, type), StochasticEventGenerator(time, name, type) {};
 };
 
 #endif

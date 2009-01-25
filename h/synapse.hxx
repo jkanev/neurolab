@@ -43,9 +43,14 @@ protected:
 	
 public:
 	/// Construct.
-	/** \param e The object providing the events (spikes), i.e. the pre-synaptic neuron.
-	This will construct a simple synapse, which only has the values 1.0 (just after a pre-synaptic spike) or 0.0 (otherwise). */
-	Synapse(Time *time, StochasticEventGenerator *e, double weight, double revPot, const string& name="", const string& type="synapse");
+	/** This will construct a simple synapse, which only has the values 1.0 (just after a pre-synaptic spike) or 0.0 (otherwise). */
+	Synapse ( 
+		Time *time, StochasticEventGenerator *e,   ///< object providing the events (spikes), i.e. the pre-synaptic neuron.
+		double weight,   ///< synaptic weight
+		double revPot,   ///< reversal potential
+		const string& name="",   ///< object name
+		const string& type="synapse"   ///< object type
+	);
 	
 	/// Return current value.
 	virtual double calculateCurrentValue();
@@ -67,7 +72,7 @@ public:
 	/** In a derived class, override this to handle every parameter you implement. If a parameter is described using multiple strings separated by space, this indicates a parameter of a parameter.  */
 	virtual string getParameter (
 		const string& name   ///< name of parameter
-	);
+	) const;
 };
 
 /// A synapse.
@@ -139,7 +144,7 @@ public:
 	/** In a derived class, override this to handle every parameter you implement. If a parameter is described using multiple strings separated by space, this indicates a parameter of a parameter.  */
 	virtual string getParameter (
 		const string& name   ///< name of parameter
-	);
+	) const;
 };
 
 

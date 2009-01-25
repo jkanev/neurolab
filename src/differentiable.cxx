@@ -279,7 +279,7 @@ string DifferentialEquation::getParameter( const string& name ) const
 	
 	// formula
 	if (name=="equation") {
-		param << "d " << getName() << " dt = ";
+		param << "d " << getName() << " = ";
 		for (int i=0; i<eqnTermAmount; ++i) {
 			if (i) param << " + ";
 			param << eqnIntegrands[i]->getName() + " d " + eqnIntegrators[i]->getName() + "  ";

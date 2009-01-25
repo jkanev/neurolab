@@ -78,7 +78,7 @@ public:
 	/** In a derived class, override this to handle every parameter you implement. If a parameter is described using multiple strings separated by space, this indicates a parameter of a parameter.  */
 	virtual string getParameter (
 		const string& name   ///< name of parameter
-	) ;
+	)  const;
 		
 	/// Set parameter.
 	/** Sets the value of a parameter using strings. If a parameter is described using multiple strings separated by space, this indicates a parameter of a parameter. */

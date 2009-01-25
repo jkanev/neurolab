@@ -29,10 +29,10 @@ __________________________________________________________________________
 
 /// Estimating dependencies of conditional variables.
 /** Some stochastic variables are dependent on the value of other variables. These
-dependancies can be measured with this class. Given two variables \f$X_t\f$ (source)
-and \f$Y_t\f$ (base), where \f$ p(X_t|Y_t) \neq p(X_t)\f$, this class measures the
-distribution \f$p(X_t|Y_t)\f, the expectation \f$ E\{\X_t|Y_t}\f$ and the
-variance \f$ Var\{\X_t|Y_t\} \f$.  */
+dependancies can be measured with this class. Given two variables \f$ X_t \f$ (source)
+and \f$ Y_t \f$ (base), where \f$ p(X_t|Y_t) \neq p(X_t)\f$, this class measures the
+distribution \f$ p(X_t|Y_t)\f$, the expectation \f$ E{X_t|Y_t}\f$ and the
+variance \f$ Var\{X_t|Y_t\} \f$.  */
 
 class DependanceEstimator : public Estimator
 {

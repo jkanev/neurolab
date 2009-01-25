@@ -75,25 +75,37 @@ class DifferentialEquation: public StochasticVariable
 protected:
 	double eqnX0; /// starting value
 public:
-	/// Constructor.
-	/** \param x0 Starting value
-	\param dx0 Starting increment */
-	DifferentialEquation(double x0, double dx0, const string& name="", const string& type="differential_equation");
+	/// Construct.
+	DifferentialEquation (
+		double x0, ///< starting value
+		double dx0, ///< starting increment
+		const string& name="",   ///< object name
+		const string& type="differential_equation"   ///< object type
+	);
 	
-	/// Constructor.
-	/** \param x0 Starting value
-	\param dx0 Starting increment */
-	DifferentialEquation(Time *time, double x0, double dx0, const string& name="", const string& type="differential_equation");
+	/// Construct.
+	DifferentialEquation (
+		Time *time,   ///< global time object
+		double x0, ///< starting value
+		double dx0, ///< starting increment
+		const string& name="",   ///< object name
+		const string& type="differential_equation"   ///< object type
+	);
 	
 	/// Construct.
 	/** The same as using DifferentialEquation(0.0, 0.0). */
-	DifferentialEquation(const string& name="", const string& type="differential_equation") : StochasticVariable(0, name, type) {
+	DifferentialEquation (
+		const string& name="",   ///< object name
+		 const string& type="differential_equation" )   ///< object type
+	: StochasticVariable(0, name, type)
+	{
 		DifferentialEquation(0.0, 0.0);
 		setIto();
 		addParameter("equation");
 	};
 	
-	virtual ~DifferentialEquation(); ///< Destructor.
+	/// Destroy.
+	virtual ~DifferentialEquation(); 
 
 	/// Calculate value for next time step.
 	/** This just calculates the next value.
@@ -101,7 +113,9 @@ public:
 	virtual void prepareNextState();
 	
 	/// Sets value to a starting value.
-	virtual void init(double x0);
+	virtual void init (
+		double x0   ///< starting value
+	);
 	
 	/// Sets value to starting value
 	virtual void init();
@@ -110,18 +124,39 @@ public:
 	double getStartingValue() const;
 	
 	/// Add term.
-	int addTerm(StochasticFunction *integrand, StochasticVariable *integrator);
+	/** \return index of new term */
+	int addTerm (
+		StochasticFunction *integrand, /// integrand part of term
+		StochasticVariable *integrator   ///< integrator part of term
+	);
 	
 	/// Remove term.
-	void rmTerm(int n);
+	void rmTerm (
+		int n   ///< index of term
+	);
 	
 	/// Set term.
-	void setTerm(int n, StochasticFunction *integrand, StochasticVariable *integrator);
+	void setTerm (
+		int n,   ///< index of term
+		StochasticFunction *integrand, /// integrand part of term
+		StochasticVariable *integrator   ///< integrator part of term
+	);
+	
+	/// Get number of terms.
+	/** \return number of terms in differential equation */
 	int getNTerms() const { 
 		return eqnTermAmount;
 	}
-	StochasticFunction *getIntegrand(int);          ///< get integrand
-	StochasticVariable *getIntegrator(int);        ///< get integrator
+	
+	/// Get integrand part of a term.
+	StochasticFunction *getIntegrand (
+		int n   ///< index of term
+	);
+	
+	/// Get integrator part of a term.
+	StochasticVariable *getIntegrator (
+		int n   ///< index of term
+	);
 	
 	/// Get parameter.
 	/** In a derived class, override this to handle every parameter you implement. If a parameter is described using multiple strings separated by space, this indicates a parameter of a parameter.  */
@@ -129,14 +164,20 @@ public:
 		const string& name   ///< name of parameter
 	) const;
 	
-	/// \name Ito/Stratonovich mode
-	// @{
-	void (DifferentialEquation::* eqnMethodPtr)();   ///< member pointer to one of the privat fcns.
-	bool isIto() const;                        ///< ito integrating mode?
-	bool isStratonovich()const;                      ///< stratonovich integrating mode?
-	void setIto();                        ///< set integrating mode to ito
-	void setStratonovich();                      ///< set integrating mode to stratonovich
-	// @}
+	/// Member pointer to one of the privat fcns.
+	void (DifferentialEquation::* eqnMethodPtr)();
+	
+	/// Is integration mode Ito?
+	bool isIto() const;
+	
+	/// Is integration mode Stratonovich?
+	bool isStratonovich()const;
+	
+	/// Set integration mode to Ito.
+	void setIto();
+	
+	/// Set integration mode to Stratonovich
+	void setStratonovich();
 
 private:
 	int eqnTermAmount; // number of terms
