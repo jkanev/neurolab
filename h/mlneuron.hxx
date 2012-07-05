@@ -1,7 +1,7 @@
 /* Copyright Information
 __________________________________________________________________________
 
-Copyright (C) 2005 Jacob Kanev
+Copyright (C) 2012 Jacob Kanev
 
 This file is part of NeuroLab.
 
@@ -21,36 +21,99 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA.
 __________________________________________________________________________
 */
 
-#ifndef __IF_NEURON_HXX
-#define __IF_NEURON_HXX
+#ifndef __ML_NEURON_HXX
+#define __ML_NEURON_HXX
 
 #include "neuron.hxx"
 #include "noises.hxx"
 
 using namespace std;
 
-/// class implementing a simple integrate-and-fire neuron
-/** This class implements an integrate-and-fire neuron. The neuron can be used with conductances, synapses or simple stochastic input. Ito and Stratonovitch integrals may be used (use setIto() or setStratonovich() from DifferentialEquation), and can be used as a trigger for ConditionalEstimator. The function is \f[ dV_t = \frac{1}{C} (v_L - V_t) g_L dt + \sum_i \frac{1}{C} w_i (v_i - V_t) dG^i_t \f] when conductances are used, or \f[ dV_t = \frac{1}{C} (v_L - V_t) g_L dt + \frac{1}{C} w dG^i_t \f] when currents are used. \f$ V_t \f$ is the membrane voltage, \f$ C \f$ is the membrane capacity which is always set to \f$ 1 \mu F \f$, \f$ v_L \f$ is the leak reversal potential, \f$ g_L \f$ is the leak conductance. \f$ w_i, v_i, dG^i \f$ are weight, reversal potential and conductance of a stimulating synapse. */
+/// class implementing a calcium channel for a Morris-Lecar
+/** This class implements a Morris-Lecar neuron calcium channel \f[ (v_{Ca} - V_t) g_{Ca} M(t) \f] with \f[M(t) = 1+\exp\left(-2\frac{v_1-V_t}{v_2}\right)\f]. */
 
-class IfNeuron : public SpikingNeuron
+class MlCalciumChannel : public StochasticFunction
 {
 private:
-	bool ifneuronHasSpikeNow; // is there a spike currently?
-	bool ifneuronHasSpikeNext; // will there be a spike after the next update?
-	DifferentialEquation ifneuronMembrane; // the membrane equation
+	double calcVCa;
+	double calcGCa;
+	double calcV1;
+	double calcV2;
+public:
+	/// Construct with object name.
+	MlCalciumChannel(double, double, const string& name="", const string& type="Calcium Channel");
+	
+	/// Destroy.
+	virtual ~MlCalciumChannel(){};
+	
+	/// Create parameter string.
+	string getParameter(const string&) const;
+	
+	/// Set parameter from string.
+	void setParameter(const string& name, const string& value);
+	
+	/// Generate next value.
+	virtual double calculateCurrentValue();
+	
+	/// Generate next value.
+	virtual double calculateNextValue();
+};
+
+
+/// class implementing a potassium channel for a Morris-Lecar
+/** This class implements a Morris-Lecar potassium calcium channel \f[ (v_{K} - V_t) g_{K} N(t) \f] with \f[dN_t = \left(N_t-1-\exp\left(-2\frac{v_3-V_t}{v_4}\right)\right) \cosh \frac{V-v_3}{2v_4}\f]. */
+
+class MlPotassiumChannel : public StochasticFunction
+{
+private:
+	double potassVK;
+	double potassGK;
+	double potassV3;
+	double potassV4;
+	DifferentialEquation potassNt;
+public:
+	/// Construct with object name.
+	MlPotassiumChannel(double, double, const string& name="", const string& type="Potassium Channel");
+	
+	/// Destroy.
+	virtual ~MlPotassiumChannel(){};
+	
+	/// Create parameter string.
+	string getParameter(const string&) const;
+	
+	/// Set parameter from string.
+	void setParameter(const string& name, const string& value);
+	
+	/// Generate next value.
+	virtual double calculateCurrentValue();
+	
+	/// Generate next value.
+	virtual double calculateNextValue();
+};
+
+
+/// class implementing a Morris-Lecar neuron
+/** This class implements a Morris-Lecar neuron. The neuron can be used with conductances, synapses or simple stochastic input. Ito and Stratonovitch integrals may be used (use setIto() or setStratonovich() from DifferentialEquation), and can be used as a trigger for ConditionalEstimator. The function is \f[ dV_t = \frac{1}{C} (v_L - V_t) g_L dt + (v_{Ca} - V_t) g_{Ca} M(t) dt + (v_{K} - V_t) g_{K} N(t) dt + ... \f] with \f[M(t) = 1+\exp\left(-2\frac{v_1-V_t}{v_2}\right)\f] \f[ dN_t = \left(N_t-1-\exp\left(-2\frac{v_3-V_t}{v_4}\right)\right) \cosh \frac{V-v_3}{2v_4}\f]. \f$ V_t \f$ is the membrane voltage, \f$ C \f$ is the membrane capacity which is always set to \f$ 1 \mu F \f$, \f$ v_L \f$ is the leak reversal potential, \f$ g_{L,K,Ca} \f$ are peak conductances of the leak, potassium and calcium channel, M(t) and N(t). \f$ w_i, v_i, dG^i \f$ are weight, reversal potential and conductance of a stimulating synapse. */
+
+class MlNeuron : public SpikingNeuron
+{
+private:
+	bool mlneuronHasSpikeNow; // is there a spike currently?
+	bool mlneuronHasSpikeNext; // will there be a spike after the next update?
+	DifferentialEquation mlneuronMembrane; // the membrane equation dV_t
+	DifferentialEquation mlneuronRelaxation; // relaxation constant dN_t
 	
 protected:
-	double ifneuronSpikeHeight; // height of a spike. This is cosmetical, really.
-	double ifneuronTheta; // threshold
+	double mlneuronTheta; // threshold, used for detecting when a spike has occured
 	
 	/// Construct.
 	/** Default constructor only to be used by derived classes. */
-	// IfNeuron::IfNeuron():Neuron(0, 0.0, 0.0){};
+	// MlNeuron::MlNeuron():Neuron(0, 0.0, 0.0){};
 	
 public:
 	/// construct
 	/** Creates a neuron. */
-	IfNeuron(
+	MlNeuron(
 		Time *time, ///< Address of global ime object
 		double v0, ///< Reset potential
 		double theta, ///< Threshold potential
@@ -58,11 +121,11 @@ public:
 		double tau, ///< Membrane time constant
 		double v_rest, ///< Resting potential
 		const string& name="", ///< name of object
-		const string& type="Integrate-and-Fire Neuron" ///< type of object, only use this when calling from a deriving class
+		const string& type="Morris-Lecar Neuron" ///< type of object, only use this when calling from a deriving class
 	);
 	
 	/// destruct
-	~IfNeuron();
+	~MlNeuron();
 	
 	/// Calibrate the neuron
 	/** Set the neuron to a specific reponse rate. This is achieved by internally adjusting the threshold.

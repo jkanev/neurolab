@@ -93,6 +93,7 @@ public:
 	string sYLabel; ///< The y-axis label
 	string sZLabel; ///< The z-axis label
 	string sUserSettings; ///< optional user settings
+	string sUsedDimensions; ///< optional setting for "using" string (see gnuplot)
 	int nLineStyle; ///< the line type (0 - normal count, 1 - ..: special colour/style)
 	
 	/// Construct.
@@ -156,6 +157,10 @@ public:
 	/** Sets the line style of the last plot. Style is an integer >= 0. In gnuplot, if many plots are executed, each plot gets a different colour (if in colour mode), or line style like dottet, dashed, etc. (if in monochrome mode). Using the setLineStyle function you can override this for the plot added last, and can specify a certain value (if you want multiple lines in the same color, for instance). If style==0, gnuplot defaults are used. */
 	void setLineStyle( const int &style );
 	
+	/// Set line addition.
+	/** Sets an addition to the style of the last plot (intended for "using" commands). */
+	void setUsedDimensions( string s );
+
 	/// Add mode.
 	/* Adds a display mode. This adds a single mode, whithout changing the other modes of the |-list. This must be done *before* the first data is inserted using the << operator. Current values are DSP_3D, DSP_2D, DSP_INCLUDE_START, DSP_INCLUDE_END */
 	void addMode( const int &mode );
@@ -232,5 +237,6 @@ DisplayAction addsetting( string variable, string value );
 DisplayAction setmode( const int mode );
 DisplayAction setLineStyle( const int n );
 DisplayAction setTitle( const string s );
+DisplayAction setUsedDimensions( const vector<uint> &dimension);
 
 #endif

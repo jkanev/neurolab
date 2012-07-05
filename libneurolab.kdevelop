@@ -17,7 +17,7 @@
   <kdevcustomproject>
     <run>
       <directoryradio>executable</directoryradio>
-      <mainprogram>/home/jacob/c++/libneurolab/bin/ItoVsStrat</mainprogram>
+      <mainprogram>/home/jacob/c++/libneurolab/bin/CoupledNeurons</mainprogram>
       <programargs/>
       <globaldebugarguments/>
       <globalcwd>/home/jacob/c++/libneurolab</globalcwd>
@@ -102,6 +102,11 @@
       <path>debian/tmp/usr/include/neurolab/thetaneuron.hxx</path>
       <path>debian/tmp/usr/include/neurolab/timedependent.hxx</path>
       <path>debian/tmp/usr/include/neurolab/wiener.hxx</path>
+      <path>ErnestoTest</path>
+      <path>ErnestoTest/Makefile</path>
+      <path>ErnestoTest/src</path>
+      <path>ErnestoTest/src/main.cpp</path>
+      <path>ErnestoTest/src/Makefile</path>
     </blacklist>
     <build>
       <buildtool>make</buildtool>

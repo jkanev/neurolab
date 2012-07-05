@@ -72,7 +72,7 @@ public:
 	
 	/// Construct.
 	/** Registers the class with the Time class for automatic running. */
-	Estimator(StochasticProcess *src, Time *time, const string& name="", const string& type="estimator") ;
+	Estimator(StochasticProcess *src, Time *time, const string& name="", const string& type="Estimator") ;
 		
 	/// Reset all estimation dependent values.
 	virtual void init() = 0;

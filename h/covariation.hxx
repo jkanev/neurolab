@@ -35,7 +35,7 @@ private:
 public:
 	/// Construct.
 	/** This constructs a covariation prcoess of thwo stochastic processes. The resulting process is active by default, but can be set passive. */
-	Covariation(StochasticProcess *x, StochasticProcess *y, string name="", const string& type="covariation_process") : StochasticProcess(x->getTime(), name, type) {
+	Covariation(StochasticProcess *x, StochasticProcess *y, string name="", const string& type="Covariation Process") : StochasticProcess(x->getTime(), name, type) {
 		// default name if "" is given
 		if (getName()=="")
 			setName("covariation process of " + x->getName() + " and " + y->getName());

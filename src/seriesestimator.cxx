@@ -1,5 +1,5 @@
 #include "../h/seriesestimator.hxx"
-#include <neurolab/graph.hxx>
+#include "../h/graph.hxx"
 
 //________________________________________________________________________________
 // construct
@@ -26,10 +26,10 @@ SeriesEstimator::SeriesEstimator (const Property &property, StochasticEventGener
 	// init density estimator values
 	if (nEstimate & EST_DENS) {
 		// 100 bins
-		estimatorDistLength = 100;
+		estimatorDistLength = 500;
 		// time from -50 to 50ms
-		estimatorDistRange[0] = -300.0 / 1000.0 / estimatorTime->dt;
-		estimatorDistRange[1] = 300.0 / 1000.0 / estimatorTime->dt;
+		estimatorDistRange[0] = -200.0 / 1000.0 / estimatorTime->dt;
+		estimatorDistRange[1] = 200.0 / 1000.0 / estimatorTime->dt;
 		estimatorDistOffset = double(estimatorDistRange[0]);
 		estimatorDistScale = (double(estimatorDistRange[1]) - double(estimatorDistRange[0])) / double(estimatorDistLength);
 	}
@@ -119,13 +119,18 @@ void SeriesEstimator::collect()
 		seriesTriggers << 0;
 	
 	if (seriesSource->hasEvent()) {
+
 		// move new event into queue
 		seriesRecords.next(0);
 		
-		// record one spike-train
-		if (seriesTriggers.size() && seriesRecords[-estimatorPost] <= seriesTriggers.first()) {
+		// record differences
+		while (seriesTriggers.size()
+			&& seriesRecords[-estimatorPost-1] > seriesTriggers.first()
+			&& seriesRecords[-estimatorPost] <= seriesTriggers.first())
+		{
 			uint triggerTime;   // how long ago this trigger was
 			seriesTriggers >> triggerTime;
+
 			if (seriesRecords.isInitialized()) {
 				for (int i = 1; i<=estimatorPre+estimatorPost+1; ++i) {
 					estimatorSample[i-1] 

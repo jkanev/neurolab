@@ -488,15 +488,15 @@ Noise *NoiseSource::createNoise( int n, const string &type )
 {
 	if( !aNoises[n] ) {
 		stringstream name;
-		if (type=="correlated_wiener_process") {
+		if (type=="Correlated Wiener Process") {
 			name << "Wiener process" << "[" << n << "]" << flush;
 			aNoises[n] = new WienerNoise(this, n, name.str());
 		}
-		else if (type=="correlated_poisson_process") {
+		else if (type=="Correlated Poisson Process") {
 			name << "Poisson process" << "[" << n << "]" << flush;
 			aNoises[n] = new PoissonNoise(this, n, name.str());
 		}
-		else if (type=="correlated_ornstein_uhlenbeck_process") {
+		else if (type=="Correlated Ornstein-Uhlenbeck Process") {
 			cout << "Ornstein-Uhlenbeck process not implemented yet." << endl;
 			name << "Wiener process" << "[" << n << "]" << flush;
 			aNoises[n] = new WienerNoise(this, n, name.str());
@@ -538,6 +538,7 @@ void NoiseSource::prepareNextState()
 //   proceed all noises
 void NoiseSource::proceedToNextState()
 {
+	stochNextStateIsPrepared = false;
 	for(int i=0; i<nNoises; ++i) {
 		if(aNoises[i]) {
 			double omega = 0.0;
@@ -550,4 +551,5 @@ void NoiseSource::proceedToNextState()
 			aNoises[i]->setNext(omega);
 		}
 	}
+	stochNextStateIsPrepared = false;
 }

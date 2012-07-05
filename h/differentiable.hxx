@@ -80,7 +80,7 @@ public:
 		double x0, ///< starting value
 		double dx0, ///< starting increment
 		const string& name="",   ///< object name
-		const string& type="differential_equation"   ///< object type
+		const string& type="Differential Equation"   ///< object type
 	);
 	
 	/// Construct.
@@ -89,14 +89,14 @@ public:
 		double x0, ///< starting value
 		double dx0, ///< starting increment
 		const string& name="",   ///< object name
-		const string& type="differential_equation"   ///< object type
+		const string& type="Differential Equation"   ///< object type
 	);
 	
 	/// Construct.
 	/** The same as using DifferentialEquation(0.0, 0.0). */
 	DifferentialEquation (
 		const string& name="",   ///< object name
-		 const string& type="differential_equation" )   ///< object type
+		 const string& type="Differential Equation" )   ///< object type
 	: StochasticVariable(0, name, type)
 	{
 		DifferentialEquation(0.0, 0.0);

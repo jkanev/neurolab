@@ -52,7 +52,7 @@ protected:
 	
 	/// Construct.
 	/** This constructor is protected, because this class should only be instantiated by calls from the NoiseSource class. */
-	Noise(class NoiseSource *parent, int index, const string& name="", const string& type="correlated_noise");
+	Noise(class NoiseSource *parent, int index, const string& name="", const string& type="Correlated Noise");
 	
 	/// Construct.
 	/** This class mustn't be copied. */
@@ -133,7 +133,7 @@ private:
 protected:
 	/// Construct.
 	/** This constructor is protected, because this class can only be instantiated by calls from the NoiseSource class. */
-	PoissonNoise(class NoiseSource *, int index, const string& name="", const string& type="correlated_poisson_process");
+	PoissonNoise(class NoiseSource *, int index, const string& name="", const string& type="Correlated Poisson Process");
 	
 	/// Construct.
 	/** This class mustn't be copied. */
@@ -173,7 +173,7 @@ private:
 protected:
 	/// Construct.
 	/** This constructor is protected, because this class can only be instantiated by calls from the NoiseSource class. */
-	WienerNoise(class NoiseSource *parent, int index, const string& name="", const string& type="correlated_wiener_process");
+	WienerNoise(class NoiseSource *parent, int index, const string& name="", const string& type="Correlated Wiener Process");
 	
 	/// Construct.
 	/** This class mustn't be copied. */
@@ -237,7 +237,7 @@ public:
 	/** This will retrieve the address of a noise object. If the object is not existent, or of a different type as stated by the p, it will be created.*/
 	Noise *createNoise(
 		int n, ///< The index of the noise.
-		const string& t ///< The type of the noise (can be "correlated_wiener_process" or "correlated_ornstein_uhlenbeck_process").
+		const string& t ///< The type of the noise (can be "Correlated Wiender Process", "Correlated Poisson Process", "Correlated Ornstein-Uhlenbeck Process").
 	);
 	
 	/// Get a noise object.

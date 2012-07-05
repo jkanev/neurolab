@@ -26,7 +26,7 @@ __________________________________________________________________________
 #include "../h/matrix.hxx"
 
 IfNeuron::IfNeuron(Time *time, double v_0, double theta, double spikeheight, double tau, double v_rest, const string& name, const string& type)
-	: SpikingNeuron(time, name, type), ifneuronMembrane(time, v_0, 0.0, "V(t)")
+	: SpikingNeuron(time, name, type), ifneuronMembrane(time, v_0, 0.0, "V")
 {
 	// parameter accessors
 	addParameter("threshold");
@@ -46,7 +46,7 @@ IfNeuron::IfNeuron(Time *time, double v_0, double theta, double spikeheight, dou
 	physicalUnit = Unit("m","V");
 	
 	// add decay terms
-	ifneuronMembrane.addTerm( new VoltageDependance(1.0/tau, v_rest, "1/tau (leak - V(t))"), new TimeProcess(xTime) );
+	ifneuronMembrane.addTerm( new VoltageDependance(1.0/tau, v_rest, "leak"), new TimeProcess(xTime) );
 }
 
 IfNeuron::~IfNeuron()
@@ -166,6 +166,10 @@ void IfNeuron::setParameter(const string& name, const string& value)
 		setting >> ifneuronSpikeHeight;
 		cout << "setting spike height to " << ifneuronSpikeHeight << endl;
 	}
+	else if (name== "membrane") {
+		// !! include boost regex library and take parameter apart here !!
+		ifneuronMembrane.setParameter(name, value);
+	}
 	else
 		SpikingNeuron::setParameter(name, value);
 }
@@ -178,13 +182,19 @@ int IfNeuron::addStimulus( StochasticVariable *stochvar )
 int IfNeuron::addStimulus( StochasticVariable *stochvar, double weight )
 {
 	stringstream name;
-	name << "w" << ifneuronMembrane.getNTerms();
+	if (weight > 0)
+		name << "excitatory";
+	else if (weight < 0)
+		name << "inhibitory";
+	else
+		name << "shunting";
+	
 	return ifneuronMembrane.addTerm( new Scalar( weight, name.str() ), stochvar );
 }
 
 int IfNeuron::addStimulus( StochasticVariable *stochvar, double weight, double revPot )
 {
-	return ifneuronMembrane.addTerm( new VoltageDependance(weight, revPot, &ifneuronMembrane), stochvar );
+	return ifneuronMembrane.addTerm( new VoltageDependance(weight, revPot, "channel"), stochvar );
 }
 
 int IfNeuron::addStimulus( Synapse *synapse )

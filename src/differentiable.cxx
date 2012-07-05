@@ -81,10 +81,15 @@ int DifferentialEquation::addTerm(StochasticFunction *integrand, StochasticVaria
 		integrand->getUnit() * integrator->getUnit();
 	eqnTermAmount = eqnIntegrands.size();
 	
-	// add parameter for new term
-	stringstream param;
-	param << "integrand_" << eqnTermAmount;
-	addParameter( param.str() );
+	// add parameter for new integrand
+	stringstream param1;
+	param1 << "f" << eqnTermAmount << "(" << getName() << ")";
+	addParameter( param1.str() );
+	
+	// add parameter for new integrator
+	stringstream param2;
+	param2 << "X" << eqnTermAmount;
+	addParameter( param2.str() );
 	
 	return eqnTermAmount-1;
 }
@@ -100,11 +105,16 @@ void DifferentialEquation::rmTerm(int n)
 		eqnIntegrands.erase(eqnIntegrands.begin()+n);
 		eqnIntegrators.erase(eqnIntegrators.begin()+n);
 		
-		// rm parameter for old term
-		stringstream param;
-		param << "integrand_" << eqnTermAmount;
-		rmParameter( param.str() );
+		// add parameter for new integrand
+		stringstream param1;
+		param1 << "f" << eqnTermAmount << "(" << getName() << ")";
+		rmParameter( param1.str() );
 		
+		// add parameter for new integrator
+		stringstream param2;
+		param2 << "X" << eqnTermAmount;
+		rmParameter( param2.str() );
+			
 		eqnTermAmount = eqnIntegrands.size();
 	}
 }
@@ -282,7 +292,8 @@ string DifferentialEquation::getParameter( const string& name ) const
 		param << "d " << getName() << " = ";
 		for (int i=0; i<eqnTermAmount; ++i) {
 			if (i) param << " + ";
-			param << eqnIntegrands[i]->getName() + " d " + eqnIntegrators[i]->getName() + "  ";
+			param << "f" << i+1 << "(" << getName() << ") ";
+			param << "d X" << i+1 << " ";
 		}
 	}
 	
@@ -294,15 +305,29 @@ string DifferentialEquation::getParameter( const string& name ) const
 	else if (name=="mode")
 		param << (isIto() ? "ito" : "stratonovitch");
 	
-	// parameters for one of the terms
-	else for (uint i=0; i<eqnIntegrands.size(); ++i) {
-		stringstream term;
-		term << "integrand_" << i+1;
-		if (name == term.str()) {
-			param << eqnIntegrands[i]->getConfiguration();
-			break;
+	// parameters for single terms
+	else {
+		
+		// parameters for integrands
+		for (uint i=0; i<eqnIntegrands.size(); ++i) {
+			stringstream term;
+			term << "f" << i+1 << "(" << getName() << ")";
+			if (name == term.str()) {
+				param << eqnIntegrands[i]->getConfiguration();
+				break;
+			}
+		}
+			
+		// parameters for integrators
+		for (uint i=0; i<eqnIntegrands.size(); ++i) {
+			stringstream term;
+			term << "X" << i+1;
+			if (name == term.str()) {
+				param << "\"" << eqnIntegrators[i]->getName() << "\" " << eqnIntegrators[i]->getType();
+				break;
+			}
 		}
 	}
-		
+	
 	return param.str();
 }

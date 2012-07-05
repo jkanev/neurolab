@@ -49,13 +49,17 @@ public:
 	}
 
 	void operator<<(T input) {
-		++queueSize;
-		next(input);
+		if (queueSize < Ring<T>::ringSize) {
+			++queueSize;
+			this->next(input);
+		}
 	}
 	
 	void operator>>(T &output) {
-		output = (*this)[-queueSize+1];
-		--queueSize;
+		if (queueSize) {
+			output = (*this)[-queueSize+1];
+			--queueSize;
+		}
 	}
 	
 	void operator+=(T value) {

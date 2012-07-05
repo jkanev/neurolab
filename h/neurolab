@@ -28,6 +28,7 @@ __________________________________________________________________________
 #include "./graph.hxx"
 #include "./estimator.hxx"
 #include "./scalarestimator.hxx"
+#include "./seriesestimator.hxx"
 #include "./intervalestimator.hxx"
 #include "./conditionalestimator.hxx"
 #include "./processestimator.hxx"
@@ -38,4 +39,6 @@ __________________________________________________________________________
 #include "./thetaneuron.hxx"
 #include "./noises.hxx"
 #include "./function.hxx"
+#include "./thresholddetector.hxx"
+#include "./dependanceestimator.hxx"
 

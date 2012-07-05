@@ -4,12 +4,12 @@ FLAGS = -g -Wall
 LIBRARYVERSION = 0:0:0
 PACKAGENAME = libneurolab
 IPATHS = -I/usr/include/boost
-LPATHS = -L/home/jacob/c++/neurolab/lib
+LPATHS = -L/home/jacob/software/neurolab/lib
 LIBS = -lm
 LIBRARY = $(DESTDIR)/usr/lib/libneurolab.so
 DEFINES = -D_GNUPLOT_CALL="\"/usr/bin/gnuplot \""
 
-OBJECTS = obj/parametric.o obj/stochastic.o obj/differentiable.o obj/processes.o obj/display.o obj/processestimator.o obj/conditionalestimator.o obj/scalarestimator.o obj/intervalestimator.o obj/matrix.o obj/ifneuron.o obj/synapse.o obj/wiener.o obj/function.o obj/physical.o obj/neuron.o obj/thetaneuron.o obj/noises.o obj/stochastic.o obj/dependanceestimator.o obj/seriesestimator.o obj/timedependent.o obj/estimator.o
+OBJECTS = obj/parametric.o obj/stochastic.o obj/differentiable.o obj/processes.o obj/display.o obj/processestimator.o obj/conditionalestimator.o obj/scalarestimator.o obj/intervalestimator.o obj/matrix.o obj/ifneuron.o obj/mlneuron.o obj/synapse.o obj/wiener.o obj/function.o obj/physical.o obj/neuron.o obj/thetaneuron.o obj/noises.o obj/stochastic.o obj/dependanceestimator.o obj/seriesestimator.o obj/timedependent.o obj/estimator.o
 
 TESTPROGRAMS = bin/CoupledNeurons bin/ItoVsStrat bin/ItoVsStrat2 bin/ItoVsStrat3 bin/Functions bin/NoiseTest
 
@@ -20,7 +20,7 @@ docs:
 	doxygen neurolab.doxygen
 
 archive: clean
-	cd ..; tar cvvjf neurolab.tar.bz2 libneurolab/ --exclude *~ --exclude *.data --exclude *.gnuplot --exclude *.ps; cd libneurolab
+	cd ..; tar cvvjf neurolab.tar.bz2 libneurolab/ --exclude *~ --exclude *.data --exclude *.gnuplot --exclude *.ps --exclude-vcs; cd libneurolab
 
 install: installDocs installLib installHeaders
 
@@ -120,6 +120,9 @@ obj/ifneuron.o: src/ifneuron.cxx h/ifneuron.hxx h/noises.hxx obj/neuron.o
 
 obj/thetaneuron.o: src/thetaneuron.cxx h/thetaneuron.hxx obj/neuron.o
 	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS)  src/thetaneuron.cxx -o obj/thetaneuron.o
+
+obj/mlneuron.o: src/mlneuron.cxx h/mlneuron.hxx h/noises.hxx obj/neuron.o
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS)  src/mlneuron.cxx -o obj/mlneuron.o
 
 obj/synapse.o: src/synapse.cxx h/synapse.hxx obj/differentiable.o obj/parametric.o
 	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS)  src/synapse.cxx -o obj/synapse.o

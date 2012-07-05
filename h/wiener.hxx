@@ -53,7 +53,7 @@ protected:
 	double wienerSqrtDt;
 
 public:
-	Wiener(class Time *time, const string& name="", const string& type="wiener_process");
+	Wiener(class Time *time, const string& name="", const string& type="Wiener Process");
 	~Wiener(){};
 	virtual void init();
 	virtual void prepareNextState();

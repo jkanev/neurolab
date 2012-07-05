@@ -62,7 +62,7 @@ class SpikingNeuron: public Neuron, public StochasticEventGenerator
 	SpikingNeuron (
 		Time *time,   ///< global time object
 		string name,   ///< object name
-		string type="spiking_neuron"   ///< object type
+		string type="Spiking Neuron"   ///< object type
 	) : Neuron(name, type), StochasticEventGenerator(time, name, type) {};
 };
 

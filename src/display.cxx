@@ -59,6 +59,12 @@ void Display::setLineStyle( const int &n )
 		vPlots.back().nLineStyle = n;
 }
 
+void Display::setUsedDimensions( string s )
+{
+	if (vPlots.size())
+		vPlots.back().sUsedDimensions = s;
+}
+
 void Display::setMode( const int &n )
 {
 	nMode = n;
@@ -235,7 +241,11 @@ int Display::plot()
 				}
 			} else 
 				(*pFile) << ", ";
-			(*pFile) << vPlots[i].sFunction << " title \"" << vPlots[i].sName << "\" " ;
+			
+			(*pFile) << vPlots[i].sFunction;
+			if (vPlots[i].sUsedDimensions.length() > 0)
+				(*pFile) << " using " <<  vPlots[i].sUsedDimensions;
+			(*pFile) <<  " title \" " << vPlots[i].sName << "\" " ;
 			
 			switch(mode & DSP_LINE_MASK) {
 				case DSP_LINES:
@@ -263,7 +273,7 @@ int Display::plot()
 					(*pFile) << " ";
 			}
 			if (vPlots[i].nLineStyle)
-				(*pFile) << vPlots[i].nLineStyle;
+				(*pFile) << "lt " << vPlots[i].nLineStyle;
 			firstPlot = false;
 			oldMode = mode;
 		}
@@ -370,4 +380,12 @@ DisplayAction setTitle( const string title )
 	return DisplayAction(0, "\""+title+"\"", 0, 0, &Display::setTitle);
 };
 
-
+DisplayAction setUsedDimensions( const vector<uint> &dimensions)
+{
+	stringstream s;
+	for (uint i=0; i<dimensions.size(); ++i) {
+		if (i) s << ':';
+		s << dimensions[i];
+	}
+	return DisplayAction(0, s.str(), 0, 0, &Display::setUsedDimensions);
+};

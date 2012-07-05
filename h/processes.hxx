@@ -34,7 +34,7 @@ class StochasticFunction;
 class TimeProcess: public StochasticVariable
 {
 public:
-	TimeProcess(Time *time, const string& name="t", const string& type="time_process") : StochasticVariable(time, name, type) {
+	TimeProcess(Time *time, const string& name="t", const string& type="Time Process") : StochasticVariable(time, name, type) {
 		physicalUnit = time->getUnit();
 	};
 	
@@ -69,11 +69,11 @@ public:
 
 	/// Construct.
 	/** Construct a scalar with a description. */
-	Scalar(double scalar, const string& name, const string& type="scalar");
+	Scalar(double scalar, const string& name, const string& type="Scalar");
 
 	/// Construct.
 	/** Construcr a scalar with a description and a physical unit. */
-	Scalar(double scalar, string unitPrefix, string unitSymbol, const string& name, const string& type="scalar");
+	Scalar(double scalar, string unitPrefix, string unitSymbol, const string& name, const string& type="Scalar");
 
 	/// Destroy.
 	virtual ~Scalar(){};
@@ -104,7 +104,7 @@ protected:
 public:
 	
 	/// Create.
-	Product(double factor, const string& name="", const string& type="product");
+	Product(double factor, const string& name="", const string& type="Product");
 	
 	/// Destroy.
 	virtual ~Product(){};
@@ -152,15 +152,22 @@ private:
 	double getCurrentValue;
 public:
 	
-	/// Constructor with object name.
-	VoltageDependance(double, double, const string& name="", const string& type="voltage-dependance");
+	/// Construct with object name.
+	VoltageDependance(double, double, const string& name="", const string& type="Weighted Difference");
 	
-	/// Constructor, object name generated from parent
-	VoltageDependance(double, double, const DifferentialEquation *parent=0, const string& type="voltage-dependance");
+	/// Destroy.
 	virtual ~VoltageDependance(){};
+	
+	/// Create parameter string.
 	string getParameter(const string&) const;
+	
+	/// Set parameter from string.
 	void setParameter(const string& name, const string& value);
+	
+	/// Generate next value.
 	virtual double calculateCurrentValue();
+	
+	/// Generate next value.
 	virtual double calculateNextValue();
 };
 

@@ -49,7 +49,7 @@ public:
 		double weight,   ///< synaptic weight
 		double revPot,   ///< reversal potential
 		const string& name="",   ///< object name
-		const string& type="synapse"   ///< object type
+		const string& type="Synapse"   ///< object type
 	);
 	
 	/// Return current value.

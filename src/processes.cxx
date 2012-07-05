@@ -129,29 +129,6 @@ VoltageDependance::VoltageDependance(double weight, double reversal, const strin
 	addParameter("weight");
 }
 
-VoltageDependance::VoltageDependance(double weight, double reversal, const DifferentialEquation *parent, const string& type)
-	: StochasticFunction(0, "", type)
-{
-	dReversal = reversal;
-	dWeight = weight;
-	stochCurrentValue = 0.0;
-	physicalUnit = Unit("m","V");
-	if (parent) {
-		int term = parent->getNTerms();
-		stringstream weight;
-		stringstream revpot;
-		weight << "w." << term;
-		revpot << "v." << term;
-		setName( weight.str() + "(" + revpot.str() + " - " + parent->getName() + ")" );
-		addParameter(weight.str());
-		addParameter(revpot.str());
-	}
-	else {
-		addParameter("reversal-potential");
-		addParameter("weight");
-	}
-}
-
 string VoltageDependance::getParameter(const string& name) const
 {
 	stringstream param;

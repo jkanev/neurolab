@@ -54,7 +54,7 @@ protected:
 public:
 	
 	/// Create.
-	StochasticProcess(class Time *time, const string& name="", const string& type="stochastic") : Parametric(name, type), TimeDependent(time) { 
+	StochasticProcess(class Time *time, const string& name="", const string& type="Stochastic") : Parametric(name, type), TimeDependent(time) { 
 		stochCurrentValue = 0.0;
 		stochNextValue = 0.0;
 		stochDescription = "stochastic process";
@@ -128,7 +128,7 @@ private:
 public:
 	
 	/// Create.
-	StochasticVariable(class Time *time, const string& name="", const string& type="stochastic_variable") : StochasticProcess(time, name, type) {};
+	StochasticVariable(class Time *time, const string& name="", const string& type="Stochastic Variable") : StochasticProcess(time, name, type) {};
 		
 	/// Returns the value at  the current time step.
 	/** This is mainly a callback function for the DifferentialEquation class. If the process is active this also proceeds the object's time.  Implementing this function is compulsary. */
@@ -155,7 +155,7 @@ private:
 public:
 	
 	/// Create.
-	StochasticFunction(class Time *time, const string& name="", const string& type="stochastic_function") : StochasticProcess(time, name, type) {};
+	StochasticFunction(class Time *time, const string& name="", const string& type="Stochastic Function") : StochasticProcess(time, name, type) {};
 	
 	/// Returns the value at  the current time step.
 	/** Same as getCurrentValue(x). */
@@ -205,7 +205,7 @@ class StochasticEventGenerator : public StochasticVariable
 public:
 	
 	/// Create.
-	StochasticEventGenerator(class Time *time, const string& name="", const string& type="event_generator")
+	StochasticEventGenerator(class Time *time, const string& name="", const string& type="Event Generator")
 		: StochasticVariable( time, name, type) {};
 	
 	/// Destroy.

@@ -34,7 +34,7 @@ using namespace std;
 class ThetaMembrane: public StochasticFunction
 {
 public:
-	ThetaMembrane(Time *time, const string& name="", const string& type="theta_membrane") : StochasticFunction(time, name, type) {};
+	ThetaMembrane(Time *time, const string& name="", const string& type="Theta Membrane") : StochasticFunction(time, name, type) {};
 	~ThetaMembrane(){};
 	
 	/// Return current value.
@@ -53,7 +53,7 @@ public:
 class ThetaStimulus: public StochasticFunction
 {
 public:
-	ThetaStimulus(Time *time, const string& name="", const string& type="theta_stimulus") : StochasticFunction(time, name, type) {};
+	ThetaStimulus(Time *time, const string& name="", const string& type="Theta Stimulus") : StochasticFunction(time, name, type) {};
 	~ThetaStimulus(){};
 	
 	/// Return current value.
@@ -81,7 +81,7 @@ private:
 
 public:
 	/// Construct.
-	ThetaNeuron(Time *time, const string& name="", const string& type="theta_neuron");
+	ThetaNeuron(Time *time, const string& name="", const string& type="Theta Neuron");
 	
 	/// Destruct.
 	~ThetaNeuron();
