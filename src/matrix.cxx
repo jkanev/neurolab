@@ -112,7 +112,6 @@ void Matrix::copy( const Matrix &m, bool deep )
 /// constructs a one-dimensional matrix
 Matrix::Matrix(int i) : sMatrixName("data") 
  { 
-	for (int n=0; n<i; ++n) pData[n] = 0.0;
 	nMatrixDimension = 1;
 	pSize = new int[nMatrixDimension];
 	pSize[0] = i;

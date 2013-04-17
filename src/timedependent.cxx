@@ -51,7 +51,7 @@ void Time::runNested( unsigned long long steps, unsigned long long runs, DataCol
 //__________________________________________________________________________________________
 // run time
 
-void Time::run(unsigned long long steps, ostream &log)
+void Time::run(unsigned long long steps, ostream &log, bool init)
 {
 	// starting note
 	log << "\rstarting simulation: " 
@@ -60,11 +60,13 @@ void Time::run(unsigned long long steps, ostream &log)
 			<< endl;
 	
 	// initialise time objects
-	for (uint i=0; i<timeObjects.size(); ++i)
-		timeObjects[i]->init();
-	for (uint i=0; i<timeEstimators.size(); ++i)
-		timeEstimators[i]->init();
-	
+	timePassed = 0.0;
+	if (init) {
+		for (uint i=0; i<timeObjects.size(); ++i)
+			timeObjects[i]->init();
+		for (uint i=0; i<timeEstimators.size(); ++i)
+			timeEstimators[i]->init();
+	}
 	unsigned long long lastPercentage = 0;
 	for (unsigned long long s=0; s<steps; ++s) {
 
@@ -97,7 +99,7 @@ void Time::run(unsigned long long steps, ostream &log)
 //__________________________________________________________________________________________
 // run time
 
-void Time::run(unsigned long long events, StochasticEventGenerator *eventSource, unsigned long long maxSteps, ostream &log)
+void Time::run(unsigned long long events, StochasticEventGenerator *eventSource, unsigned long long maxSteps, ostream &log, bool init)
 {
 	// starting note
 	log << "\rstarting simulation: " 
@@ -107,10 +109,12 @@ void Time::run(unsigned long long events, StochasticEventGenerator *eventSource,
 			<< endl;
 	
 	// initialise time objects
-	for (uint i=0; i<timeObjects.size(); ++i)
-		timeObjects[i]->init();
-	for (uint i=0; i<timeEstimators.size(); ++i)
-		timeEstimators[i]->init();
+	if (init) {
+		for (uint i=0; i<timeObjects.size(); ++i)
+			timeObjects[i]->init();
+		for (uint i=0; i<timeEstimators.size(); ++i)
+			timeEstimators[i]->init();
+	}
 	
 	unsigned long long lastPercentage = 0;
 	for (unsigned long long e=0, s=0; e<events && s<maxSteps; ++s) {
@@ -130,8 +134,10 @@ void Time::run(unsigned long long events, StochasticEventGenerator *eventSource,
 			timeObjects[i]->proceedToNextState();
 
 		// count events
-		if (eventSource->hasEvent())
+		if (eventSource->hasEvent()) {
 			++e;
+			s = 0;
+		}
 		
 		// note to user
 		unsigned long long currentPercentage = ( e * 100ULL ) / events;
@@ -175,6 +181,9 @@ bool Time::step()
 			}
 		}
 	}
+	
+	if (allObjectsUpdated)
+		timePassed += dt;
 	
 	return allObjectsUpdated;
 }

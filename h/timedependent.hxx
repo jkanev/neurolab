@@ -103,6 +103,7 @@ private:
 
 public:
 	double dt;
+	double timePassed;
 	
 	/// Create time.
 	Time(double timestep) {
@@ -123,7 +124,8 @@ public:
 	/** Runs a simulation for a certain number of time steps. */
 	void run (
 		  unsigned long long steps,   ///< number of time steps to run
-		 ostream &log = cout   ///< stream for progress messages
+		 ostream &log = cout,   ///< stream for progress messages
+		 bool init = true ///< include initialising of all dependent objects
 	);
 
 	/// Run simulation for all attached objects.
@@ -133,7 +135,8 @@ public:
 		unsigned long long events,   ///< number of events until run is finished
 		class StochasticEventGenerator *eventSource,   ///< event source
 		unsigned long long maxSteps,   ///< maximum number of time steps, should the event source fail
-		ostream &log = cout   ///< stream for progress messages
+		ostream &log = cout,   ///< stream for progress messages
+		bool init = true ///< include initialising of all dependent objects
 	);
 	
 	/// Run multiple simulations for all attached objects.

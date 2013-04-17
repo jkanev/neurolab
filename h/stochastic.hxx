@@ -38,7 +38,7 @@ using namespace std;
 class Time;
 
 /// A stochastic variable.
-/** This class implements a stochastic process, either has a simple process, or as a function of another variable. It can run in active mode -  the ()-operator will then forward it by one step; or in passive mode - in which case the ()-operator will only retrieve value or delta. The value of a stochastic variable changes with each time step - either when a () operator or the d() function is called. All forms of stochastic variables should inherit from this class. */
+/** This class implements a stochastic process, either has a simple process, or as a function of another variable. All forms of stochastic variables should inherit from this class. Main functionality is implemented in the prepareNextState() function, which should be overriden in deriving classes. */
 class StochasticProcess: public Parametric, public TimeDependent, public Physical
 {
 private:
@@ -72,7 +72,7 @@ public:
 	};
 	
 	/// Calculate next value (preparing next step).
-	/** This method should be overridden to implement the calculation of the next value, using information wich is available at the current time. The method sets stochNextStateIsPrepared to true if successful. */
+	/** This method should be overridden to implement the calculation of the next value, using information wich is available at the current time. The method must set the protected member stochNextStateIsPrepared to true if successful. */
 	virtual void prepareNextState() {
 		stochNextStateIsPrepared = true;
 	};
@@ -99,6 +99,10 @@ public:
 	/// Set the next value of the process.
 	/** Used for reflecting boundaries etc.. */
 	virtual void setNextValue(double d) { stochNextValue = d; };
+	
+	/// Set the current value of the process.
+	/** Used for reflecting boundaries etc.. */
+	virtual void setCurrentValue(double d) { stochCurrentValue = d; };
 	
 	/// Set stochastic description.
 	void setDescription(string s) {
@@ -131,13 +135,13 @@ public:
 	StochasticVariable(class Time *time, const string& name="", const string& type="Stochastic Variable") : StochasticProcess(time, name, type) {};
 		
 	/// Returns the value at  the current time step.
-	/** This is mainly a callback function for the DifferentialEquation class. If the process is active this also proceeds the object's time.  Implementing this function is compulsary. */
+	/** The content of the protected variable stochCurrentValue is returned. */
 	double operator()() { 
 		return stochCurrentValue;
 	};
 	
 	/// Returns the increment at  the current time step.
-	/** This is mainly a callback function for the DifferentialEquation class. If the process is active this also proceeds the object's time. */
+	/** The difference of the protected variables stochNextValue - stochCurrentValue is returned. */
 	double d() {
 		return stochNextValue - stochCurrentValue;
 	}	

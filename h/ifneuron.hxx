@@ -112,6 +112,14 @@ public:
 	/// Return whether a spike is happening.
 	virtual bool hasEvent();
 	
+	/// Set the next value of the process.
+	/** This includes both the value of the neuron and the membrane, which is a separate object.. */
+	virtual void setNextValue(double d) { stochNextValue = d; ifneuronMembrane.setNextValue(d); };
+	
+	/// Set the current value of the process.
+	/** This includes both the value of the neuron and the membrane, which is a separate object.. */
+	virtual void setCurrentValue(double d) { stochCurrentValue = d; ifneuronMembrane.setCurrentValue(d); };
+	
 	/// step
 	virtual void prepareNextState();
 	virtual void proceedToNextState();

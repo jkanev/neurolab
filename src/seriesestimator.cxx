@@ -5,7 +5,7 @@
 // construct
 
 SeriesEstimator::SeriesEstimator (const Property &property, StochasticEventGenerator *source, StochasticEventGenerator *trigger, Time *time,  int preEvents, int postEvents)
-: Estimator(0, time), seriesRecords(preEvents+postEvents+1), seriesTriggers(preEvents+postEvents+1)
+: Estimator(0, time), seriesRecords(preEvents+postEvents), seriesTriggers(10000)
 {
 	seriesTrigger = trigger;
 	seriesSource = source;
@@ -25,35 +25,37 @@ SeriesEstimator::SeriesEstimator (const Property &property, StochasticEventGener
 	
 	// init density estimator values
 	if (nEstimate & EST_DENS) {
-		// 100 bins
-		estimatorDistLength = 500;
-		// time from -50 to 50ms
-		estimatorDistRange[0] = -200.0 / 1000.0 / estimatorTime->dt;
-		estimatorDistRange[1] = 200.0 / 1000.0 / estimatorTime->dt;
+		// time from -200 to 200ms
+		estimatorDistRange[0] = -0.2 / estimatorTime->dt;
+		estimatorDistRange[1] = 0.2 / estimatorTime->dt;
+
+		// bin size equals 2dt
+		estimatorDistLength = 0.2 / estimatorTime->dt;
+
 		estimatorDistOffset = double(estimatorDistRange[0]);
 		estimatorDistScale = (double(estimatorDistRange[1]) - double(estimatorDistRange[0])) / double(estimatorDistLength);
 	}
 	
 	// create arrays
 	if (nEstimate & EST_SAMPLE)
-		estimatorSample = new double[estimatorPre+estimatorPost+1];
+		estimatorSample = new double[estimatorPre+estimatorPost];
 	else
 		estimatorSample = 0;
 	if (nEstimate & EST_MEAN)
-		estimatorOne = new double[estimatorPre+estimatorPost+1];
+		estimatorOne = new double[estimatorPre+estimatorPost];
 	else
 		estimatorOne = 0;
 	if (nEstimate & EST_VAR)
-		estimatorTwo = new double[estimatorPre+estimatorPost+1];
+		estimatorTwo = new double[estimatorPre+estimatorPost];
 	else
 		estimatorTwo = 0;
 	if (nEstimate & EST_CUR)
-		estimatorThree = new double[estimatorPre+estimatorPost+1];
+		estimatorThree = new double[estimatorPre+estimatorPost];
 	else
 		estimatorThree = 0;
 	if (nEstimate & EST_DENS) {
-		estimatorDist = new double *[estimatorPre+estimatorPost+1];
-		for (int i=0; i<estimatorPre+estimatorPost+1; ++i)
+		estimatorDist = new double *[estimatorPre+estimatorPost];
+		for (int i=0; i<estimatorPre+estimatorPost; ++i)
 			estimatorDist[i] = new double[estimatorDistLength];
 	} else
 		estimatorDist = 0;
@@ -73,7 +75,7 @@ SeriesEstimator::~SeriesEstimator()
 	if (estimatorThree)
 		delete[] estimatorThree;
 	if (estimatorDist) {
-		for (int i=0; i<estimatorPre+estimatorPost+1; ++i)
+		for (int i=0; i<estimatorPre+estimatorPost; ++i)
 			delete[] estimatorDist[i];
 		delete[] estimatorDist;
 	}
@@ -85,19 +87,19 @@ void SeriesEstimator::init()
 {
 	nSamples = 0;
 	if(nEstimate & EST_SAMPLE)
-		for(int i=0; i<estimatorPre+estimatorPost+1; i++)
+		for(int i=0; i<estimatorPre+estimatorPost; i++)
 			estimatorSample[i] = 0.0;
 	if(nEstimate & EST_MEAN)
-		for(int i=0; i<estimatorPre+estimatorPost+1; i++)
+		for(int i=0; i<estimatorPre+estimatorPost; i++)
 			estimatorOne[i] = 0.0;
 	if(nEstimate & EST_VAR)
-		for(int i=0; i<estimatorPre+estimatorPost+1; i++)
+		for(int i=0; i<estimatorPre+estimatorPost; i++)
 			estimatorTwo[i] = 0.0;
 	if(nEstimate & EST_CUR)
-		for(int i=0; i<estimatorPre+estimatorPost+1; i++)
+		for(int i=0; i<estimatorPre+estimatorPost; i++)
 			estimatorThree[i] = 0.0;
 	if(nEstimate & EST_DENS) {
-		for( int i=0; i<estimatorPre+estimatorPost+1; i++ )
+		for( int i=0; i<estimatorPre+estimatorPost; i++ )
 			for( int j=0; j<estimatorDistLength; j++ )
 				estimatorDist[i][j] = 0.0;
 	}
@@ -123,18 +125,25 @@ void SeriesEstimator::collect()
 		// move new event into queue
 		seriesRecords.next(0);
 		
+		int testTrigger = seriesTriggers.first();
+		testTrigger = seriesTriggers.first();
+		testTrigger = seriesTriggers.first();
+		testTrigger = seriesTriggers.first();
+		int testPre = seriesRecords[estimatorPre];
+		int testPost = seriesRecords[estimatorPre+1];
+		
 		// record differences
 		while (seriesTriggers.size()
-			&& seriesRecords[-estimatorPost-1] > seriesTriggers.first()
-			&& seriesRecords[-estimatorPost] <= seriesTriggers.first())
+			&& seriesRecords[estimatorPre] >= seriesTriggers.first()
+			&& seriesRecords[estimatorPre+1] <= seriesTriggers.first())
 		{
 			uint triggerTime;   // how long ago this trigger was
 			seriesTriggers >> triggerTime;
 
 			if (seriesRecords.isInitialized()) {
-				for (int i = 1; i<=estimatorPre+estimatorPost+1; ++i) {
-					estimatorSample[i-1] 
-						= double(triggerTime) - double(seriesRecords[i]); // time-difference of event to this trigger
+				for (int i = 0; i<estimatorPre+estimatorPost; ++i) {
+					estimatorSample[i]
+						= double(triggerTime) - double(seriesRecords[i+1]); // time-difference of event to this trigger
 				}
 				processCurrentSample();
 			}
@@ -149,20 +158,20 @@ void SeriesEstimator::processCurrentSample()
 {
 	++nSamples;
 	if( nEstimate & EST_MEAN )
-		for(int i=0; i<estimatorPre+estimatorPost+1; i++)
+		for(int i=0; i<estimatorPre+estimatorPost; i++)
 			estimatorOne[i] += estimatorSample[i];
 	if( nEstimate & EST_VAR )
-		for(int i=0; i<estimatorPre+estimatorPost+1; i++) {
+		for(int i=0; i<estimatorPre+estimatorPost; i++) {
 			double d = estimatorSample[i];
 			estimatorTwo[i] += d*d;
 		}
 	if( nEstimate & EST_CUR )
-		for(int i=0; i<estimatorPre+estimatorPost+1; i++) {
+		for(int i=0; i<estimatorPre+estimatorPost; i++) {
 			double d = estimatorSample[i];
 			estimatorThree[i] += d*d*d;
 		}
 	if( nEstimate & EST_DENS )
-		for(int i=0; i<estimatorPre+estimatorPost+1; i++) {
+		for(int i=0; i<estimatorPre+estimatorPost; i++) {
 			int bin = (int) floor( (estimatorSample[i] - estimatorDistOffset) / estimatorDistScale + 0.5); // round
 			if( (bin < estimatorDistLength) && (bin >= 0) )
 				estimatorDist[ i ][ bin ]++;
@@ -171,7 +180,7 @@ void SeriesEstimator::processCurrentSample()
 
 Matrix SeriesEstimator::getSample()
 {
-	Graph a(estimatorPre+estimatorPost+1);
+	Graph a(estimatorPre+estimatorPost);
 	a.setName("sample");
 	
 	if(nEstimate & EST_SAMPLE) {
@@ -181,8 +190,8 @@ Matrix SeriesEstimator::getSample()
 			a.setPhysical(0, *estimatorTime );
 //			a.setPhysical(1, *seriesSource);
 		}
-		for(int i=0; i<estimatorPre+estimatorPost+1; i++) {
-			a[i][0] = estimatorTime->dt * ((double) i - estimatorPre);
+		for(int i=0; i<estimatorPre+estimatorPost; i++) {
+			a[i][0] = i - estimatorPre;
 			a[i][1] = estimatorSample[i];
 		}
 	}		
@@ -193,7 +202,7 @@ Matrix SeriesEstimator::getSample()
 Matrix SeriesEstimator::getMean()
 {
 	double samples = (nSamples!=0.0) ? double(nSamples) : 1.0;
-	Graph a(estimatorPre+estimatorPost+1);
+	Graph a(estimatorPre+estimatorPost);
 
 	if(nEstimate & EST_MEAN) {
 		a.setName("conditional mean");
@@ -203,8 +212,8 @@ Matrix SeriesEstimator::getMean()
 //			a.setPhysical(0, *xTime );
 //			a.setPhysical(1, *seriesSource);
 		}
-		for(int i=0; i<estimatorPre+estimatorPost+1; i++) {
-			a[i][0] = estimatorTime->dt * ((double) i - estimatorPre);
+		for(int i=0; i<estimatorPre+estimatorPost; i++) {
+			a[i][0] = i - estimatorPre;
 			a[i][1] = estimatorTime->dt *estimatorOne[i] / samples;
 		}
 	}
@@ -214,12 +223,12 @@ Matrix SeriesEstimator::getMean()
 Matrix SeriesEstimator::getVariance()
 {
 	double samples = (nSamples!=0.0)? double(nSamples): 1.0;
-	Graph a(estimatorPre+estimatorPost+1);
+	Graph a(estimatorPre+estimatorPost);
 	
 	if (nEstimate & EST_VAR) {
 		a.setName("conditional variance");
-		for(int i=0; i<estimatorPre+estimatorPost+1; i++) {
-			a[i][0] = estimatorTime->dt * ((double) i - estimatorPre);
+		for(int i=0; i<estimatorPre+estimatorPost; i++) {
+			a[i][0] = i - estimatorPre;
 			double mean = estimatorOne[i] / samples;
 			a[i][1] = (estimatorTwo[i] / samples - mean*mean);
 		}
@@ -231,14 +240,14 @@ Matrix SeriesEstimator::getDistribution()
 {
 	double samples = (nSamples!=0.0)? double(nSamples): 1.0;
 	
-	int timeSize = estimatorPre+estimatorPost+1;
+	int timeSize = estimatorPre+estimatorPost;
 	Matrix a(timeSize, estimatorDistLength, 3);
 	a.setName("conditional density");
 	
 	if ( nEstimate & EST_DENS ) {
 		for ( int j=0; j<estimatorDistLength; j++)
 			for ( int i=0; i<timeSize; i++ ) {
-				a[i][j][0] = estimatorTime->dt * ((double) i - estimatorPre);
+				a[i][j][0] = i - estimatorPre;
 				a[i][j][1] = estimatorTime->dt * ((double(j) * estimatorDistScale) + estimatorDistOffset);
 				a[i][j][2] = estimatorDist[i][j] / samples;
 			}

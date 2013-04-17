@@ -27,7 +27,10 @@ threshold value at construction time,
 and has an event whenever the current value of the variable exceeds
 the threshold. */
 
-#include <stochastic.hxx>
+#ifndef THRESHOLD_DETECTOR_HXX
+#define THRESHOLD_DETECTOR_HXX
+
+#include "stochastic.hxx"
 
 class ThresholdDetector : public StochasticEventGenerator
 {
@@ -58,3 +61,5 @@ public:
 			return (detectorSource->getCurrentValue() > detectorThreshold);
 	}
 };
+
+#endif

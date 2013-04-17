@@ -62,9 +62,8 @@ void IfNeuron::prepareNextState()
 	// proceed if calculation was successful
 	if (stochNextStateIsPrepared) {
 		if (ifneuronHasSpikeNext) {
-			double d = stochCurrentValue; // == dSpikeHeight
 			ifneuronMembrane.init();
-			stochCurrentValue = d;
+			stochNextValue = ifneuronMembrane.getNextValue();
 			ifneuronHasSpikeNext = false;
 		} else {
 			if (stochNextValue>ifneuronTheta) {
@@ -145,6 +144,8 @@ string IfNeuron::getParameter(const string& name) const
 		param << ifneuronTheta;
 	else if (name=="spike-height")
 		param << ifneuronSpikeHeight;
+	else if (name== "membrane starting-value")
+		param << ifneuronMembrane.getParameter("starting-value");
 	else if (name=="membrane")
 		param << ifneuronMembrane.getConfiguration();
 	else
@@ -166,9 +167,11 @@ void IfNeuron::setParameter(const string& name, const string& value)
 		setting >> ifneuronSpikeHeight;
 		cout << "setting spike height to " << ifneuronSpikeHeight << endl;
 	}
-	else if (name== "membrane") {
-		// !! include boost regex library and take parameter apart here !!
-		ifneuronMembrane.setParameter(name, value);
+	else if (name== "membrane mode") {
+		ifneuronMembrane.setParameter("mode", value);
+	}
+	else if (name== "membrane starting-value") {
+		ifneuronMembrane.setParameter("starting-value", value);
 	}
 	else
 		SpikingNeuron::setParameter(name, value);

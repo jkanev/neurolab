@@ -50,7 +50,7 @@ ScalarEstimator::ScalarEstimator(const Property& estimate, StochasticProcess *sr
 void ScalarEstimator::collect()
 {
 	// get the value
-	if(nEstimate & EST_DENS)
+	if(nEstimate & EST_DIFF)
 		estimate( pSource->getIncrement() );
 	else
 		estimate( pSource->getCurrentValue() );
@@ -100,7 +100,9 @@ void ScalarEstimator::estimate(double d)
 		int bin = (int) floor( (d - dDistOffset) / dDistScale + 0.5); // round
 		if( (bin <= nDist) && (bin >= 0) ) {
 			aDist[ bin ]++;
-		} else cout << "ou5" << endl;
+		} else {
+			;
+		}
 	}
 }
 

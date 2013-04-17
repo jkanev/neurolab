@@ -71,9 +71,9 @@ int main(int argc, char **argv)
 	// two neurons
 	double v0 = -60, vRest = -70,  tau = 1, threshold = -45, spikeheight = 10;
 	IfNeuron nrnIto(  &time, v0, threshold, spikeheight, tau, vRest, "Ito Neuron" );
-	nrnIto.setIto();
+	nrnIto.setParameter("membrane mode", "ito");
 	IfNeuron nrnStrat(  &time, v0, threshold, spikeheight, tau, vRest, "Stratonovich Neuron" );
-	nrnStrat.setStratonovich();
+	nrnStrat.setParameter("membrane mode", "stratonovitch");
 	
 	// a conductance
 	double revpot = 10, weight = 0.01, mean = 3.0;

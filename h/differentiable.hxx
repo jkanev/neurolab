@@ -164,6 +164,13 @@ public:
 		const string& name   ///< name of parameter
 	) const;
 	
+	/// Set parameter.
+	/** In a derived class, override this to handle every parameter you implement. If a parameter is described using multiple strings separated by space, this indicates a parameter of a parameter.  */
+	void setParameter (
+		const string& name, ///< name of parameter
+		const string& value ///< value of parameter
+	);
+
 	/// Member pointer to one of the privat fcns.
 	void (DifferentialEquation::* eqnMethodPtr)();
 	

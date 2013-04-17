@@ -331,3 +331,28 @@ string DifferentialEquation::getParameter( const string& name ) const
 	
 	return param.str();
 }
+
+
+//______________________________________________________________
+//  parameter access
+
+void DifferentialEquation::setParameter( const string& name, const string& value )
+{
+	stringstream setting;
+	
+	// first value
+	if (name=="starting-value") {
+		double d;
+		setting << value;
+		setting >> d;
+		init(d);
+	}
+	
+	// mode
+	else if (name=="mode") {
+		if (value=="ito")
+			setIto();
+		if (value=="stratonovitch")
+			setStratonovich();
+	}
+}

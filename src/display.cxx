@@ -198,7 +198,7 @@ int Display::plot()
 						break;
 					case DSP_LEFT:
 						(*pFile) << "set grid" << endl
-							<< "set origin 0.0,0.5" << endl
+							<< "set origin 0.0,0.0" << endl
 							<< "set size 0.5,1.0" << endl << "clear" << endl;
 						break;
 					case DSP_RIGHT:
@@ -233,7 +233,9 @@ int Display::plot()
 				switch(mode & (DSP_DIMENSION_MASK|DSP_COLOR_MASK)) {
 					case DSP_3D:
 						(*pFile) << "set pm3d map" << endl;
-					case DSP_3D|DSP_BW:
+						(*pFile) << "splot ";
+						break;
+					case DSP_BW:;
 						(*pFile) << "splot ";
 						break;
 					case DSP_2D:
