@@ -9,7 +9,7 @@ LIBS = -lm
 LIBRARY = $(DESTDIR)/usr/lib/libneurolab.so
 DEFINES = -D_GNUPLOT_CALL="\"/usr/bin/gnuplot \""
 
-OBJECTS = obj/parametric.o obj/stochastic.o obj/differentiable.o obj/processes.o obj/display.o obj/processestimator.o obj/conditionalestimator.o obj/scalarestimator.o obj/intervalestimator.o obj/matrix.o obj/ifneuron.o obj/mlneuron.o obj/synapse.o obj/wiener.o obj/function.o obj/physical.o obj/neuron.o obj/thetaneuron.o obj/noises.o obj/stochastic.o obj/dependanceestimator.o obj/seriesestimator.o obj/timedependent.o obj/estimator.o
+OBJECTS = obj/parametric.o obj/stochastic.o obj/differentiable.o obj/processes.o obj/display.o obj/processestimator.o obj/conditionalestimator.o obj/scalarestimator.o obj/intervalestimator.o obj/matrix.o obj/ifneuron.o obj/mlneuron.o obj/synapse.o obj/wiener.o obj/function.o obj/physical.o obj/neuron.o obj/thetaneuron.o obj/noises.o obj/stochastic.o obj/dependanceestimator.o obj/seriesestimator.o obj/timedependent.o obj/estimator.o obj/eventmultiplexer.o
 
 TESTPROGRAMS = bin/CoupledNeurons bin/ItoVsStrat bin/ItoVsStrat2 bin/ItoVsStrat3 bin/Functions bin/NoiseTest
 
@@ -139,5 +139,8 @@ obj/parametric.o: h/parametric.hxx src/parametric.cxx
 obj/timedependent.o: h/timedependent.hxx
 	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS) src/timedependent.cxx -o obj/timedependent.o
 
+obj/eventmultiplexer.o: h/eventmultiplexer.hxx src/eventmultiplexer.cxx
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS) src/eventmultiplexer.cxx -o obj/eventmultiplexer.o
+	
 clean:
 	rm -r obj/*; rm bin/*; rm lib/*; rm lib/.libs/*; echo "";

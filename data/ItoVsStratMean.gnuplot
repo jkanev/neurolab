@@ -14,7 +14,7 @@ set ylabel "isi mean" font "Helvetica,14pt"
 set zlabel "" font "Helvetica,14pt"
 
 
-plot "data/ItoVsStratMean.0.data" title "response mean of neuron using Ito" with lines , "data/ItoVsStratMean.1.data" title "response mean of neuron using Stratonovich" with lines 
+plot "data/ItoVsStratMean.0.data" title " response mean of neuron using Ito" with lines , "data/ItoVsStratMean.1.data" title " response mean of neuron using Stratonovich" with lines 
 set grid
 set origin 0.0,0.0
 set size 1.0,0.5
@@ -27,5 +27,5 @@ set ylabel "isi variance" font "Helvetica,14pt"
 set zlabel "" font "Helvetica,14pt"
 
 
-plot "data/ItoVsStratMean.2.data" title "response variance of neuron using Ito" with lines , "data/ItoVsStratMean.3.data" title "response variance of neuron using Stratonovich" with lines 
+plot "data/ItoVsStratMean.2.data" title " response variance of neuron using Ito" with lines , "data/ItoVsStratMean.3.data" title " response variance of neuron using Stratonovich" with lines 
 unset multiplot

@@ -116,26 +116,19 @@ void SeriesEstimator::collect()
 	seriesRecords += 1;
 	seriesTriggers += 1;
 	
-	if (seriesTrigger->hasEvent())
+	for (uint i=0; i<seriesTrigger->getEventAmount(); i++)
 		// move new trigger into queue
 		seriesTriggers << 0;
 	
-	if (seriesSource->hasEvent()) {
+	for (uint events = seriesSource->getEventAmount(); events; --events) {
 
 		// move new event into queue
 		seriesRecords.next(0);
 		
-		int testTrigger = seriesTriggers.first();
-		testTrigger = seriesTriggers.first();
-		testTrigger = seriesTriggers.first();
-		testTrigger = seriesTriggers.first();
-		int testPre = seriesRecords[estimatorPre];
-		int testPost = seriesRecords[estimatorPre+1];
-		
 		// record differences
 		while (seriesTriggers.size()
 			&& seriesRecords[estimatorPre] >= seriesTriggers.first()
-			&& seriesRecords[estimatorPre+1] <= seriesTriggers.first())
+			&& seriesRecords[estimatorPre+1] < seriesTriggers.first())
 		{
 			uint triggerTime;   // how long ago this trigger was
 			seriesTriggers >> triggerTime;

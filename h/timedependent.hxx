@@ -119,9 +119,18 @@ public:
 	virtual string getPhysicalDescription() {
 		return "time";
 	};
-	
+
 	/// Run simulation for all attached objects.
-	/** Runs a simulation for a certain number of time steps. */
+	/** Runs a simulation from a start time to an end time. */
+	void run(
+		double startTime,     ///< time value to start witch
+		double endTime,     ///< time value to stop at
+		 ostream &log = cout,   ///< stream for progress messages
+		 bool init = true ///< include initialising of all dependent objects
+	);
+
+	/// Run simulation for all attached objects.
+	/** Runs a simulation for a certain number of time steps. This function does not reset the Time::timePassed value before start. */
 	void run (
 		  unsigned long long steps,   ///< number of time steps to run
 		 ostream &log = cout,   ///< stream for progress messages
@@ -129,8 +138,7 @@ public:
 	);
 
 	/// Run simulation for all attached objects.
-	/** Runs a simulation for a certain number of events (e.g. spikes from a neuron). As a safeguard
-	a maximum number of time steps must be given, in case the event source fails to deliver events. */
+	/** Runs a simulation for a certain number of events (e.g. spikes from a neuron). As a safeguard a maximum number of time steps must be given, in case the event source fails to deliver events. This function does not reset the Time::timePassed value before start. */
 	void run (
 		unsigned long long events,   ///< number of events until run is finished
 		class StochasticEventGenerator *eventSource,   ///< event source

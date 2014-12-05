@@ -176,19 +176,20 @@ public:
 class Poisson: public StochasticEventGenerator
 {
 private:
-	double dEvent;
-	double dSum;
 	double dRate;
 public:
 	
 	/// Create Poisson process.
-	Poisson(double p, Time *time);
+	Poisson(double p, Time *time, const string& name="", const string& type="Poisson process");
 	
 	/// Destroy Poisson process.
 	~Poisson(){};
 	
 	/// Whether event is present.
 	virtual bool hasEvent();
+	
+	/// Whether event is present.
+	virtual uint getEventAmount();
 	
 	/// Calculate next time value.
 	virtual void prepareNextState();

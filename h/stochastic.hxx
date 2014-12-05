@@ -216,7 +216,10 @@ public:
 	virtual ~StochasticEventGenerator() {};
 	
 	/// Whether an event is present.
-	virtual bool hasEvent() { return false; };	
+	virtual bool hasEvent() { return false; };
+
+	/// The amount of events present.
+	virtual uint getEventAmount() { return 0; };
 };
 
 /// An object which uses the randn function.

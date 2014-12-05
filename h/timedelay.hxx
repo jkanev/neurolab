@@ -30,28 +30,39 @@ using namespace std;
 /// Class implementing time delay
 /** A stochastic variable that takes the same value as a given source variable
  * with a configured amount of time steps delay */
-class TimeDelay : public StochasticVariable
+template<class T>
+class TimeDelay : public T
 {
 	private:
-		uint delaySamples;
-		StochasticVariable *delaySource;
+		T *delaySource;
 		Ring<double> delayData;
 		
 	public:
-		TimeDelay( StochasticVariable *source, uint samplesDelay, Time *time )
-		: StochasticVariable( time, "time delayed "+source->getName(), "Time Delay" ),
-		delayData(samplesDelay)
+		
+		/// for base classes like construct( time* )
+		TimeDelay( T *source, uint samplesDelay, Time *time )
+		: T( time, "time delayed "+source->getName(), "Time Delay" ),
+		delayData(samplesDelay+1)
 		{
-			delaySamples = samplesDelay;
+			delaySource = source;
+		}
+		
+		/// for base classes like construct( double, time* )
+		TimeDelay( T *source, double param1, uint samplesDelay, Time *time )
+		: T( param1, time, "time delayed "+source->getName(), "Time Delay" ),
+		delayData(samplesDelay+1)
+		{
 			delaySource = source;
 		}
 		
 		virtual void prepareNextState()
 		{
 			if (delaySource->isNextStatePrepared() ) {
-				delayData.next( delaySource->getCurrentValue() );
-				stochNextValue = delayData[-delaySamples];
-				stochNextStateIsPrepared = true;
+				delayData.next( delaySource->getNextValue() );
+				T::stochNextValue = delayData[1];
+				T::stochNextStateIsPrepared = true;
 			}
 		}
-};			  
+};
+
+#endif

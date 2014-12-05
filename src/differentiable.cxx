@@ -98,10 +98,6 @@ int DifferentialEquation::addTerm(StochasticFunction *integrand, StochasticVaria
 void DifferentialEquation::rmTerm(int n)
 {
 	if(n<eqnTermAmount) {
-		if(eqnIntegrands[n])
-			delete eqnIntegrands[n];
-		if(eqnIntegrators[n])
-			delete eqnIntegrators[n];
 		eqnIntegrands.erase(eqnIntegrands.begin()+n);
 		eqnIntegrators.erase(eqnIntegrators.begin()+n);
 		

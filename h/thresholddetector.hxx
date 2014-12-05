@@ -48,7 +48,7 @@ public:
 		detectorSource = source;
 		detectorThreshold = threshold;
 		detectorBelow = below;
-	}
+	};
 	
 	/// Destruction
 	virtual ~ThresholdDetector() {}
@@ -59,7 +59,12 @@ public:
 			return (detectorSource->getCurrentValue() < detectorThreshold);
 		else
 			return (detectorSource->getCurrentValue() > detectorThreshold);
-	}
+	};
+	
+	/// get amount of events
+	uint getEventAmount() {
+		return hasEvent() ? 1 : 0;
+	};
 };
 
 #endif

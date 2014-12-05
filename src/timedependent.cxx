@@ -51,6 +51,18 @@ void Time::runNested( unsigned long long steps, unsigned long long runs, DataCol
 //__________________________________________________________________________________________
 // run time
 
+void Time::run(double startTime, double endTime, ostream &log, bool init)
+{
+	timePassed = startTime;
+	// starting note
+	log << "\rstart time: " 
+			<< startTime
+			<< "\tend time: "
+			<< endTime
+			<< endl << endl;
+	run( endTime / dt, log, init);
+}
+
 void Time::run(unsigned long long steps, ostream &log, bool init)
 {
 	// starting note
@@ -60,7 +72,6 @@ void Time::run(unsigned long long steps, ostream &log, bool init)
 			<< endl;
 	
 	// initialise time objects
-	timePassed = 0.0;
 	if (init) {
 		for (uint i=0; i<timeObjects.size(); ++i)
 			timeObjects[i]->init();

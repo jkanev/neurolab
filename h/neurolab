@@ -37,8 +37,10 @@ __________________________________________________________________________
 #include "./ifneuron.hxx"
 #include "./wiener.hxx"
 #include "./thetaneuron.hxx"
+#include "./timedelay.hxx"
 #include "./noises.hxx"
 #include "./function.hxx"
 #include "./thresholddetector.hxx"
 #include "./dependanceestimator.hxx"
+#include "./eventmultiplexer.hxx"
 

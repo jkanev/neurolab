@@ -86,10 +86,9 @@ bool IfNeuron::hasEvent()
 	return ifneuronHasSpikeNow;
 }
 
-void IfNeuron::calibrate(int isi, int spikes, int maxtime, NoiseSource *noises)
+void IfNeuron::calibrate(int isi, int spikes, int maxtime, NoiseSource *noises, double increment, double decrement)
 {
-	double stepsize = 1.0; // starting stepsize
-	int steps = 20; // multiply stepsize with this
+	double stepsize = 20.0; // starting stepsize
 	ifneuronTheta = ifneuronMembrane.getStartingValue();
 	int direction = 1; // current direction 1-up, -1-down
 
@@ -102,36 +101,41 @@ void IfNeuron::calibrate(int isi, int spikes, int maxtime, NoiseSource *noises)
 		
 		// test fpt
 		xTime->run( spikes, this, maxtime, devnull );
-		
-		// adjust threshold
 		double mean = estimator.mResult(EST_MEAN).to_d() / xTime->dt;
-		if( mean==0.0 ) mean = 2*isi;
-		if(mean < isi)
-			if (direction == 1) {
-				// mean too large and direction up - decrease stepsize and turn
-				stepsize *= 0.8;
-				direction *= -1;
-			} else
-				// mean too large and direction down - increase stepsize and go on
-				stepsize *= 1.1;
-		else
-			if (direction == -1) {
-				// mean too small and direction down - decrease stepsize and turn
-				stepsize *= 0.8;
-				direction *= -1;
-			} else
-				// mean too small and direction up - increase stepsize and go on
-				stepsize *= 1.1;
-		ifneuronTheta -= direction * stepsize * steps;
-		
-		// note to the user
-		cout << "\rerror: " << stepsize << " threshold: " << ifneuronTheta << " spike rate: " << 1.0/(mean*xTime->dt) << "Hz      " << flush;
+		if( mean==0.0 ) mean = 1e23;
 		
 		// early stopping
-		if( stepsize<0.001 ) {
-			cout << "\rcalibrated neuron after " << k << " steps.\t\t\t\t\t" << endl;
+		if( stepsize<0.00001 ) {
+			cout << "\ncalibrated neuron after " << k << " steps.\t\t\t\t\t" << endl;
 			break;
 		}
+	
+		// adjust threshold
+		if(mean < isi) {
+			if (direction == 1) {
+				// mean too large and direction up - decrease stepsize and turn
+				stepsize *= decrement;
+				direction *= -1;
+			} else {
+				// mean too large and direction down - increase stepsize and go on
+				stepsize *= increment;
+			}
+		} else {
+			if (direction == -1) {
+				// mean too small and direction down - decrease stepsize and turn
+				stepsize *= decrement;
+				direction *= -1;
+			} else {
+				// mean too small and direction up - increase stepsize and go on
+				stepsize *= increment;
+			}
+		}
+		
+		// note to the user
+		cout << "\rthreshold: " << ifneuronTheta << ", spike rate: " << 1.0/(mean*xTime->dt) << " Hz, target rate: " << 1.0/(isi*xTime->dt) << " Hz, next correction: " << direction*stepsize << "\t\t\t" << flush;
+
+		// apply correction
+		ifneuronTheta -= direction * stepsize;
 	}
 	
 	init();

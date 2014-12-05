@@ -9,5 +9,5 @@ set ylabel "voltage, millivolt" font "Helvetica,14pt"
 set zlabel "" font "Helvetica,14pt"
 
 
-plot "data/ItoVsStratVoltage.0.data" title "voltage sample of Ito neuron" with lines , "data/ItoVsStratVoltage.1.data" title "voltage sample of Stratonovich neuron" with lines 
+plot "data/ItoVsStratVoltage.0.data" title " voltage sample of Ito neuron" with lines , "data/ItoVsStratVoltage.1.data" title " voltage sample of Stratonovich neuron" with lines 
 unset multiplot

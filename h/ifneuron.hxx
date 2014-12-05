@@ -71,7 +71,9 @@ public:
 		int isi, ///< Desired inter-spike interval, given in time steps.
 		int runs, ///< Number of runs used to estimate threshold. 50 is a good compromise.
 		int maxtime, ///< Maximum time for one run to take. 2*isi is a good compromise
-		NoiseSource *noises = 0 ///< Address of a NoiseSource object.
+		NoiseSource *noises = 0, ///< Address of a NoiseSource object.
+		double increment = 1.1, ///< factor used for increasing step size when direction is kept
+		double decrement = 0.8 ///< factor used for decreasing step size when direction is changed
 	);
 	
 	/// Get parameter.
@@ -111,6 +113,9 @@ public:
 	
 	/// Return whether a spike is happening.
 	virtual bool hasEvent();
+	
+	/// Retrun the amount of current events
+	virtual uint getEventAmount() { return hasEvent() ? 1 : 0; };
 	
 	/// Set the next value of the process.
 	/** This includes both the value of the neuron and the membrane, which is a separate object.. */

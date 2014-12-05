@@ -170,29 +170,28 @@ double VoltageDependance::calculateNextValue()
 //____________________________________________________________________________
 //  poisson process
 
-Poisson::Poisson(double rate, Time *time)
-	: StochasticEventGenerator(time)
+Poisson::Poisson(double rate, Time *time, const string& name, const string& type)
+	: StochasticEventGenerator(time, name, type)
 {
-   dSum = 0.0;
    dRate = rate * xTime->dt;
-   dEvent = 0.0;
    addParameter("rate");
 }
 
 void Poisson::prepareNextState()
 {
 	if( (double(rand())/double(RAND_MAX+1.0)) < dRate )
-		dEvent = 1.0;
-	else dEvent = 0.0;
-	stochNextValue = stochCurrentValue + dEvent;
+		stochNextValue += 1.0;
 	stochNextStateIsPrepared = true;
 }
 
 bool Poisson::hasEvent()
 {
-	if( dEvent==1.0 )
-		return true;
-	else return false;
+	return stochNextValue-stochCurrentValue>0.5 ? true : false;
+}
+
+uint Poisson::getEventAmount()
+{
+	return hasEvent() ? 1 : 0;
 }
 
 string Poisson::getParameter(const string& name) const
