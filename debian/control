@@ -1,7 +1,7 @@
 Source: libneurolab
 Priority: optional
 Maintainer: Jacob Kanev <j_kanev@arcor.de>
-Build-Depends: debhelper (>= 4.0.0), libgsl0ldbl, libgsl0-dev, libboost-dev
+Build-Depends: libtool, libtool-bin, debhelper (>= 4.0.0), libboost-dev, doxygen
 Standards-Version: 3.6.1
 Section: libs
 

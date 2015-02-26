@@ -173,7 +173,7 @@ public:
 
 /// Returns delta peaks with a static rate.
 /** Poisson process: steps forward when using either () or (double) operators. */
-class Poisson: public StochasticEventGenerator
+class Poisson: public StochasticEventGenerator, RandN
 {
 private:
 	double dRate;
@@ -201,6 +201,37 @@ public:
 	virtual void setParameter(const string& name, const string& value);
 };
 
+
+/// Returns delta peaks with a static rate.
+/** Poisson process: steps forward when using either () or (double) operators. */
+class Regular: public StochasticEventGenerator
+{
+private:
+	long regularInterval;
+	long regularCount;
+public:
+	
+	/// Create Poisson process.
+	Regular(double p, Time *time, const string& name="", const string& type="Regular process");
+	
+	/// Destroy Poisson process.
+	~Regular(){};
+	
+	/// Whether event is present.
+	virtual bool hasEvent();
+	
+	/// Whether event is present.
+	virtual uint getEventAmount();
+	
+	/// Calculate next time value.
+	virtual void prepareNextState();
+	
+	/// Get parameter.
+	virtual string getParameter(const string& name) const;
+	
+	/// Set parameter.
+	virtual void setParameter(const string& name, const string& value);
+};
 
 
 #endif

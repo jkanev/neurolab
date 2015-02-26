@@ -57,7 +57,7 @@ public:
 	
 	void operator>>(T &output) {
 		if (queueSize) {
-			output = (*this)[-queueSize+1];
+			output = first();
 			--queueSize;
 		}
 	}
@@ -76,6 +76,14 @@ public:
 	T first() {
 		return Ring<T>::operator[](1-queueSize);
 	}
+
+	/// get data point
+	/** Retrieve data. @param index Index of data to use.
+	 *	The index is always relative to the current position, and can be negative. */
+	const T &operator[](const int &index) const {
+		return Ring<T>::operator[](1-queueSize+index);
+	};
+	
 };
 
 #endif

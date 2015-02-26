@@ -24,7 +24,8 @@ __________________________________________________________________________
 #ifndef __STOCHASTIC_HXX
 #define __STOCHASTIC_HXX
 
-#include <boost/random/lagged_fibonacci.hpp> 
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/uniform_real_distribution.hpp>
 #include <iostream>
 #include <cmath>
 #include <vector>
@@ -229,10 +230,12 @@ class RandN
 private:
 	static uint32_t nState;
 	static uint nRefs;
-	static boost::lagged_fibonacci607 *randGenerator;
+	static boost::random::mt19937_64 *randGenerator;
+	static boost::random::uniform_real_distribution<double> dist;
+	
 	static int nRand; // index into aRand
 	static double aRand[2]; // two random variables
-
+	
 public:
 	
 	/// Construct.
@@ -244,6 +247,10 @@ public:
 	/// Retrieve random variable.
 	/** This function generates one random variable. The returend values are normally (Gaussian) distributed, with a mean of 0.0 and a variance of 1.0. The method used is the Polar-Masaglia method, which is the quickest known so far. */
 	double dRandN();
+	
+	/// Retrieve random variable.
+	/** This function generates one random variable. The returend values are evenly distributed between 0 and 1. */
+	double dRandE();
 };
 
 #endif

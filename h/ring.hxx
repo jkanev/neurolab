@@ -107,7 +107,7 @@ public:
 	/// get length
 	/** @returns the length of the ring */
 	int length() {
-		return ringCurrentIndex;
+		return ringSize;
 	};
    
 protected:

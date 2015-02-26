@@ -31,32 +31,32 @@ SeriesEstimator::SeriesEstimator (const Property &property, StochasticEventGener
 
 		// bin size equals 2dt
 		estimatorDistLength = 0.2 / estimatorTime->dt;
-
+		
 		estimatorDistOffset = double(estimatorDistRange[0]);
 		estimatorDistScale = (double(estimatorDistRange[1]) - double(estimatorDistRange[0])) / double(estimatorDistLength);
 	}
 	
 	// create arrays
 	if (nEstimate & EST_SAMPLE)
-		estimatorSample = new double[estimatorPre+estimatorPost];
+		estimatorSample = new long double[estimatorPre+estimatorPost];
 	else
 		estimatorSample = 0;
 	if (nEstimate & EST_MEAN)
-		estimatorOne = new double[estimatorPre+estimatorPost];
+		estimatorOne = new long double[estimatorPre+estimatorPost];
 	else
 		estimatorOne = 0;
 	if (nEstimate & EST_VAR)
-		estimatorTwo = new double[estimatorPre+estimatorPost];
+		estimatorTwo = new long double[estimatorPre+estimatorPost];
 	else
 		estimatorTwo = 0;
 	if (nEstimate & EST_CUR)
-		estimatorThree = new double[estimatorPre+estimatorPost];
+		estimatorThree = new long double[estimatorPre+estimatorPost];
 	else
 		estimatorThree = 0;
 	if (nEstimate & EST_DENS) {
-		estimatorDist = new double *[estimatorPre+estimatorPost];
+		estimatorDist = new long double *[estimatorPre+estimatorPost];
 		for (int i=0; i<estimatorPre+estimatorPost; ++i)
-			estimatorDist[i] = new double[estimatorDistLength];
+			estimatorDist[i] = new long double[estimatorDistLength];
 	} else
 		estimatorDist = 0;
 
@@ -115,14 +115,13 @@ void SeriesEstimator::collect()
 	// advance time-count for records and triggers
 	seriesRecords += 1;
 	seriesTriggers += 1;
-	
-	for (uint i=0; i<seriesTrigger->getEventAmount(); i++)
+	for (uint i=0; i<seriesTrigger->getEventAmount(); i++) {
 		// move new trigger into queue
 		seriesTriggers << 0;
+	}
 	
 	for (uint events = seriesSource->getEventAmount(); events; --events) {
-
-		// move new event into queue
+		// move new event into ring
 		seriesRecords.next(0);
 		
 		// record differences
@@ -132,11 +131,11 @@ void SeriesEstimator::collect()
 		{
 			uint triggerTime;   // how long ago this trigger was
 			seriesTriggers >> triggerTime;
-
+			
 			if (seriesRecords.isInitialized()) {
 				for (int i = 0; i<estimatorPre+estimatorPost; ++i) {
-					estimatorSample[i]
-						= double(triggerTime) - double(seriesRecords[i+1]); // time-difference of event to this trigger
+					estimatorSample[estimatorPre+estimatorPost-1-i]
+						= double(triggerTime) - double(seriesRecords[-i]); // time-difference of event to this trigger
 				}
 				processCurrentSample();
 			}
@@ -151,8 +150,9 @@ void SeriesEstimator::processCurrentSample()
 {
 	++nSamples;
 	if( nEstimate & EST_MEAN )
-		for(int i=0; i<estimatorPre+estimatorPost; i++)
+		for(int i=0; i<estimatorPre+estimatorPost; i++) {
 			estimatorOne[i] += estimatorSample[i];
+		}
 	if( nEstimate & EST_VAR )
 		for(int i=0; i<estimatorPre+estimatorPost; i++) {
 			double d = estimatorSample[i];

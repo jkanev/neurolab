@@ -40,11 +40,11 @@ protected:
 	
 	StochasticEventGenerator *seriesSource; ///< source of data
 	StochasticEventGenerator *seriesTrigger; ///< event triggering record action
-	double *estimatorSample; // recording sample
-	double *estimatorOne;    // recording first moment
-	double *estimatorTwo;    // recording second moment
-	double *estimatorThree;  // recording third moment
-	double **estimatorDist;  // record distribution
+	long double *estimatorSample; // recording sample
+	long double *estimatorOne;    // recording first moment
+	long double *estimatorTwo;    // recording second moment
+	long double *estimatorThree;  // recording third moment
+	long double **estimatorDist;  // record distribution
 	int estimatorDistLength;      // length of aDist
 	double estimatorDistOffset;     // offset of distribution
 	double estimatorDistScale;     // scale of distribution

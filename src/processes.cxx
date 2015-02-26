@@ -179,9 +179,11 @@ Poisson::Poisson(double rate, Time *time, const string& name, const string& type
 
 void Poisson::prepareNextState()
 {
-	if( (double(rand())/double(RAND_MAX+1.0)) < dRate )
-		stochNextValue += 1.0;
-	stochNextStateIsPrepared = true;
+	if (!stochNextStateIsPrepared) {
+		if( dRandE() < dRate )
+			stochNextValue += 1.0;
+		stochNextStateIsPrepared = true;
+	}
 }
 
 bool Poisson::hasEvent()
@@ -213,6 +215,65 @@ void Poisson::setParameter(const string& name, const string& value)
 	if (name=="rate") {
 		parameter >> dRate;
 		dRate *= xTime->dt;
+	}
+	else
+		StochasticEventGenerator::setParameter( name, value );
+}
+
+
+
+//____________________________________________________________________________
+//  regular process
+
+Regular::Regular(double rate, Time *time, const string& name, const string& type)
+: StochasticEventGenerator(time, name, type)
+{
+	regularInterval = long(1.0 / rate / xTime->dt);
+	regularCount = regularInterval;
+	addParameter("rate");
+}
+
+void Regular::prepareNextState()
+{
+	regularCount--;
+	if (!regularCount) {
+		stochNextValue += 1.0;
+		regularCount = regularInterval;
+	}
+	stochNextStateIsPrepared = true;
+}
+
+bool Regular::hasEvent()
+{
+	return stochNextValue-stochCurrentValue>0.5 ? true : false;
+}
+
+uint Regular::getEventAmount()
+{
+	return hasEvent() ? 1 : 0;
+}
+
+string Regular::getParameter(const string& name) const
+{
+	stringstream parameter;
+	if (name=="rate")
+		parameter << double(regularInterval) * xTime->dt;
+	else
+		parameter << StochasticEventGenerator::getParameter( name );
+	
+	return parameter.str();
+	
+}
+
+void Regular::setParameter(const string& name, const string& value)
+{
+	stringstream parameter;
+	parameter << value;
+	if (name=="rate") {
+		double d;
+		parameter >> d;
+		regularInterval = long(1.0 / d / xTime->dt);
+		regularCount = regularInterval;
 	}
 	else
 		StochasticEventGenerator::setParameter( name, value );

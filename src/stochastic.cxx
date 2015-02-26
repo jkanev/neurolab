@@ -26,9 +26,10 @@ __________________________________________________________________________
 
 uint RandN::nRefs = 0;
 uint32_t RandN::nState = 0;
-lagged_fibonacci607 *RandN::randGenerator = 0;
+mt19937_64 *RandN::randGenerator = 0;
 int RandN::nRand = 0; // index into aRand
 double RandN::aRand[2] = {0,0}; // two random variables
+boost::random::uniform_real_distribution<double> RandN::dist(0.0,1.0);
 
 RandN::RandN()
 {
@@ -40,7 +41,7 @@ RandN::RandN()
 	// creates a random number generator of type luxury2
 	// see the docu of the GSL for other possible types
 	if (!RandN::randGenerator) {
-		RandN::randGenerator = new lagged_fibonacci607;
+		RandN::randGenerator = new boost::random::mt19937_64;
 		
 		// seed
 		if (!RandN::nState) {
@@ -71,8 +72,8 @@ RandN::~RandN()
 		// Polar-Marsaglia method for normal distribution
 		double test = 2.0, u1, u2, c;
 		while(test>1.0) {
-			u1 = (*RandN::randGenerator)();
-			u2 = (*RandN::randGenerator)();
+			u1 = dRandE();
+			u2 = dRandE();
 			u1 = 2.0*u1 - 1.0;
 			u2 = 2.0*u2 - 1.0;
 			test = u1*u1 + u2*u2;
@@ -83,4 +84,9 @@ RandN::~RandN()
 		
 		return RandN::aRand[--RandN::nRand];
 	}
+};
+
+double RandN::dRandE()
+{
+	return RandN::dist(*RandN::randGenerator);
 };
