@@ -1,0 +1,5 @@
+<map id="IntervalEstimator" name="IntervalEstimator">
+<area shape="rect" id="node2" href="$classScalarEstimator.html" title="estimates mean, variance, etc. of a scalar stochastic variable " alt="" coords="9,155,123,181"/>
+<area shape="rect" id="node3" href="$classEstimator.html" title="Base class for estimation of various stochastic properties. " alt="" coords="27,80,105,107"/>
+<area shape="rect" id="node4" href="$classParametric.html" title="Class describing objects which can be parametrized. " alt="" coords="23,5,109,32"/>
+</map>

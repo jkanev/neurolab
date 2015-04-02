@@ -1,0 +1,21 @@
+<map id="StochasticVariable" name="StochasticVariable">
+<area shape="rect" id="node6" href="$classDifferentialEquation.html" title="A stochastic differential equation. " alt="" coords="546,31,682,57"/>
+<area shape="rect" id="node7" href="$classNoise.html" title="A correlated noise source. " alt="" coords="586,81,642,108"/>
+<area shape="rect" id="node10" href="$classStochasticEventGenerator.html" title="An object which generates events. " alt="" coords="527,183,701,209"/>
+<area shape="rect" id="node19" href="$classWiener.html" title="Properties for all Wiener processes. " alt="" coords="583,284,645,311"/>
+<area shape="rect" id="node2" href="$classStochasticProcess.html" title="A stochastic variable. " alt="" coords="168,157,300,184"/>
+<area shape="rect" id="node3" href="$classParametric.html" title="Class describing objects which can be parametrized. " alt="" coords="20,107,105,133"/>
+<area shape="rect" id="node4" href="$classTimeDependent.html" title="Time dependent objects. " alt="" coords="5,157,120,184"/>
+<area shape="rect" id="node5" href="$classPhysical.html" title="A physical value. " alt="" coords="27,208,99,235"/>
+<area shape="rect" id="node8" href="$classPoissonNoise.html" title="A poisson noise source. " alt="" coords="763,5,865,32"/>
+<area shape="rect" id="node9" href="$classWienerNoise.html" title="A Wiener process (white) noise source. " alt="" coords="765,56,863,83"/>
+<area shape="rect" id="node11" href="$classEventMultiplexer.html" title="EventMultiplexer" alt="" coords="755,107,873,133"/>
+<area shape="rect" id="node12" href="$classPoisson.html" title="Returns delta peaks with a static rate. " alt="" coords="779,157,849,184"/>
+<area shape="rect" id="node13" href="$classRegular.html" title="Returns delta peaks with a static rate. " alt="" coords="781,208,847,235"/>
+<area shape="rect" id="node14" href="$classSpikingNeuron.html" title="Base class for all spiking neurons. " alt="" coords="761,259,867,285"/>
+<area shape="rect" id="node18" href="$classThresholdDetector.html" title="Detects whether a value is above a threshold. " alt="" coords="749,309,879,336"/>
+<area shape="rect" id="node15" href="$classIfNeuron.html" title="class implementing a simple integrate&#45;and&#45;fire neuron " alt="" coords="939,208,1011,235"/>
+<area shape="rect" id="node16" href="$classMlNeuron.html" title="class implementing a Morris&#45;Lecar neuron " alt="" coords="936,259,1015,285"/>
+<area shape="rect" id="node17" href="$classThetaNeuron.html" title="A Theta Neuron. " alt="" coords="927,309,1024,336"/>
+<area shape="rect" id="node20" href="$classWienerCpp.html" title="Condensed Poisson Process. " alt="" coords="771,360,857,387"/>
+</map>
