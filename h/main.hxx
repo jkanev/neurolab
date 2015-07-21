@@ -24,22 +24,17 @@ Another neuron. In this case a synapse has to be built, which connects the neuro
 
 \section Quality
 
-For a short quality check the equations \f[dX_t = aX_tdt + bX_tdW_t\f] (Ito) and \f[dX_t = aX_tdt + bX_t\circ dW_t\f] (Stratonovich) with \f$a=-8.0\f$ and \f$b=0.8\f$ are simulated using the DifferentialEquation class. This equation has an explicit solution, which was used to calculate the error (which is just the difference simulation - explicit solution in the following displays).
+For a short quality check the equations \f[dX_t = aX_tdt + bX_tdW_t\f] (Ito) and \f[dX_t = aX_tdt + bX_t\circ dW_t\f] (Stratonovich) with \f$a=-8.0\f$ and \f$b=0.8\f$ are simulated using the DifferentialEquation class. This equation has an explicit solution, which was plotted on top of the simulated version at different step sizes:
 
-<b>Step size = 0.1:</b><img src="TestStratTwo_0.1.png" width="100%">
-Above: Ito and Stratonovich equations plotted on top of their explicit solutions at a time step of 0.1ms. <img src="TestStratThree_0.1.png" width="100%">
-Above: the error of the Ito and Stratonovich equations at a time step of 0.1ms.
+<b>Step size = 0.1:</b><img src="../../data/TestStratTwo_0.1.png" width="640px">
+Above: Ito and Stratonovich equations plotted on top of their explicit solutions at a time step of 0.1ms.
 
 <b> Step-size=0.01:</b>
-<img src="TestStratTwo_0.01.png" width="100%">
+<img src="../../data/TestStratTwo_0.01.png" width="640px">
 Above: Ito and Stratonovich equations plotted on top of their explicit solutions at a time step of 0.01ms.
-<img src="TestStratThree_0.01.png" width="100%">
-Above: the error of the Ito and Stratonovich equations at a time step of 0.01ms.
 
 <b> Step-size=0.001:</b>
-<img src="TestStratTwo_0.001.png" width="100%">
+<img src="../../data/TestStratTwo_0.001.png" width="640px">
 Above: Ito and Stratonovich equations plotted on top of their explicit solutions at a time step of 0.001ms.
-<img src="TestStratThree_0.001.png" width="100%">
-Above: the error of the Ito and Stratonovich equations at a time step of 0.001ms.
 
 */

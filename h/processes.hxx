@@ -182,6 +182,9 @@ public:
 	/// Create Poisson process.
 	Poisson(double p, Time *time, const string& name="", const string& type="Poisson process");
 	
+	/// Create Poisson process.
+	Poisson(Time *time, const string& name="", const string& type="Poisson process");
+	
 	/// Destroy Poisson process.
 	~Poisson(){};
 	
@@ -211,10 +214,13 @@ private:
 	long regularCount;
 public:
 	
-	/// Create Poisson process.
+	/// Create Regular process.
 	Regular(double p, Time *time, const string& name="", const string& type="Regular process");
 	
-	/// Destroy Poisson process.
+	/// Create Regular process.
+	Regular(Time *time, const string& name="", const string& type="Regular process");
+	
+	/// Destroy Regular process.
 	~Regular(){};
 	
 	/// Whether event is present.
