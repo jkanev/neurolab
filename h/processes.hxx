@@ -215,6 +215,9 @@ private:
 public:
 	
 	/// Create Regular process.
+	Regular(double p, double shift, Time *time, const string& name="", const string& type="Regular process");
+	
+	/// Create Regular process.
 	Regular(double p, Time *time, const string& name="", const string& type="Regular process");
 	
 	/// Create Regular process.

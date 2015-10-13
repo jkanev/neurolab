@@ -6,64 +6,55 @@ int main(int argc, char *argv[])
 	double end = 10;
 	double a = -0.1, b = 1.0;
 	
-	for (double dt = 0.1; dt > 0.0005; dt /= 10) {
-		
-		Time timeSettings(dt);
+	for (double dt = 0.1; dt > 0.00005; dt /= 10) {
+		Time time(dt);
 		int n = int(end/dt);
-		TimeProcess time(&timeSettings);
+		TimeProcess t(&time);
+		cout << n << endl;		
 		
 		// wiener process
-		Wiener noise( &timeSettings );
+		Wiener noise( &time );
 		noise.setMean( 0 );
-		noise.setPassive();
 		
 		// Ito: dXt = m Xt dt + s Xt dWt
-		DifferentialEquation diffOne(&timeSettings, 1.0, 0.0);
+		DifferentialEquation diffOne(&time, 1.0, 0.0);
 		diffOne.addTerm( new Product(b), &noise );
-		diffOne.addTerm( new Product(a), &time );
+		diffOne.addTerm( new Product(a), &t );
 		diffOne.setIto();
 		
 		// Stratonovich: m Xt dt + s Xt o dWt
-		DifferentialEquation diffTwo(&timeSettings, 1.0, 0.0);
+		DifferentialEquation diffTwo(&time, 1.0, 0.0);
 		diffTwo.addTerm( new Product(b), &noise );
-		diffTwo.addTerm( new Product(a), &time );
+		diffTwo.addTerm( new Product(a), &t );
 		diffTwo.setStratonovich();
 			
 		// estimators for samples
-		ProcessEstimator estOne(EST_SAMPLE, &diffOne, n);
-		ProcessEstimator estTwo(EST_SAMPLE, &diffTwo, n);
-		
-		// matrixes for explicit expressions
-		Matrix xplOne(n,2);
-		xplOne.setName("Xt = exp( (a - 1/2b^2)t + bWt ) (Ito, explicit)");
-		Matrix xplTwo(n,2);
-		xplTwo.setName("Xt = exp( at + bWt ) (Stratonovich, explicit)");
+		ProcessEstimator estOne(EST_SAMPLE, &diffOne, &time, n);
+		ProcessEstimator estTwo(EST_SAMPLE, &diffTwo, &time, n);
+		ProcessEstimator estNoise(EST_SAMPLE, &noise, &time, n);
+		ProcessEstimator estTime(EST_SAMPLE, &t, &time, n);
 		
 		// run
-		for( int i=0; i<n; i++ ) {
-				
-			xplOne[i][0] = time.getCurrentValue();
-			xplOne[i][1] = exp((a - 0.5*b*b)*time.getCurrentValue() + b*noise.getCurrentValue());
-			xplTwo[i][0] = time.getCurrentValue();
-			xplTwo[i][1] = exp(a*time.getCurrentValue() + b*noise.getCurrentValue());
-			
-			time.prepareNextState();
-			noise.prepareNextState();
-			diffOne.prepareNextState();
-			diffTwo.prepareNextState();
-			
-			time.proceedToNextState();
-			noise.proceedToNextState();			
-			diffOne.collect();
-			diffTwo.proceedToNextState();
-			
-			estOne.collect();
-			estTwo.collect();	
-		}
+		time.run(n);
 		
 		// results
 		Matrix sampleOne = estOne.mResult(EST_SAMPLE).setName("dXt = a Xt dt + b Xt dWt (Ito)");
 		Matrix sampleTwo = estTwo.mResult(EST_SAMPLE).setName("dXt = a Xt dt + b Xt o dWt (Stratonovich)");
+		Matrix sampleNoise = estNoise.mResult(EST_SAMPLE).setName("Wt");
+		Matrix sampleTime = estTime.mResult(EST_SAMPLE).setName("t");
+		
+
+		// calculate explicit expressions
+		Matrix xplOne(n,2);
+		xplOne.setName("Xt = exp((a - 1/2 b²) Wt + b Wt) (explicit, Ito)");
+		Matrix xplTwo(n,2);
+		xplTwo.setName("Xt = exp(a Wt + b Wt) (explicit, Stratonovich)");
+		for (int i=0; i<n; ++i) {
+			xplOne[i][0] = sampleNoise[i][0].to_d();
+			xplOne[i][1] = exp((a - 0.5*b*b)*sampleNoise[i][0].to_d() + b*sampleNoise[i][1].to_d());
+			xplTwo[i][0] = sampleNoise[i][0].to_d();
+			xplTwo[i][1] = exp(a*sampleNoise[i][0].to_d() + b*sampleNoise[i][1].to_d());
+		}
 		
 		// display
 		stringstream dtStringOne;
@@ -80,19 +71,24 @@ int main(int argc, char *argv[])
 		dspTwo.setMode(DSP_BOTTOM);
 		dspTwo << sampleTwo << xplTwo
 			<< showdsp << savepng;
-
 		
 		stringstream dtStringThree;
 		dtStringThree << "data/TestStratThree" << '_' << dt;
 		Display dspThree(dtStringThree.str().c_str());
 		dspThree.setMode(DSP_TOP);
-		Matrix errorOne(sampleOne - xplOne);
-		for(int i=0; i<n; i++) errorOne[i][0] = sampleOne[i][0];
-		dspThree << errorOne.setName("error Ito");
+		Matrix errorOne(n,2);
+		for(int i=0; i<n; i++) {
+			errorOne[i][0] = sampleOne[i][0].to_d();
+			errorOne[i][1] = 100.0 * (sampleOne[i][1].to_d() - xplOne[i][1].to_d()) / xplOne[i][1].to_d();
+		}
+			dspThree << errorOne.setName("relative error Ito (%)");
 		dspThree.setMode(DSP_BOTTOM);
-		Matrix errorTwo(sampleTwo - xplTwo);
-		for(int i=0; i<n; i++) errorTwo[i][0] = sampleTwo[i][0];
-		dspThree << errorTwo.setName("error Stratonovich")
+		Matrix errorTwo(n,2);
+		for(int i=0; i<n; i++) {
+			errorTwo[i][0] = sampleTwo[i][0].to_d();
+			errorTwo[i][1] = 100 * (sampleTwo[i][1].to_d() - xplTwo[i][1].to_d()) / xplTwo[i][1].to_d();
+		}
+		dspThree << errorTwo.setName("relative error Stratonovich (%)")
 			<< showdsp << savepng;
 	}
 		

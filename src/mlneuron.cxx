@@ -123,10 +123,23 @@ MlNeuron::~MlNeuron()
 
 void MlNeuron::prepareNextState()
 {
+	// create next value of differential equation
+	mlneuronMembrane.prepareNextState();
+	stochNextStateIsPrepared = mlneuronMembrane.isNextStatePrepared();
+	stochNextValue = mlneuronMembrane.getNextValue();
+	
+	// proceed if calculation was successful
+	if (stochNextStateIsPrepared) {
+		if (stochNextValue > mlneuronTheta)
+			mlneuronHasSpikeNext = true;
+		else 
+			mlneuronHasSpikeNext = false;
+	}
 }
 
 void MlNeuron::proceedToNextState()
 {
+	mlneuronHasSpikeNow = mlneuronHasSpikeNext;
 	SpikingNeuron::proceedToNextState();
 }
 

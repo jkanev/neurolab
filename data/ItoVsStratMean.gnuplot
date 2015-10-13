@@ -26,6 +26,7 @@ set xlabel "cond. variance,  (square) millisiemens" font "Helvetica,14pt"
 set ylabel "isi variance" font "Helvetica,14pt"
 set zlabel "" font "Helvetica,14pt"
 
+set logscale y
 
 plot "data/ItoVsStratMean.2.data" title " response variance of neuron using Ito" with lines , "data/ItoVsStratMean.3.data" title " response variance of neuron using Stratonovich" with lines 
 unset multiplot

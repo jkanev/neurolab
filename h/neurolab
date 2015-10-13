@@ -35,6 +35,7 @@ __________________________________________________________________________
 #include "./covariation.hxx"
 #include "./display.hxx"
 #include "./ifneuron.hxx"
+#include "./mlneuron.hxx"
 #include "./wiener.hxx"
 #include "./thetaneuron.hxx"
 #include "./timedelay.hxx"

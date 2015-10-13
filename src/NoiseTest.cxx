@@ -6,7 +6,7 @@ int main( int argc, char **argv)
 	// simulation settings
 	double dt = 0.1;
 	Time t(dt); // time
-	int runs = 500; // runs
+	int runs = 5000; // runs
 	double length = 200.0;
 	int steps = int(length / dt); // steps per run
 	
@@ -30,11 +30,11 @@ int main( int argc, char **argv)
 	
 	// get noise processes
 	vector<Noise *> noises; // noise processes
-	noises.push_back( noisesource.createNoise(0, "correlated_poisson_process") );
-	noises.push_back( noisesource.createNoise(1, "correlated_wiener_process") );
-	noises.push_back( noisesource.createNoise(2, "correlated_poisson_process") );
-	noises.push_back( noisesource.createNoise(3, "correlated_wiener_process") );
-	noises.push_back( noisesource.createNoise(4, "correlated_poisson_process") );
+	noises.push_back( noisesource.createNoise(0, "Correlated Poisson Process") );
+	noises.push_back( noisesource.createNoise(1, "Correlated Wiener Process") );
+	noises.push_back( noisesource.createNoise(2, "Correlated Poisson Process") );
+	noises.push_back( noisesource.createNoise(3, "Correlated Wiener Process") );
+	noises.push_back( noisesource.createNoise(4, "Correlated Poisson Process") );
 	
 	// three covariation processes to test
 	vector<Covariation *> covars;
@@ -51,9 +51,9 @@ int main( int argc, char **argv)
 	// etimators for mean, variance and covariation processes
 	vector<ProcessEstimator *> est;
 	for( int i=0; i<5; i++)
-		est.push_back( new ProcessEstimator(EST_SAMPLE | EST_MEAN | EST_VAR, noises[i], steps) );
+		est.push_back( new ProcessEstimator(EST_SAMPLE | EST_MEAN | EST_VAR, noises[i], &t, steps) );
 	for( int i=0; i<3; i++)
-		est.push_back( new ProcessEstimator(EST_SAMPLE | EST_MEAN | EST_VAR, covars[i], steps) );
+		est.push_back( new ProcessEstimator(EST_SAMPLE | EST_MEAN | EST_VAR, covars[i], &t, steps) );
 	
 	// create display objects
 	Display dspSample("data/noisetest_sample");
@@ -63,31 +63,7 @@ int main( int argc, char **argv)
 	Display dspCovarMean("data/noisetest_covar_mean");
 	
 	// run simulation
-	for(int r=0; r<runs; ++r) {
-			
-		// init estimators
-		for(int i=0; i<8; i++) {
-			est[i]->init();
-			i<5 ? noises[i]->init() : covars[i-5]->init();
-		}
-		
-		// exec one run
-		for(int s=0; s<steps; ++s) {
-			
-			// one time step
-			noisesource.proceedToNextState();
-			noisesource.prepareNextState();
-			
-			for(int i=0; i<3; ++i) {
-				covars[i]->proceedToNextState();
-				covars[i]->prepareNextState();
-			}
-						
-			// record
-			for(int i=0; i<8; i++)
-				est[i]->collect();
-		}
-	}
+	t.run(runs);
 	
 	// display results
 	Function x = input("t");

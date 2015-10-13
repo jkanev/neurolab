@@ -1,6 +1,7 @@
 var classPoisson =
 [
     [ "Poisson", "classPoisson.html#aa17c148427503c223e6d35906a94d431", null ],
+    [ "Poisson", "classPoisson.html#a1dfe8c041b9c2dc77d1f454ae70aa195", null ],
     [ "~Poisson", "classPoisson.html#adc599dacb253169758ed80a609917545", null ],
     [ "getEventAmount", "classPoisson.html#ad6992f38a256b5e8dbac6b0855cced2a", null ],
     [ "getParameter", "classPoisson.html#a63912c9535218bf55fefc1d5aac82fd8", null ],

@@ -6,33 +6,28 @@ using namespace std;
 int main(int argc, char **argv)
 {
 	// timestep
-	Time time(0.1);
-	time.setUnit(Unit("m","s")); // in ms
+	Time time(0.0001);
 
 	// two neurons
-	ThetaNeuron nrnIto(  &time );
-	nrnIto.setIto();
-	ThetaNeuron nrnStrat(  &time );
-	nrnStrat.setStratonovich();
+	double v0 = -65, theta = -3.5, vRest = -80,  tau = 20.0 / 1000.0, spikeheight = -5;
+	IfNeuron nrnStrat(&time, v0, theta, spikeheight, tau, vRest, "Stratonovich neuron");
+	nrnStrat.setParameter("membrane integration-mode", "stratonovich");
+	IfNeuron nrnIto(&time, v0, theta, spikeheight, tau, vRest, "Ito neuron");
+	nrnIto.setParameter("membrane integration-mode", "ito");
 	
 	// a stimulus
 	Wiener stimulus( &time );
-	stimulus.setParameter( WIENER_MEAN, 0.0 );
-	stimulus.setPassive(); // A passive stimulus doesn't proceed in time by itself, but each time step proceedToNextState() and prepareNextState() have to be called. By calling proceedToNextState() and prepareNextState() manually we ensure that both neurons receive *exactly* the same stimulus. Otherwise the stimulus would generate the next stochastic value by itself each time it is accessed by the neuron.
-	nrnIto.addStimulus( &stimulus );
-	nrnStrat.addStimulus( &stimulus );
+	stimulus.setMean(1.0);
+	nrnIto.addStimulus( &stimulus, 0.1, 0.0 );
+	nrnStrat.addStimulus( &stimulus, 0.1, 0.0 );
 	
-	// calibrate the neuron to spike with an isi of 50ms
-	// cout << "calibrating the neuron. this may take a while..." << endl;
-	// nrnIto.calibrate(int(50/xTime->dt), 100, 20000);
-
 	int n = 20;
 	
 	// testers
-	IntervalEstimator estIsiIto(&time, EST_MEAN | EST_VAR, &nrnIto); // measures mean and variance of ISI
-	IntervalEstimator estIsiStrat(&time, EST_MEAN | EST_VAR, &nrnStrat); // measures mean and variance of ISI
-	ProcessEstimator estIto( EST_SAMPLE, &nrnIto, 1000 );
-	ProcessEstimator estStrat( EST_SAMPLE, &nrnStrat, 1000 );
+	IntervalEstimator estIsiIto(EST_MEAN | EST_VAR, &nrnIto, &time); // measures mean and variance of ISI
+	IntervalEstimator estIsiStrat(EST_MEAN | EST_VAR, &nrnStrat, &time); // measures mean and variance of ISI
+	ProcessEstimator estIto( EST_SAMPLE, &nrnIto, &time, 1000 );
+	ProcessEstimator estStrat( EST_SAMPLE, &nrnStrat, &time, 1000 );
 	
 	// four matrixes for recording isi mean and variance
 	Matrix mMeanIsiIto(n,2); // 2x20 matrix for the mean isi over var, ito version
@@ -59,45 +54,16 @@ int main(int argc, char **argv)
 	cout << "starting simulation"  << endl;
 	for(int i=0; i<n; i++) {
 		
-		// reset all estimators before each run
-		estIsiIto.init();
-		estIsiStrat.init();
-		
 		// set stimulus variance
 		double var = 2.0 * pow(10.0, double(i)/double(n)*6.0-3.0); // 50 steps, from -3 to 3
-		stimulus.setParameter( WIENER_VARIANCE, var );
+		stimulus.setVariance( var );
+	
+		// calibrate neuron to spike at 50 Hz
+		nrnIto.calibrate(1.0/50/time.dt, 50, 10*50/time.dt);
+		nrnStrat.calibrate(1.0/50/time.dt, 50, 10*50/time.dt);
 		
 		// run for 3000 spikes
-		for( int timeout=0, spikes=0; 
-		spikes<50 && timeout<30000; 
-		timeout++, spikes+=nrnIto.hasEvent()) {
-			
-			// Proceed the stimulus. This is only necessary with passive StochVars.
-			stimulus.proceedToNextState();
-			stimulus.prepareNextState();
-			
-			// Proceed the neurons.
-			nrnIto.proceedToNextState(); // calculate next values for ito neuron
-			nrnStrat.proceedToNextState(); // calculate next values for strat neuron
-			nrnIto.prepareNextState(); // proceed ito neuron
-			nrnStrat.prepareNextState(); // proceed strat neuron
-			
-			// proceed the estimators
-			estIsiIto.proceedToNextState(); // measure mean and var of ito neuron
-			estIsiStrat.proceedToNextState(); // measure mean and var of strat neuron
-			
-			// record sample trace
-			if(i==n/2) {
-				estIto.proceedToNextState();
-				estStrat.proceedToNextState();
-			}
-			
-			// reset timeout
-			if(nrnIto.hasEvent()) {
-				timeout = 0;
-				cout << "\r\t run/spikes:  " << i << "/" << spikes << " of 50/3000     \t" << flush;
-			}
-		}
+		time.run( 3000, &nrnIto, 300000);
 		
 		// save measurements into matrixes
 		mMeanIsiIto[i][0] = var/2.0;
@@ -114,25 +80,22 @@ int main(int argc, char **argv)
 	// a display for the mean
 	Display dsp0("data/ItoVsStratMean2"); // the string "ItoVsStrat" is used as base for the data files. Plots can be viewed again after this program has finished by calling "gnuplot ItoVsStrat.gnuplot". The data will reside in files called "ItoVsStrat.X.data", where X is a number.
 	dsp0.setMode(DSP_AXIS_LOG);
-	dsp0 << mMeanIsiIto;
-	dsp0 << mMeanIsiStrat;
-	// dsp0.save();
-	dsp0.show();
+	dsp0 << mMeanIsiIto.setName("Itô")
+		<< mMeanIsiStrat.setName("Stratonovich")
+		<< showdsp;
 	
 	// display the variance curves
 	Display dsp1("data/ItoVsStratVar2");
 	dsp1.setMode(DSP_AXIS_LOG);
-	dsp1 << mVarIsiIto;
-	dsp1 << mVarIsiStrat;
-	// dsp1.save();
-	dsp1.show();
+	dsp1 << mVarIsiIto.setName("Itô")
+		<< mVarIsiStrat.setName("Stratonovich")
+		<< showdsp;
 	
 	// another display for the voltage traces
 	Display dsp2("data/ItoVsStratAngle2");
-	dsp2 << estIto.mResult(EST_SAMPLE);
-	dsp2 << estStrat.mResult(EST_SAMPLE);
-	dsp2.show();
-	dsp2.save();
+	dsp2 << estIto.mResult(EST_SAMPLE).setName("Itô neuron membrane")
+		<< estStrat.mResult(EST_SAMPLE).setName("Stratonovich neuron membrane")
+		<< showdsp;
 	
 	return 0;
 }

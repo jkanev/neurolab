@@ -35,11 +35,11 @@ using namespace std;
 class IfNeuron : public SpikingNeuron
 {
 private:
-	bool ifneuronHasSpikeNow; // is there a spike currently?
-	bool ifneuronHasSpikeNext; // will there be a spike after the next update?
 	DifferentialEquation ifneuronMembrane; // the membrane equation
 	
 protected:
+	bool ifneuronHasSpikeNow; // is there a spike currently?
+	bool ifneuronHasSpikeNext; // will there be a spike after the next update?
 	double ifneuronSpikeHeight; // height of a spike. This is cosmetical, really.
 	double ifneuronTheta; // threshold
 	
@@ -70,7 +70,7 @@ public:
 	void calibrate(
 		int isi, ///< Desired inter-spike interval, given in time steps.
 		int runs, ///< Number of runs used to estimate threshold. 50 is a good compromise.
-		int maxtime, ///< Maximum time for one run to take. 2*isi is a good compromise
+		int maxtime, ///< Maximum time for one run to take. 10*isi is a good compromise
 		NoiseSource *noises = 0, ///< Address of a NoiseSource object.
 		double increment = 1.1, ///< factor used for increasing step size when direction is kept
 		double decrement = 0.8 ///< factor used for decreasing step size when direction is changed

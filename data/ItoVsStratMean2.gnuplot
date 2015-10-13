@@ -9,5 +9,5 @@ set ylabel "isi mean" font "Helvetica,14pt"
 set zlabel "" font "Helvetica,14pt"
 
 
-plot "data/ItoVsStratMean2.0.data" title "data" with lines , "data/ItoVsStratMean2.1.data" title "data" with lines 
+plot "data/ItoVsStratMean2.0.data" title " Itô" with lines , "data/ItoVsStratMean2.1.data" title " Stratonovich" with lines 
 unset multiplot

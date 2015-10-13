@@ -232,6 +232,17 @@ void Poisson::setParameter(const string& name, const string& value)
 //____________________________________________________________________________
 //  regular process
 
+Regular::Regular(double rate, double shift, Time *time, const string& name, const string& type)
+: StochasticEventGenerator(time, name, type)
+{
+	regularInterval = long(1.0 / rate / xTime->dt);
+	long longShift = long(shift / xTime->dt);
+	if (longShift>1)
+		regularCount = longShift - 1;
+	else
+		regularCount = regularInterval + longShift;
+}
+
 Regular::Regular(double rate, Time *time, const string& name, const string& type)
 : StochasticEventGenerator(time, name, type)
 {

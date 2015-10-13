@@ -20,5 +20,5 @@ var classDifferentialEquation =
     [ "setParameter", "classDifferentialEquation.html#a26fb8b00606cd81549e67aa81fe9446c", null ],
     [ "setStratonovich", "classDifferentialEquation.html#ab56fa98392e4222adf76f286e60abeb1", null ],
     [ "setTerm", "classDifferentialEquation.html#abacb88e73ac01d5b1046a46d758e0292", null ],
-    [ "eqnMethodPtr", "classDifferentialEquation.html#a0be894b3b8606b82be65a2e8ca05f59b", null ]
+    [ "eqnMethodPtr", "classDifferentialEquation.html#a62fb5adc8f0c1d927e5a75c773d1bb82", null ]
 ];

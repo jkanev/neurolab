@@ -152,6 +152,8 @@ string IfNeuron::getParameter(const string& name) const
 		param << ifneuronMembrane.getParameter("starting-value");
 	else if (name=="membrane")
 		param << ifneuronMembrane.getConfiguration();
+	else if (name=="membrane integration-mode")
+		param << ifneuronMembrane.getParameter("mode");
 	else
 		return SpikingNeuron::getParameter(name);
 		
@@ -171,7 +173,7 @@ void IfNeuron::setParameter(const string& name, const string& value)
 		setting >> ifneuronSpikeHeight;
 		cout << "setting spike height to " << ifneuronSpikeHeight << endl;
 	}
-	else if (name== "membrane mode") {
+	else if (name== "membrane integration-mode") {
 		ifneuronMembrane.setParameter("mode", value);
 	}
 	else if (name== "membrane starting-value") {

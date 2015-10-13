@@ -71,9 +71,9 @@ int main(int argc, char **argv)
 	// two neurons
 	double v0 = -60, vRest = -70,  tau = 1, threshold = -45, spikeheight = 10;
 	IfNeuron nrnIto(  &time, v0, threshold, spikeheight, tau, vRest, "Ito Neuron" );
-	nrnIto.setParameter("membrane mode", "ito");
+	nrnIto.setParameter("membrane integration-mode", "ito");
 	IfNeuron nrnStrat(  &time, v0, threshold, spikeheight, tau, vRest, "Stratonovich Neuron" );
-	nrnStrat.setParameter("membrane mode", "stratonovitch");
+	nrnStrat.setParameter("membrane integration-mode", "stratonovitch");
 	
 	// a conductance
 	double revpot = 10, weight = 0.01, mean = 3.0;
@@ -84,9 +84,9 @@ int main(int argc, char **argv)
 	nrnIto.addStimulus( &stimulus, weight, revpot );
 	nrnStrat.addStimulus( &stimulus, weight, revpot );
 	
-	// calibrate the neuron to spike with an isi of 50ms
-	nrnIto.calibrate(int(1000*50/time.dt), 1000, 100000);
-	nrnStrat.calibrate(int(1000*50/time.dt), 1000, 100000);
+	// calibrate the neuron to spike with an isi of 5 Hz
+	nrnIto.calibrate(int(1.0/5.0/time.dt), 1000, 100000);
+	nrnStrat.calibrate(int(1.0/5.0/time.dt), 1000, 100000);
 
 	// testers
 	IntervalEstimator estIsiIto(EST_MEAN | EST_VAR, &nrnIto, &time); // measures mean and variance of ISI
@@ -101,7 +101,7 @@ int main(int argc, char **argv)
 	dataCollector.stimulus = &stimulus;
 	
 	// run simulations
-	time.runNested(1000, &nrnIto, 1e12, 50,&dataCollector);
+	time.runNested(10000, &nrnIto, 1e12, 50,&dataCollector);
 
 	// a display for our results
 	Display dsp("data/ItoVsStratMean"); // the string "ItoVsStrat" is used as base for the data files. Plots can be viewed again after this program has finished by calling "gnuplot ItoVsStrat.gnuplot". The data will reside in files called "ItoVsStrat.X.data", where X is a number.
@@ -113,10 +113,11 @@ int main(int argc, char **argv)
 	
 	// display the variance curves
 	dsp << setmode( DSP_BOTTOM )
-			<< dataCollector.itoVar.setName("response variance of neuron using Ito")
-			<< dataCollector.stratoVar.setName("response variance of neuron using Stratonovich")
+		<< dataCollector.itoVar.setName("response variance of neuron using Ito")
+		<< addsetting("logscale", "y")
+		<< dataCollector.stratoVar.setName("response variance of neuron using Stratonovich")
 		<< savedsp;
-	
+		
 	// another display for the voltage traces
 	Display dsp2("data/ItoVsStratVoltage");
 	dsp2 << estIto.mResult(EST_SAMPLE).setName("voltage sample of Ito neuron")
