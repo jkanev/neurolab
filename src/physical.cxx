@@ -579,6 +579,11 @@ void Physical::setDescription(string name)
 	physicalDescription = name;
 }
 
+void Physical::setPhysicalDescription(string name)
+{
+	physicalDescription = name;
+}
+
 void Physical::setUnitPrefix(int n)
 {
 	physicalUnit.setPrefix(n);

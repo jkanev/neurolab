@@ -36,6 +36,7 @@ Wiener::Wiener(Time *time, const string& name, const string& type)
 	wienerMean = 0.0;
 	wienerStdDev = 1.0;
 	wienerSqrtDt = sqrt(xTime->dt);
+	stochDescription = "Wiener process";
 	addParameter("mean");
 	addParameter("variance");
 	init();

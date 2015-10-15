@@ -84,7 +84,7 @@ public:
 	Matrix getDistribution();
 	
 	
-	virtual Matrix mResult(const Property&) { return Matrix(); } ///< Return an estimation.
+	virtual Matrix getEstimate(const Property&) { return Matrix(); } ///< Return an estimation.
 };
 
 #endif

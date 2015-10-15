@@ -68,18 +68,18 @@ int main( int argc, char **argv)
 	// display results
 	Function x = input("t");
 	for(int i=0; i<5; i++)	
-		dspSample << est[i]->mResult(EST_SAMPLE);
+		dspSample << est[i]->getEstimate(EST_SAMPLE);
 	dspSample.show();
 
 	for(int i=0; i<5; i++) {
 		Function f = x * cnst(mean[i]);
 		f.setXRange(0.0, length, dt);
-		dspMean << est[i]->mResult(EST_MEAN) << f;
+		dspMean << est[i]->getEstimate(EST_MEAN) << f;
 	}
 	dspMean.show();
 	
 	for(int i=5; i<8; i++)
-		dspCovar << est[i]->mResult(EST_SAMPLE);
+		dspCovar << est[i]->getEstimate(EST_SAMPLE);
 	dspCovar.show();
 	
 	vector<double> covar;
@@ -89,7 +89,7 @@ int main( int argc, char **argv)
 	for(int i=0; i<3; i++) {
 		Function f = x * cnst(covar[i]);
 		f.setXRange(0.0, length, dt);
-		dspCovarMean << est[5+i]->mResult(EST_MEAN) << f;
+		dspCovarMean << est[5+i]->getEstimate(EST_MEAN) << f;
 	}
 	dspCovarMean.show();	
 	

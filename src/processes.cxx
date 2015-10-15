@@ -36,6 +36,7 @@ Scalar::Scalar(double d, const string& name, const string& type)
 {
 	scalarValue = d;
 	physicalDescription = name;
+	stochDescription = "scalar";
 	addParameter("value");
 }
 
@@ -45,6 +46,7 @@ Scalar::Scalar(double d, string unitPrefix, string unitSymbol, const string& nam
 	scalarValue = d;
 	physicalDescription = name;
 	physicalUnit = Unit(unitPrefix, unitSymbol);
+	stochDescription = "scalar";
 	addParameter("value");
 }
 
@@ -78,6 +80,7 @@ Product::Product(double factor, const string& name, const string& type)
 	: StochasticFunction(0, name, type)
 {
 	productFactor = factor;
+	stochDescription = "product";
 	addParameter("factor");
 };
 
@@ -124,6 +127,7 @@ VoltageDependance::VoltageDependance(double weight, double reversal, const strin
 	dReversal = reversal;
 	dWeight = weight;
 	stochCurrentValue = 0.0;
+	stochDescription = "voltage dependance";
 	physicalUnit = Unit("m","V");
 	addParameter("reversal-potential");
 	addParameter("weight");
@@ -174,6 +178,7 @@ Poisson::Poisson(double rate, Time* time, const string& name, const string& type
 	: StochasticEventGenerator(time, name, type)
 {
    dRate = rate * xTime->dt;
+   stochDescription = "Poisson process";
    addParameter("rate");
 }
 
@@ -181,6 +186,7 @@ Poisson::Poisson(Time* time, const string& name, const string& type)
 : StochasticEventGenerator(time, name, type)
 {
 	dRate = 5.0 * xTime->dt;
+	stochDescription = "Poisson process";
 	addParameter("rate");
 }
 
@@ -241,6 +247,8 @@ Regular::Regular(double rate, double shift, Time *time, const string& name, cons
 		regularCount = longShift - 1;
 	else
 		regularCount = regularInterval + longShift;
+	stochDescription = "regular counting process";
+	addParameter("rate");
 }
 
 Regular::Regular(double rate, Time *time, const string& name, const string& type)
@@ -248,6 +256,7 @@ Regular::Regular(double rate, Time *time, const string& name, const string& type
 {
 	regularInterval = long(1.0 / rate / xTime->dt);
 	regularCount = regularInterval;
+	stochDescription = "regular counting process";
 	addParameter("rate");
 }
 
@@ -256,6 +265,7 @@ Regular::Regular(Time *time, const string& name, const string& type)
 {
 	regularInterval = long(1.0 / 5.0 / xTime->dt);
 	regularCount = regularInterval;
+	stochDescription = "regular counting process";
 	addParameter("rate");
 }
 

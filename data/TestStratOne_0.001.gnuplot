@@ -11,5 +11,5 @@ set ylabel "" font ",12pt"
 set zlabel "" font ",12pt"
 
 
-plot "data/TestStratOne_0.001.0.data" title " dXt = a Xt dt + b Xt dWt (Ito)" with lines , "data/TestStratOne_0.001.1.data" title " dXt = a Xt dt + b Xt o dWt (Stratonovich)" with lines 
+plot "data/TestStratOne_0.001.0.data" title " dX_t = a X_t dt + b X_t dW_t (Itô)" with lines , "data/TestStratOne_0.001.1.data" title " dX_t = a X_t dt + b X_t o dW_t (Stratonovich)" with lines 
 unset multiplot

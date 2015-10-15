@@ -56,7 +56,7 @@ public:
 	virtual void collect();
 	
 	/// get a property
-	virtual Matrix mResult(const Property&);
+	virtual Matrix getEstimate(const Property&);
 	
 	/// construct
 	ProcessEstimator(const Property&, StochasticProcess *, Time *, int length);

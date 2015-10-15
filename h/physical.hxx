@@ -152,7 +152,7 @@ public:
 	
 	virtual ~Physical();
 	
-	/// Retriev the name.
+	/// Retrive the physical name.
 	/** The name is constructed from the physical name (like "membrane voltage") and the unit symbol (like "mV"). In this example is would read "membrane voltage [mV]". */
 	virtual string getDescription();
 
@@ -176,6 +176,10 @@ public:
 	/** The name of the physical quantity, like 'voltage' */
 	virtual void setDescription(string name);
 		
+	/// Set the name. Same as setDescription().
+	/** The name of the physical quantity, like 'voltage' */
+	virtual void setPhysicalDescription(string name);
+	
 	/// Set the unit.
 	virtual void setUnit(Unit u);
 	

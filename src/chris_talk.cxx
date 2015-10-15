@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 		estRsc.proceedToNextState();
 	}
 	
-	cout << "desired rate: " << isi << ", measured rate: " << estRsc.mResult(EST_MEAN) << endl;
+	cout << "desired rate: " << isi << ", measured rate: " << estRsc.getEstimate(EST_MEAN) << endl;
 	
 /*	// synaptic parameters
 	double dt = 0.5*ms;
@@ -216,7 +216,7 @@ int plot(double dt, double n, double w, double lambda, double n_rc, double lambd
 			cout << "\r\t" << i+1 << "%\t" << flush;
 		}
 		cout << endl;
-		Matrix m = estRsc.mResult( EST_MEAN );
+		Matrix m = estRsc.getEstimate( EST_MEAN );
 		m.transpose();
 		m[1].multiply( 1/mu.value  );
 		m.transpose();

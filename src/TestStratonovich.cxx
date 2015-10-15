@@ -38,17 +38,16 @@ int main(int argc, char *argv[])
 		time.run(n);
 		
 		// results
-		Matrix sampleOne = estOne.mResult(EST_SAMPLE).setName("dXt = a Xt dt + b Xt dWt (Ito)");
-		Matrix sampleTwo = estTwo.mResult(EST_SAMPLE).setName("dXt = a Xt dt + b Xt o dWt (Stratonovich)");
-		Matrix sampleNoise = estNoise.mResult(EST_SAMPLE).setName("Wt");
-		Matrix sampleTime = estTime.mResult(EST_SAMPLE).setName("t");
+		Matrix sampleOne = estOne.getEstimate(EST_SAMPLE).setName("dX_t = a X_t dt + b X_t dW_t (Itô)");
+		Matrix sampleTwo = estTwo.getEstimate(EST_SAMPLE).setName("dX_t = a X_t dt + b X_t o dW_t (Stratonovich)");
+		Matrix sampleNoise = estNoise.getEstimate(EST_SAMPLE).setName("Wt");
+		Matrix sampleTime = estTime.getEstimate(EST_SAMPLE).setName("t");
 		
-
 		// calculate explicit expressions
 		Matrix xplOne(n,2);
-		xplOne.setName("Xt = exp((a - 1/2 b²) Wt + b Wt) (explicit, Ito)");
+		xplOne.setName("X_t = exp((a - ½ b²) t + b W_t) (explicit, Itô)");
 		Matrix xplTwo(n,2);
-		xplTwo.setName("Xt = exp(a Wt + b Wt) (explicit, Stratonovich)");
+		xplTwo.setName("X_t = exp(a t + b W_t) (explicit, Stratonovich)");
 		for (int i=0; i<n; ++i) {
 			xplOne[i][0] = sampleNoise[i][0].to_d();
 			xplOne[i][1] = exp((a - 0.5*b*b)*sampleNoise[i][0].to_d() + b*sampleNoise[i][1].to_d());

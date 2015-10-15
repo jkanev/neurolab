@@ -39,13 +39,13 @@ public:
 		unsigned long long n = step[0];
 		double var = 2.0 * pow(10.0, double(step[0])/double(50)*3.0); // 50 steps, from 0 to 3
 		itoMean[n][0] = var;
-		itoMean[n][1] = 1000 / estIto->mResult(EST_MEAN).to_d();
+		itoMean[n][1] = 1000 / estIto->getEstimate(EST_MEAN).to_d();
 		stratoMean[n][0] = var;
-		stratoMean[n][1] = 1000 / estStrat->mResult(EST_MEAN).to_d();
+		stratoMean[n][1] = 1000 / estStrat->getEstimate(EST_MEAN).to_d();
 		itoVar[n][0] = var;
-		itoVar[n][1] = 1000 / estIto->mResult(EST_VAR).to_d();
+		itoVar[n][1] = 1000 / estIto->getEstimate(EST_VAR).to_d();
 		stratoVar[n][0] = var;
-		stratoVar[n][1] = 1000 / estStrat->mResult(EST_VAR).to_d();
+		stratoVar[n][1] = 1000 / estStrat->getEstimate(EST_VAR).to_d();
 	};
 		
 	// Matrices to record data
@@ -120,8 +120,8 @@ int main(int argc, char **argv)
 		
 	// another display for the voltage traces
 	Display dsp2("data/ItoVsStratVoltage");
-	dsp2 << estIto.mResult(EST_SAMPLE).setName("voltage sample of Ito neuron")
-		<< estStrat.mResult(EST_SAMPLE).setName("voltage sample of Stratonovich neuron")
+	dsp2 << estIto.getEstimate(EST_SAMPLE).setName("voltage sample of Ito neuron")
+		<< estStrat.getEstimate(EST_SAMPLE).setName("voltage sample of Stratonovich neuron")
 		<< savedsp;
 	
 	return 0;

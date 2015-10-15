@@ -84,7 +84,7 @@ public:
 	virtual ~Estimator();
 	
 	virtual void collect() = 0; ///< Eat the next data point.
-	virtual Matrix mResult(const Property&) = 0; ///< Return an estimation.
+	virtual Matrix getEstimate(const Property&) = 0; ///< Return an estimation.
 };
 
 

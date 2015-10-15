@@ -35,7 +35,7 @@ IfNeuron::IfNeuron(Time *time, double v_0, double theta, double spikeheight, dou
 	
 	// write descriptions
 	physicalDescription = "voltage";
-	stochDescription = "LIF Neuron membrane";
+	ifneuronMembrane.setDescription("LIF neuron membrane");
 	
 	// assign values
 	ifneuronSpikeHeight = spikeheight;
@@ -101,7 +101,7 @@ void IfNeuron::calibrate(int isi, int spikes, int maxtime, NoiseSource *noises, 
 		
 		// test fpt
 		xTime->run( spikes, this, maxtime, devnull );
-		double mean = estimator.mResult(EST_MEAN).to_d() / xTime->dt;
+		double mean = estimator.getEstimate(EST_MEAN).to_d() / xTime->dt;
 		if( mean==0.0 ) mean = 1e23;
 		
 		// early stopping

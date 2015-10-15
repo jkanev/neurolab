@@ -67,13 +67,13 @@ int main(int argc, char **argv)
 		
 		// save measurements into matrixes
 		mMeanIsiIto[i][0] = var/2.0;
-		mMeanIsiIto[i][1] = 1.0 / estIsiIto.mResult(EST_MEAN).to_d();
+		mMeanIsiIto[i][1] = 1.0 / estIsiIto.getEstimate(EST_MEAN).to_d();
 		mMeanIsiStrat[i][0] = var/2.0;
-		mMeanIsiStrat[i][1] = 1.0 / estIsiStrat.mResult(EST_MEAN).to_d();
+		mMeanIsiStrat[i][1] = 1.0 / estIsiStrat.getEstimate(EST_MEAN).to_d();
 		mVarIsiIto[i][0] = var/2.0;
-		mVarIsiIto[i][1] = estIsiIto.mResult(EST_VAR).to_d() / estIsiIto.mResult(EST_MEAN).to_d();
+		mVarIsiIto[i][1] = estIsiIto.getEstimate(EST_VAR).to_d() / estIsiIto.getEstimate(EST_MEAN).to_d();
 		mVarIsiStrat[i][0] = var/2.0;
-		mVarIsiStrat[i][1] = estIsiStrat.mResult(EST_VAR).to_d() / estIsiStrat.mResult(EST_MEAN).to_d();
+		mVarIsiStrat[i][1] = estIsiStrat.getEstimate(EST_VAR).to_d() / estIsiStrat.getEstimate(EST_MEAN).to_d();
 	}
 	cout << endl;
 
@@ -93,8 +93,8 @@ int main(int argc, char **argv)
 	
 	// another display for the voltage traces
 	Display dsp2("data/ItoVsStratAngle2");
-	dsp2 << estIto.mResult(EST_SAMPLE).setName("Itô neuron membrane")
-		<< estStrat.mResult(EST_SAMPLE).setName("Stratonovich neuron membrane")
+	dsp2 << estIto.getEstimate(EST_SAMPLE).setName("Itô neuron membrane")
+		<< estStrat.getEstimate(EST_SAMPLE).setName("Stratonovich neuron membrane")
 		<< showdsp;
 	
 	return 0;

@@ -166,7 +166,7 @@ void MlNeuron::calibrate(int isi, int spikes, int maxtime, NoiseSource *noises)
 		xTime->run( spikes, this, maxtime, devnull );
 		
 		// adjust threshold
-		double mean = estimator.mResult(EST_MEAN).to_d() / xTime->dt;
+		double mean = estimator.getEstimate(EST_MEAN).to_d() / xTime->dt;
 		if( mean==0.0 ) mean = 2*isi;
 		if(mean < isi)
 			if (direction == 1) {

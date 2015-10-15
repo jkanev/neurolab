@@ -133,7 +133,7 @@ ProcessEstimator::~ProcessEstimator()
 
 //________________________________________
 // get some property
-Matrix ProcessEstimator::mResult(const Property& p)
+Matrix ProcessEstimator::getEstimate(const Property& p)
 {
 	double samples = nSamples? double(nSamples): 1.0;
 	if(nEstimate & EST_DIFF)
@@ -143,7 +143,7 @@ Matrix ProcessEstimator::mResult(const Property& p)
 		Graph a(nLength);
 		a.setName("process sample");
 		if( pSource ) {
-			a.setName( "sample of " + pSource->getDescription() );
+			a.setName( "sample of " + pSource->getName() + " (" + pSource->getType() + ")" );
 			a.setPhysical(*pSource);
 			a.setPhysical(0, *estimatorTime );
 			a.setPhysical(1, *pSource);
@@ -158,7 +158,7 @@ Matrix ProcessEstimator::mResult(const Property& p)
 		Graph a(nLength);
 		a.setName("process mean");
 		if( pSource ) {
-			a.setName( "mean of " + pSource->getDescription() );
+			a.setName( "mean of " + pSource->getName() + " (" + pSource->getType() + ")" );
 			a.setPhysical(*pSource);
 			a.setPhysical(0, *estimatorTime );
 			a.setPhysical(1, *pSource);
@@ -176,7 +176,7 @@ Matrix ProcessEstimator::mResult(const Property& p)
 			string name = ((Physical *)pSource)->getUnit().getName();
 			Unit unit = ((Physical *)pSource)->getUnit();
 			Physical p(name, unit*unit);
-			a.setName( "variance of " + pSource->getDescription() );
+			a.setName( "variance of " + pSource->getName() + " (" + pSource->getType() + ")" );
 			a.setPhysical(p);
 			a.setPhysical(0, *estimatorTime );
 			a.setPhysical(1, p);
@@ -191,7 +191,7 @@ Matrix ProcessEstimator::mResult(const Property& p)
 		Graph a(nLength, nDist);
 		a.setName("process density");
 		if( pSource ) {
-			a.setName( "density of " + pSource->getDescription() );
+			a.setName( "density of " + pSource->getName() + " (" + pSource->getType() + ")" );
 			a.setPhysical(*pSource);
 			a.setPhysical(0, *estimatorTime );
 			a.setPhysical(1, *pSource);

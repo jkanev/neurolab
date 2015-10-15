@@ -55,9 +55,9 @@ int main(int argc, char *argv[])
 			for( int i=0; i<2000000; i++) {
 				nrn.proceedToNextState(); nrn.prepareNextState(); isi.proceedToNextState();
 			}
-			mean[a][b] = isi.mResult( EST_MEAN ).to_d();
+			mean[a][b] = isi.getEstimate( EST_MEAN ).to_d();
 			mean.setName( "mean of interspike intervals" );
-			variance[a][b] = isi.mResult( EST_VAR ).to_d();
+			variance[a][b] = isi.getEstimate( EST_VAR ).to_d();
 			variance.setName( "variance of interspike intervals" );
 			isi.init();
 		}
@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
 	}
 	cout << '.' << flush;
 
-	cout << isi.mResult(EST_MEAN).to_d() << endl;
+	cout << isi.getEstimate(EST_MEAN).to_d() << endl;
 */
 
 /* // test formula of wiener_cpp
@@ -105,8 +105,8 @@ int main(int argc, char *argv[])
 	
 	// display
 	Display dsp("ifneuron");
-	dsp << cndNrnCpp.mResult(EST_MEAN);
-	dsp << cndNrnCpp.mResult(EST_EVENTS);
+	dsp << cndNrnCpp.getEstimate(EST_MEAN);
+	dsp << cndNrnCpp.getEstimate(EST_EVENTS);
 	dsp.show();	
 	
 	// finish

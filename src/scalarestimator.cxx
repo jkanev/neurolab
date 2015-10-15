@@ -107,34 +107,45 @@ void ScalarEstimator::estimate(double d)
 }
 
 
-Matrix ScalarEstimator::mResult(const Property& p)
+Matrix ScalarEstimator::getEstimate(const Property& p)
 {
 	double samples = nSamples? double(nSamples): 1.0;
 	
 	if(p & nEstimate & EST_SAMPLE) {
 		Matrix a;
-		if(pSource) a.setPhysical(*pSource);
+		if(pSource) {
+			a.setPhysical(*pSource);
+			a.setName("sample of " + pSource->getName() + " (" + pSource->getType() + ")" );
+		}
 		a = dSample;
 		return a;
 	}
 	else if(p & nEstimate & EST_MEAN) {
 		Matrix a;
-		if(pSource) a.setPhysical(*pSource);
+		if(pSource) {
+			a.setPhysical(*pSource);
+			a.setName("mean of " + pSource->getName() + " (" + pSource->getType() + ")" );
+		}
 		a = dOne / samples;
 		return a;
 	}
 	else if(p & nEstimate & EST_VAR) {
 		Matrix a;
 		double mean = dOne / samples;
-		if(pSource) a.setPhysical(*pSource);
+		if(pSource) {
+			a.setPhysical(*pSource);
+			a.setName("variance of " + pSource->getName() + " (" + pSource->getType() + ")" );
+		}
 		a = (dTwo/samples - mean*mean);
 		return a;
 	}
 	else if(p & nEstimate & EST_DENS) {
 		Matrix a(nDist, 2);
-		a.setName("probability distribution");
 		a.setPhysical(0, *(new Physical()));
-		if(pSource) a.setPhysical(*pSource);
+		if(pSource) {
+			a.setPhysical(*pSource);
+			a.setName("probability distribution"+ pSource->getName() + " (" + pSource->getType() + ")" );
+		}
 		for(int i=0; i<nDist; i++) {
 			a[i][0] = (double(i) * dDistScale) + dDistOffset;
 			a[i][1] = aDist[i] / samples;

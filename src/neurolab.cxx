@@ -93,13 +93,13 @@ int main(int argc, char **argv)
 		
 		// save measurements into matrixes
 		mMeanIsiIto[i][0] = var;
-		mMeanIsiIto[i][1] = 1000 / estIsiIto.mResult(EST_MEAN).to_d();
+		mMeanIsiIto[i][1] = 1000 / estIsiIto.getEstimate(EST_MEAN).to_d();
 		mMeanIsiStrat[i][0] = var;
-		mMeanIsiStrat[i][1] = 1000 / estIsiStrat.mResult(EST_MEAN).to_d();
+		mMeanIsiStrat[i][1] = 1000 / estIsiStrat.getEstimate(EST_MEAN).to_d();
 		mVarIsiIto[i][0] = var;
-		mVarIsiIto[i][1] = 1000 / estIsiIto.mResult(EST_VAR).to_d();
+		mVarIsiIto[i][1] = 1000 / estIsiIto.getEstimate(EST_VAR).to_d();
 		mVarIsiStrat[i][0] = var;
-		mVarIsiStrat[i][1] = 1000 / estIsiStrat.mResult(EST_VAR).to_d();
+		mVarIsiStrat[i][1] = 1000 / estIsiStrat.getEstimate(EST_VAR).to_d();
 	}
 	cout << endl;
 
@@ -121,8 +121,8 @@ int main(int argc, char **argv)
 	
 	// another display for the voltage traces
 	Display dsp2("data/ItoVsStratVoltage");
-	dsp2 << estIto.mResult(EST_SAMPLE).setName("voltage sample of Ito neuron");
-	dsp2 << estStrat.mResult(EST_SAMPLE).setName("voltage sample of Stratonovich neuron");
+	dsp2 << estIto.getEstimate(EST_SAMPLE).setName("voltage sample of Ito neuron");
+	dsp2 << estStrat.getEstimate(EST_SAMPLE).setName("voltage sample of Stratonovich neuron");
 	dsp2.show();
 	dsp2.save();
 	

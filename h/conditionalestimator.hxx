@@ -102,7 +102,7 @@ public:
 	virtual void collect();
 		
 	/// get some property
-	virtual Matrix mResult(const Property&);
+	virtual Matrix getEstimate(const Property&);
 	
 	/// initialize
 	void init();

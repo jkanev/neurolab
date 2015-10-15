@@ -217,7 +217,7 @@ void ConditionalEstimator::collect()
 	
 //________________________________________
 // get some property
-Matrix ConditionalEstimator::mResult(const Property& p)
+Matrix ConditionalEstimator::getEstimate(const Property& p)
 {
 	double samples = (nSamples!=0.0)? double(nSamples): 1.0;
 	if(nEstimate & EST_DIFF) {
@@ -228,7 +228,7 @@ Matrix ConditionalEstimator::mResult(const Property& p)
 		Graph a(nPre+nPost+1);
 		a.setName("sample");
 		if( pSource ) {
-			a.setName( "conditional sample of " + pSource->getDescription() );
+			a.setName( "conditional sample of " + pSource->getName() + " (" + pSource->getType() + ")");
 			a.setPhysical(*pSource);
 			a.setPhysical(0, *estimatorTime );
 			a.setPhysical(1, *pSource);
@@ -243,7 +243,7 @@ Matrix ConditionalEstimator::mResult(const Property& p)
 		Graph a(nPre+nPost+1);
 		a.setName("conditional mean");
 		if( pSource ) {
-			a.setName( "conditional mean of " + pSource->getDescription() );
+			a.setName( "conditional mean of " + pSource->getName() + " (" + pSource->getType() + ")");
 			a.setPhysical(*pSource);
 			a.setPhysical(0, *estimatorTime );
 			a.setPhysical(1, *pSource);
@@ -257,6 +257,8 @@ Matrix ConditionalEstimator::mResult(const Property& p)
 	if(p & nEstimate & EST_EVENTS) {
 		Graph a(nPre+nPost+1);
 		a.setName("conditional auto-correlation");
+		if (pSource)
+			a.setName("conditional auto-correlation of " + pSource->getName() + " (" + pSource->getType() + ")");
 		for(int i=0; i<nPre+nPost+1; i++) {
 			a[i][0] = estimatorTime->dt * ((double) i - nPre + 1);
 			a[i][1] = aEvents[i] / samples;
@@ -266,6 +268,8 @@ Matrix ConditionalEstimator::mResult(const Property& p)
 	else if(p & nEstimate & EST_VAR) {
 		Graph a(nPre+nPost+1);
 		a.setName("conditional variance");
+		if (pSource)
+			a.setName("conditional variance of " + pSource->getName() + " (" + pSource->getType() + ")");
 		for(int i=0; i<nPre+nPost+1; i++) {
 			a[i][0] = estimatorTime->dt * ((double) i - nPre);
 			double mean = aOne[i] / samples;
@@ -277,6 +281,8 @@ Matrix ConditionalEstimator::mResult(const Property& p)
 		int timeSize = nPre+nPost+1;
 		Matrix a(timeSize, nDist, 3);
 		a.setName("conditional density");
+		if (pSource)
+			a.setName("conditional density of " + pSource->getName() + " (" + pSource->getType() + ")");
 		for(int j=0; j<nDist; j++)
 			for( int i=0; i<timeSize; i++ ) {
 				a[i][j][0] = estimatorTime->dt * ((double) i - nPre);

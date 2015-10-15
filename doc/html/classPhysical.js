@@ -11,6 +11,7 @@ var classPhysical =
     [ "getUnitName", "classPhysical.html#a359a145863a529b1f7f986865045106b", null ],
     [ "getUnitSymbol", "classPhysical.html#a79d85f6ec2b728ef1f5154105b5003c6", null ],
     [ "setDescription", "classPhysical.html#a9acbf2eae3b93d0073003b8603afda98", null ],
+    [ "setPhysicalDescription", "classPhysical.html#a513861949f6ac0ad2b86d28f8f6ee7a3", null ],
     [ "setUnit", "classPhysical.html#a1262a520e80201dad23bc84c322f1eae", null ],
     [ "setUnitPrefix", "classPhysical.html#aee82aa27916708a2290415dc9e822e59", null ]
 ];

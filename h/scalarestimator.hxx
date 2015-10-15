@@ -43,7 +43,7 @@ protected:
 public:
 	virtual void collect(); ///< Eat next piece of data
 	virtual void init(); ///< reset all values
-	virtual Matrix mResult(const Property&); ///< return result of estimation
+	virtual Matrix getEstimate(const Property&); ///< return result of estimation
 	ScalarEstimator(const Property&, StochasticProcess *, Time *); ///< Constructor
 	void setProperty( const Property&, double ); ///< set distribution-related properties
 	virtual ~ScalarEstimator(); ///< Destructor

@@ -200,7 +200,7 @@ Matrix SeriesEstimator::getMean()
 	if(nEstimate & EST_MEAN) {
 		a.setName("conditional mean");
 		if( seriesSource ) {
-			a.setName( "mean of" );
+			a.setName( "mean of"  + seriesSource->getName() + " (" + seriesSource->getType() + ")" );
 //			a.setPhysical(*seriesSource);
 //			a.setPhysical(0, *xTime );
 //			a.setPhysical(1, *seriesSource);
@@ -220,6 +220,8 @@ Matrix SeriesEstimator::getVariance()
 	
 	if (nEstimate & EST_VAR) {
 		a.setName("conditional variance");
+		if (seriesSource)
+			a.setName("variance of " + seriesSource->getName() + " (" + seriesSource->getType() + ")" );
 		for(int i=0; i<estimatorPre+estimatorPost; i++) {
 			a[i][0] = i - estimatorPre;
 			double mean = estimatorOne[i] / samples;
@@ -236,6 +238,8 @@ Matrix SeriesEstimator::getDistribution()
 	int timeSize = estimatorPre+estimatorPost;
 	Matrix a(timeSize, estimatorDistLength, 3);
 	a.setName("conditional density");
+	if (seriesSource)
+		a.setName("density of " + seriesSource->getName() + " (" + seriesSource->getType() + ")" );
 	
 	if ( nEstimate & EST_DENS ) {
 		for ( int j=0; j<estimatorDistLength; j++)

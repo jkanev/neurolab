@@ -145,7 +145,7 @@ void DependanceEstimator::collect()
 
 //__________________________________________________________________________
 // create result
-Matrix DependanceEstimator::mResult(const Property &p)
+Matrix DependanceEstimator::getEstimate(const Property &p)
 {
 	if(p & nEstimate & EST_MEAN) {
 		Graph a(dependanceBins);
@@ -165,6 +165,8 @@ Matrix DependanceEstimator::mResult(const Property &p)
 	else if(p & nEstimate & EST_VAR) {
 		Graph a(dependanceBins);
 		a.setName("conditional variance");
+		if (pSource)
+			a.setName( "variance of " + pSource->getName() + " given " + xBase->getName());
 		for(int i=0; i<dependanceBins; ++i) {
 			a[i][0] = dBegin + double(i) * getIncrement;
 			double mean = aOne[i] / aSamples[i];

@@ -63,7 +63,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="Introduction"></a>
 Introduction</h1>
-<p>NeuroLab is a class library which offers simulation of stochastic differential (integral) equations, as well as recording and display of data. Its main use is intended to be in the neuroscience field.</p>
+<p>NeuroLab is a class library which offers simulation of stochastic differential (integral) equations, as well as recording and display of data. Its main use is intended to be in the neuroscience field. Please find the source code on GitHub, <a href="https://github.com/jkanev/neurolab">github.com/jkanev/neurolab</a>. Intended audience are researchers who want to run simulations of single or multiple connected neurons, analyse the results, and display / save to various file format.</p>
 <h1><a class="anchor" id="General"></a>
 Principles</h1>
 <p>Stochastic Variables (<a class="el" href="classStochasticVariable.html" title="A simple stochastic variable. ">StochasticVariable</a>), such as stochastic differential equations (<a class="el" href="classDifferentialEquation.html" title="A stochastic differential equation. ">DifferentialEquation</a>), produce data. This data can be recorded (<a class="el" href="classMatrix.html" title="a matrix class ">Matrix</a>) by various estimators, which look for mean, variance and/or higher moments. Using a display (<a class="el" href="classDisplay.html" title="Class for displaying matrix data and analytical functions. ">Display</a>) the data can then be displayed, compared to analytical functions (<a class="el" href="classFunction.html" title="Class for mathematical functions. ">Function</a>), and saved as data (gnuplot format), or postscript file, ready to be included in your paper.</p>
@@ -76,44 +76,227 @@ Simulations</h1>
 <p>An independent stochastic process. These are objects of the classes <a class="el" href="classPoisson.html" title="Returns delta peaks with a static rate. ">Poisson</a>, <a class="el" href="classWiener.html" title="Properties for all Wiener processes. ">Wiener</a>, <a class="el" href="classWienerCpp.html" title="Condensed Poisson Process. ">WienerCpp</a>. They can be linked to a neuron with the <a class="el" href="classIfNeuron.html#a331ac02cfc9e7692bed845359db487ca" title="add a stimulus ">IfNeuron::addStimulus()</a> method. Each such object may drive one or many neurons.</p>
 <p>A dependent stochastic process. A Noises object produces <a class="el" href="classNoiseSource.html" title="A set of mutually correlated noise sources (Wiener, Poisson and Ornstein-Uhlenbeck processes)...">NoiseSource</a> objects which resemble poisson and wiener processes, and which may be correlated. It is even possible to correlate a wiener and a poisson process.</p>
 <p>Another neuron. In this case a synapse has to be built, which connects the neurons. Possible classes are <a class="el" href="classSynapse.html" title="A synapse. ">Synapse</a> (a simple synapse which transforms the spike events of the pre-synaptic neuron into Zeros and Ones [multiplied by a weight factor]), or <a class="el" href="classSimpleSynapse.html" title="A synapse. ">SimpleSynapse</a> (a more complex synapse, which is driven by a differential equation).</p>
-<h1><a class="anchor" id="Quality"></a>
+<h1><a class="anchor" id="Example"></a>
+Example</h1>
+<p>Lets look at a simple example. You want to create two conductance-based leaky integrate-and-fire neurons (called nrnOne and nrnTwo), each inhibiting the other one, and both receiving some excitatory noise (noiseOne and noiseTwo). You then want to record the spike triggered average stimulus of one neuron (you expect some positive exponential spike), and the same average stimulus, but triggered on the spikes of the inhibited neuron (you expect some broader curve, pointing downwards).</p>
+<p>You also want both neurons to be spiking with a rate of 5 Hz and want to calibrate that automatically, by adjusting the threshold.</p>
+<p>Here's what you do:</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &quot;../h/neurolab&quot;</span></div>
+<div class="line"></div>
+<div class="line"><span class="keyword">using namespace </span><a class="code" href="namespacestd.html">std</a>;</div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv)</div>
+<div class="line">{</div>
+<div class="line">        <span class="comment">// create a time object, using a time step of 1 ms</span></div>
+<div class="line">        <span class="keywordtype">double</span> dt = 0.1; <span class="comment">// in ms</span></div>
+<div class="line">        <a class="code" href="classTime.html">Time</a> time(dt);</div>
+<div class="line">        time.setUnit(<a class="code" href="classUnit.html">Unit</a>(<span class="stringliteral">&quot;m&quot;</span>,<span class="stringliteral">&quot;s&quot;</span>)); <span class="comment">// set unit for display to ms</span></div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// create two neurons</span></div>
+<div class="line">        <span class="keywordtype">double</span> v0 = -60, vRest = -70,  tau = 5.0, threshold = -10, spikeheight = 20;</div>
+<div class="line">        <a class="code" href="classIfNeuron.html">IfNeuron</a> nrnOne( &amp;time, v0, threshold, spikeheight, tau, vRest, <span class="stringliteral">&quot;neuron-1&quot;</span> );</div>
+<div class="line">        <a class="code" href="classIfNeuron.html">IfNeuron</a> nrnTwo( &amp;time, v0, threshold, spikeheight, tau, vRest, <span class="stringliteral">&quot;neuron-2&quot;</span> );</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// create two noise sources with mean = variance = 0.5</span></div>
+<div class="line">        <span class="keywordtype">double</span> mean = 0.5, var = 0.5;</div>
+<div class="line">        <a class="code" href="classWiener.html">Wiener</a> noiseOne( &amp;time, <span class="stringliteral">&quot;stimulus-1&quot;</span> );</div>
+<div class="line">        <a class="code" href="classWiener.html">Wiener</a> noiseTwo( &amp;time, <span class="stringliteral">&quot;stimulus-2&quot;</span> );</div>
+<div class="line">        noiseOne.setMean( mean );</div>
+<div class="line">        noiseTwo.setMean( mean );</div>
+<div class="line">        noiseOne.setVariance( var );</div>
+<div class="line">        noiseTwo.setVariance( var );</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// declare them as conductances (correct unit and description, will show in plot)</span></div>
+<div class="line">        noiseOne.setUnit(<a class="code" href="classUnit.html">Unit</a>(<span class="stringliteral">&quot;m&quot;</span>,<span class="stringliteral">&quot;S&quot;</span>) * time.getUnit());</div>
+<div class="line">        noiseTwo.setUnit(<a class="code" href="classUnit.html">Unit</a>(<span class="stringliteral">&quot;m&quot;</span>,<span class="stringliteral">&quot;S&quot;</span>) * time.getUnit());</div>
+<div class="line">        noiseOne.setPhysicalDescription(<span class="stringliteral">&quot;conductance density&quot;</span>);</div>
+<div class="line">        noiseTwo.setPhysicalDescription(<span class="stringliteral">&quot;conductance density&quot;</span>);</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// and add as syncaptic conductance to each neuron, with reversal potential 10 mV</span></div>
+<div class="line">        <span class="keywordtype">double</span> revpot = 10, weight = 0.1;</div>
+<div class="line">        nrnOne.addStimulus( &amp;noiseOne, weight, revpot );</div>
+<div class="line">        nrnTwo.addStimulus( &amp;noiseTwo, weight, revpot );</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// calibrate both neurons to spike at 5Hz</span></div>
+<div class="line">        nrnOne.calibrate(200, 40, 500);</div>
+<div class="line">        nrnTwo.calibrate(200, 40, 500);</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// create two inhibitory (reversal potential -80 mV) synapses from each neuron</span></div>
+<div class="line">        revpot = -80.0, weight = 0.1;</div>
+<div class="line">        <a class="code" href="classSynapse.html">Synapse</a> one2Two(&amp;time, &amp;nrnOne, weight, revpot, <span class="stringliteral">&quot;excitatory-1&quot;</span>);</div>
+<div class="line">        <a class="code" href="classSynapse.html">Synapse</a> two2One(&amp;time, &amp;nrnTwo, weight, revpot, <span class="stringliteral">&quot;excitatory-2&quot;</span>);</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// add each as simulus to the other neuron respectively</span></div>
+<div class="line">        nrnOne.addStimulus( &amp;two2One );</div>
+<div class="line">        nrnTwo.addStimulus( &amp;one2Two ); </div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// create two extimators for mean and sample</span></div>
+<div class="line">        <a class="code" href="classProcessEstimator.html">ProcessEstimator</a> estNrn1(EST_SAMPLE, &amp;nrnOne, &amp;time, 2000);</div>
+<div class="line">        <a class="code" href="classProcessEstimator.html">ProcessEstimator</a> estNrn2(EST_SAMPLE, &amp;nrnTwo, &amp;time, 2000);</div>
+<div class="line">        <a class="code" href="classConditionalEstimator.html">ConditionalEstimator</a> estNoise1(EST_DIFF|EST_MEAN, &amp;noiseOne, &amp;nrnOne, &amp;time, 100, 100);</div>
+<div class="line">        <a class="code" href="classConditionalEstimator.html">ConditionalEstimator</a> estNoise2(EST_DIFF|EST_MEAN, &amp;noiseTwo, &amp;nrnOne, &amp;time, 100, 100);</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// run the simulation</span></div>
+<div class="line">        time.run( 1e6 );</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// create a display</span></div>
+<div class="line">        <a class="code" href="classDisplay.html">Display</a> dspNrn(<span class="stringliteral">&quot;data/CoupledNeuronsSample&quot;</span>);</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// send the recorded sample of the first neuron to the display, in a graph at the top</span></div>
+<div class="line">        dspNrn.setMode( DSP_TOP );</div>
+<div class="line">        dspNrn &lt;&lt; estNrn1.getEstimate(EST_SAMPLE);</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// send the recorded sample of the second to the display, in a separate graph at the bottom</span></div>
+<div class="line">        dspNrn.setMode( DSP_BOTTOM );</div>
+<div class="line">        dspNrn &lt;&lt; estNrn2.getEstimate(EST_SAMPLE);</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// show to user, then save as png</span></div>
+<div class="line">        dspNrn &lt;&lt; showdsp</div>
+<div class="line">                &lt;&lt; savepng;</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// create other display</span></div>
+<div class="line">        <a class="code" href="classDisplay.html">Display</a> dspNoise(<span class="stringliteral">&quot;data/CoupledNeuronsRsc&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">        <span class="comment">// create two functions v1 and v2 with exponentials for comparison</span></div>
+<div class="line">        <a class="code" href="classFunction.html">Function</a> t = input(<span class="stringliteral">&quot;t&quot;</span>);</div>
+<div class="line">        <a class="code" href="classFunction.html">Function</a> v1 = 2.0 * exp(t) * (t &lt; cnst(0.0)) + 5.0;</div>
+<div class="line">        <a class="code" href="classFunction.html">Function</a> v2 = 2.0 * exp(0.5*t) * (t &lt; cnst(0.0)) + 5.0;</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// send the recorded conditional mean and both theoretical functions to the display</span></div>
+<div class="line">        dspNoise.setMode( DSP_TOP );</div>
+<div class="line">        dspNoise &lt;&lt; estNoise1.getEstimate(EST_MEAN)</div>
+<div class="line">                &lt;&lt; v1</div>
+<div class="line">                &lt;&lt; v2;</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// send the recorded conditional mean to the display, and the scaled difference of both theoretical functions</span></div>
+<div class="line">        dspNoise.setMode( DSP_BOTTOM );</div>
+<div class="line">        dspNoise &lt;&lt; estNoise2.getEstimate(EST_MEAN)</div>
+<div class="line">                &lt;&lt; (v1 - v2)/5.0 + 5.0;</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// show to user</span></div>
+<div class="line">        dspNoise &lt;&lt; showdsp &lt;&lt; savepng;</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// show configuration of neurons to user</span></div>
+<div class="line">        cout &lt;&lt; noiseOne.getConfiguration() &lt;&lt; endl &lt;&lt; endl</div>
+<div class="line">                &lt;&lt; noiseTwo.getConfiguration() &lt;&lt; endl &lt;&lt; endl</div>
+<div class="line">                &lt;&lt; nrnOne.getConfiguration() &lt;&lt; endl &lt;&lt; endl</div>
+<div class="line">                &lt;&lt; nrnTwo.getConfiguration() &lt;&lt; endl &lt;&lt; endl;</div>
+<div class="line">};</div>
+</div><!-- fragment --><p>The software runs, and you see following output:</p>
+<div class="fragment"><div class="line">starting simulation: 1000000 steps.         </div>
+<div class="line">running simulation: 10%</div>
+</div><!-- fragment --><p>and then</p>
+<div class="fragment"><div class="line">starting simulation: 1000000 steps.         </div>
+<div class="line">running simulation: 99%</div>
+<div class="line">multiplying by dt: 0.1</div>
+<div class="line">displaying <span class="keyword">function</span>: done.         </div>
+<div class="line">displaying <span class="keyword">function</span>: done.         </div>
+<div class="line">multiplying by dt: 0.1</div>
+<div class="line">displaying <span class="keyword">function</span>: done.         </div>
+</div><!-- fragment --><p>Now the following two pictures are shown as dialog windows, and also saved as png to the location "data/CoupledNeuronsRsc.png" and "data/CoupledNeuronsSample.png", as you've defined in the argument to the <a class="el" href="classDisplay.html" title="Class for displaying matrix data and analytical functions. ">Display</a> class:</p>
+<div style="width: 100%; position: left; float: left"> <b> Step-size=0.01:</b><br />
+ </p><div class="image">
+<img src="CoupledNeuronsSample.png"  style="position: left; float: left" width="640px"/>
+</div>
+ <div class="image">
+<img src="CoupledNeuronsRsc.png"  style="position: left; float: left" width="640px"/>
+</div>
+<p><br />
+ </div><p>At last the configuration is outputted to the terminal, as result of the calls "cout &lt;&lt; noiseOne.getConfiguration()...". The complete configuration of the objects is shown, including the thresholds found in the automatic calibration.</p>
+<div class="fragment"><div class="line"><span class="stringliteral">&quot;stimulus-1&quot;</span> <a class="code" href="classWiener.html">Wiener</a> Process</div>
+<div class="line">        mean: 5</div>
+<div class="line">        variance: 0.5</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"><span class="stringliteral">&quot;stimulus-2&quot;</span> <a class="code" href="classWiener.html">Wiener</a> Process</div>
+<div class="line">        mean: 5</div>
+<div class="line">        variance: 0.5</div>
+<div class="line"></div>
+<div class="line"></div>
+<div class="line"><span class="stringliteral">&quot;neuron-1&quot;</span> Integrate-and-Fire <a class="code" href="classNeuron.html">Neuron</a></div>
+<div class="line">        threshold: -10.2635</div>
+<div class="line">        spike-height: 20</div>
+<div class="line">        membrane: <span class="stringliteral">&quot;V&quot;</span> Differential Equation</div>
+<div class="line">                equation: d V = f1(V) d X1  + f2(V) d X2  + f3(V) d X3 </div>
+<div class="line">                mode: ito</div>
+<div class="line">                starting-value: -60</div>
+<div class="line">                f1(V): &quot;leak&quot; Weighted Difference</div>
+<div class="line">                        reversal-potential: -70</div>
+<div class="line">                        weight: 0.2</div>
+<div class="line">                X1: &quot;t&quot; <a class="code" href="classTime.html">Time</a> Process</div>
+<div class="line">                f2(V): &quot;channel&quot; Weighted Difference</div>
+<div class="line">                        reversal-potential: 10</div>
+<div class="line">                        weight: 0.1</div>
+<div class="line">                X2: &quot;stimulus-1&quot; <a class="code" href="classWiener.html">Wiener</a> Process</div>
+<div class="line">                f3(V): &quot;excitatory-2&quot; <a class="code" href="classSynapse.html">Synapse</a></div>
+<div class="line">                        reversal-potential: -80</div>
+<div class="line">                        weight: 0.1</div>
+<div class="line">                        pre-synaptic-neuron: &quot;neuron-2&quot; Integrate-and-Fire <a class="code" href="classNeuron.html">Neuron</a></div>
+<div class="line">                X3: &quot;t&quot; <a class="code" href="classTime.html">Time</a> Process</div>
+<div class="line">        </div>
+<div class="line">        </div>
+<div class="line"></div>
+<div class="line">&quot;neuron-2&quot; Integrate-and-Fire <a class="code" href="classNeuron.html">Neuron</a></div>
+<div class="line">        threshold: -10.2645</div>
+<div class="line">        spike-height: 20</div>
+<div class="line">        membrane: &quot;V&quot; Differential Equation</div>
+<div class="line">                equation: d V = f1(V) d X1  + f2(V) d X2  + f3(V) d X3 </div>
+<div class="line">                mode: ito</div>
+<div class="line">                starting-value: -60</div>
+<div class="line">                f1(V): &quot;leak&quot; Weighted Difference</div>
+<div class="line">                        reversal-potential: -70</div>
+<div class="line">                        weight: 0.2</div>
+<div class="line">                X1: &quot;t&quot; <a class="code" href="classTime.html">Time</a> Process</div>
+<div class="line">                f2(V): &quot;channel&quot; Weighted Difference</div>
+<div class="line">                        reversal-potential: 10</div>
+<div class="line">                        weight: 0.1</div>
+<div class="line">                X2: &quot;stimulus-2&quot; <a class="code" href="classWiener.html">Wiener</a> Process</div>
+<div class="line">                f3(V): &quot;excitatory-1&quot; <a class="code" href="classSynapse.html">Synapse</a></div>
+<div class="line">                        reversal-potential: -80</div>
+<div class="line">                        weight: 0.1</div>
+<div class="line">                pre-synaptic-neuron: &quot;neuron-1&quot; Integrate-and-Fire <a class="code" href="classNeuron.html">Neuron</a></div>
+<div class="line">                X3: &quot;t&quot; <a class="code" href="classTime.html">Time</a> Process</div>
+</div><!-- fragment --><h1><a class="anchor" id="Quality"></a>
 Quality</h1>
-<p>For a short quality check the equations </p><p class="formulaDsp">
+<div style="position: left; float: left">For a short quality check the equations </p><p class="formulaDsp">
 <img class="formulaDsp" alt="\[dX_t = aX_tdt + bX_tdW_t\]" src="form_33.png"/>
 </p>
 <p> (Ito) and </p><p class="formulaDsp">
 <img class="formulaDsp" alt="\[dX_t = aX_tdt + bX_t\circ dW_t\]" src="form_34.png"/>
 </p>
-<p> (Stratonovich) with <img class="formulaInl" alt="$a=-8.0$" src="form_19.png"/> and <img class="formulaInl" alt="$b=0.8$" src="form_20.png"/> are simulated using the <a class="el" href="classDifferentialEquation.html" title="A stochastic differential equation. ">DifferentialEquation</a> class. This equation has an explicit solution, which was plotted on top of the simulated version at different step sizes, relative error in percent shown next to it::</p>
-<p><b>Step size = 0.1:</b></p><div class="image">
-<img src="TestStratTwo_0.1.png"  width="640px"/>
+<p> (Stratonovich) with <img class="formulaInl" alt="$a=-8.0$" src="form_19.png"/> and <img class="formulaInl" alt="$b=0.8$" src="form_20.png"/> are simulated using the <a class="el" href="classDifferentialEquation.html" title="A stochastic differential equation. ">DifferentialEquation</a> class. This equation has an explicit solution, which was plotted on top of the simulated version at different step sizes, relative error in percent shown next to it:</div><div style="width: 100%; position: left; float: left"> <b>Step size = 0.1:</b><br />
+ </p><div class="image">
+<img src="TestStratTwo_0.1.png"  style="position: left; float: left" width="640px"/>
 </div>
-<div class="image">
-<img src="TestStratThree_0.1.png"  width="640px"/>
+ <div class="image">
+<img src="TestStratThree_0.1.png"  style="position: left; float: left" width="640px"/>
 </div>
-<p> Above: Ito and Stratonovich equations plotted on top of their explicit solutions, and relative error in percent, at a time step of 0.1ms.</p>
-<p><b> Step-size=0.01:</b> </p><div class="image">
-<img src="TestStratTwo_0.01.png"  width="640px"/>
+<p><br />
+ Ito and Stratonovich equations plotted on top of their explicit solutions, and relative error in percent, at a time step of 0.1ms. </div><div style="width: 100%; position: left; float: left"> <b> Step-size=0.01:</b><br />
+ </p><div class="image">
+<img src="TestStratTwo_0.01.png"  style="position: left; float: left" width="640px"/>
 </div>
-<div class="image">
-<img src="TestStratThree_0.01.png"  width="640px"/>
+ <div class="image">
+<img src="TestStratThree_0.01.png"  style="position: left; float: left" width="640px"/>
 </div>
-<p> Above: Ito and Stratonovich equations plotted on top of their explicit solutions, and relative error in percent, at a time step of 0.01ms.</p>
-<p><b> Step-size=0.001:</b> </p><div class="image">
-<img src="TestStratTwo_0.001.png"  width="640px"/>
+<p><br />
+ Ito and Stratonovich equations plotted on top of their explicit solutions, and relative error in percent, at a time step of 0.01ms. </div><div style="width: 100%; position: left; float: left"> <b> Step-size=0.001:</b><br />
+ </p><div class="image">
+<img src="TestStratTwo_0.001.png"  style="position: left; float: left" width="640px"/>
 </div>
-<div class="image">
-<img src="TestStratThree_0.001.png"  width="640px"/>
+ <div class="image">
+<img src="TestStratThree_0.001.png"  style="position: left; float: left" width="640px"/>
 </div>
-<p> Above: Ito and Stratonovich equations plotted on top of their explicit solutions, and relative error in percent, at a time step of 0.001ms.</p>
-<p><b> Step-size=0.0001:</b> </p><div class="image">
-<img src="TestStratTwo_0.0001.png"  width="640px"/>
+<p><br />
+ Ito and Stratonovich equations plotted on top of their explicit solutions, and relative error in percent, at a time step of 0.001ms. </div><div style="width: 100%; position: left; float: left"> <b> Step-size=0.0001:</b><br />
+ </p><div class="image">
+<img src="TestStratTwo_0.0001.png"  style="position: left; float: left" width="640px"/>
 </div>
-<div class="image">
-<img src="TestStratThree_0.0001.png"  width="640px"/>
+ <div class="image">
+<img src="TestStratThree_0.001.png"  style="position: left; float: left" width="640px"/>
 </div>
-<p> Above: Ito and Stratonovich equations plotted on top of their explicit solutions, and relative error in percent, at a time step of 0.0001ms. </p>
-</div></div><!-- contents -->
+<p><br />
+ Ito and Stratonovich equations plotted on top of their explicit solutions, and relative error in percent, at a time step of 0.0001ms. </div> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

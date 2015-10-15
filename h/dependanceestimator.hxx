@@ -81,7 +81,7 @@ public:
 	virtual void collect();
 	
 	/// Return an estimation.
-	virtual Matrix mResult(const Property&);
+	virtual Matrix getEstimate(const Property&);
 };
 
 #endif
