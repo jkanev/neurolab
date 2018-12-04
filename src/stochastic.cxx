@@ -62,6 +62,7 @@ RandN::~RandN()
 		delete RandN::randGenerator;
 		RandN::randGenerator = 0;
 	}
+	RandN::nState = 0;
 };
 	
  double RandN::dRandN()

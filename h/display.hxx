@@ -80,6 +80,7 @@ const int DSP_SAVE_GNUPLOT = (0x0 << 13); ///< save for further gnuplot calls
 const int DSP_SAVE_POSTSCRIPT = (0x1 << 13); ///< save as postscript
 const int DSP_SAVE_PNG = (0x2 << 13); ///< save as png
 const int DSP_SAVE_JPEG = (0x3 << 13); ///< save as jpeg
+const int DSP_SAVE_PDF = (0x4 << 13); ///< save as pdf
 
 /// A plot descriptor used by the Display class.
 /** This is meant to be used internally by the Display class. An object like this describes a plot command in gnuplot. */
@@ -233,6 +234,7 @@ const DisplayAction savedsp(0, "", &Display::save, 0, 0);
 const DisplayAction saveps(DSP_SAVE_POSTSCRIPT, "", &Display::save, &Display::addMode, 0);
 const DisplayAction savejpg(DSP_SAVE_JPEG, "", &Display::save, &Display::addMode, 0);
 const DisplayAction savepng(DSP_SAVE_PNG, "", &Display::save, &Display::addMode, 0);
+const DisplayAction savepdf(DSP_SAVE_PDF, "", &Display::save, &Display::addMode, 0);
 DisplayAction addsetting( string variable, string value );
 DisplayAction setmode( const int mode );
 DisplayAction setLineStyle( const int n );

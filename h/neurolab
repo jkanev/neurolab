@@ -44,4 +44,4 @@ __________________________________________________________________________
 #include "./thresholddetector.hxx"
 #include "./dependanceestimator.hxx"
 #include "./eventmultiplexer.hxx"
-
+#include "./eventplayer.hxx"

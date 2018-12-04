@@ -114,10 +114,20 @@ void Display::save()
 				sYTicFont = ",10pt";
 				sZTicFont = ",10pt";
 				break;
-			case DSP_SAVE_POSTSCRIPT:
+            case DSP_SAVE_PDF:
+                (*pFile) << "set terminal pdf size 16cm, 12cm" << endl
+                << "set output " << "\""<< sFileBase << ".pdf\"" << endl;
+                sXFont = "Helvetica,14pt";
+                sYFont = "Helvetica,14pt";
+                sZFont = "Helvetica,14pt";
+                sXTicFont = "Helvetica,16pt";
+                sYTicFont = "Helvetica,16pt";
+                sZTicFont = "Helvetica,16pt";
+                break;
+            case DSP_SAVE_POSTSCRIPT:
 			default:
 //				(*pFile) << "set terminal postscript color solid landscape 22" << endl
-				(*pFile) << "set terminal postscript landscape enhanced mono 22" << endl
+				(*pFile) << "set terminal postscript landscape enhanced 22" << endl
 					<< "set output " << "\""<< sFileBase << ".ps\"" << endl;
 				sXFont = "Helvetica,38pt";
 				sYFont = "Helvetica,38pt";
@@ -275,7 +285,7 @@ int Display::plot()
 					(*pFile) << " ";
 			}
 			if (vPlots[i].nLineStyle)
-				(*pFile) << "lt " << vPlots[i].nLineStyle;
+				(*pFile) << "ls " << vPlots[i].nLineStyle;
 			firstPlot = false;
 			oldMode = mode;
 		}
@@ -308,7 +318,7 @@ Display& Display::operator<<(Matrix m)
 		filename << sFileBase << '.' << vPlots.size() << ".data" << flush;
 		ofstream datafile(filename.str().c_str());
 		if(!filename) {
-			cout << "unable to open data file " << filename << endl;
+			cout << "unable to open data file " << filename.str() << endl;
 			return *this;
 		}
 		datafile.precision(8);
@@ -332,7 +342,7 @@ Display& Display::operator<<( Function &f )
 		filename << sFileBase << '.' << vPlots.size() << ".data" << flush;
 		ofstream datafile(filename.str().c_str());
 		if(!filename) {
-			cout << "unable to open data file " << filename << endl;
+			cout << "unable to open data file " << filename.str() << endl;
 			return *this;
 		}
 		datafile.precision(8);

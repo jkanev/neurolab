@@ -491,11 +491,11 @@ Unit operator+(const Unit& u1, const Unit& u2)
 	} else 
 		u.bInvalid = true;
 		
-		if (u.bInvalid)
-			cout << "warning: trying to add "
-					<< u2.sUnitName << " (" << u2.sUnitSymbol << ") to "
-					<< u1.sUnitName << " (" << u1.sUnitSymbol << ")" 
-					<< endl;
+    if (u.bInvalid)
+        cout << "warning: trying to add "
+                << u2.sUnitName << " (" << u2.sUnitSymbol << ") to "
+                << u1.sUnitName << " (" << u1.sUnitSymbol << ")" 
+                << endl;
 	
 		return u;
 }
