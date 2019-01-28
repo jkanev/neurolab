@@ -75,6 +75,7 @@ void EventPlayer::proceedToNextState()
 	if (stochNextStateIsPrepared) {
 		playerCurrentValue = playerNextValue;
 		stochCurrentValue = stochNextValue;
+        eventCurrentValue = eventNextValue;
 		stochNextStateIsPrepared = false;
 	}
 }
@@ -85,9 +86,11 @@ void EventPlayer::prepareNextState()
 {
 	if (!stochNextStateIsPrepared) {
 		playerNextValue = 0;
+        eventNextValue = false;
 		for (; playerBufferPosition < playerBuffer.size() && playerBuffer[playerBufferPosition] <= xTime->timePassed; playerBufferPosition++) {
 			playerNextValue++;
 			stochNextValue += 1.0;
+            eventNextValue = true;
 		}
 		
 		stochNextStateIsPrepared = true;

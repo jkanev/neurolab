@@ -59,6 +59,12 @@ void Display::setLineStyle( const int &n )
 		vPlots.back().nLineStyle = n;
 }
 
+void Display::setLineWidth( const int &n )
+{
+    if (vPlots.size())
+        vPlots.back().nLineWidth = n;
+}
+
 void Display::setUsedDimensions( string s )
 {
 	if (vPlots.size())
@@ -286,13 +292,15 @@ int Display::plot()
 			}
 			if (vPlots[i].nLineStyle)
 				(*pFile) << "ls " << vPlots[i].nLineStyle;
-			firstPlot = false;
+            if (vPlots[i].nLineWidth)
+                (*pFile) << "lw " << vPlots[i].nLineWidth;
+            firstPlot = false;
 			oldMode = mode;
 		}
 		(*pFile) << endl << "unset multiplot" << endl;
 		(*pFile) << flush;
 		
-		// run terminal + gnuplot
+        // run terminal + gnuplStyleStyleot
 		ostringstream command("");
 		command << _GNUPLOT_CALL
 			<< "-xrm \"gnuplot*background:#e0e0a0\" "
@@ -385,6 +393,11 @@ DisplayAction setmode( const int mode )
 DisplayAction setLineStyle( const int style )
 {
 	return DisplayAction(style, "", 0, &Display::setLineStyle, 0);
+};
+
+DisplayAction setLineWidth( const int width )
+{
+    return DisplayAction(width, "", 0, &Display::setLineWidth, 0);
 };
 
 DisplayAction setTitle( const string title )

@@ -177,7 +177,7 @@ double VoltageDependance::calculateNextValue()
 Poisson::Poisson(double rate, Time* time, const string& name, const string& type)
 	: StochasticEventGenerator(time, name, type)
 {
-   dRate = rate * xTime->dt;
+   poissonRate = rate * xTime->dt;
    stochDescription = "Poisson process";
    addParameter("rate");
 }
@@ -185,7 +185,7 @@ Poisson::Poisson(double rate, Time* time, const string& name, const string& type
 Poisson::Poisson(Time* time, const string& name, const string& type)
 : StochasticEventGenerator(time, name, type)
 {
-	dRate = 5.0 * xTime->dt;
+	poissonRate = 5.0 * xTime->dt;
 	stochDescription = "Poisson process";
 	addParameter("rate");
 }
@@ -193,27 +193,21 @@ Poisson::Poisson(Time* time, const string& name, const string& type)
 void Poisson::prepareNextState()
 {
 	if (!stochNextStateIsPrepared) {
-		if( dRandE() < dRate )
+		if( dRandE() < poissonRate ) {
 			stochNextValue += 1.0;
+            eventNextValue = true;
+        }
+        else
+            eventNextValue = false;
 		stochNextStateIsPrepared = true;
 	}
-}
-
-bool Poisson::hasEvent()
-{
-	return stochNextValue-stochCurrentValue>0.5 ? true : false;
-}
-
-uint Poisson::getEventAmount()
-{
-	return hasEvent() ? 1 : 0;
 }
 
 string Poisson::getParameter(const string& name) const
 {
 	stringstream parameter;
 	if (name=="rate")
-		parameter << dRate/xTime->dt;
+		parameter << poissonRate/xTime->dt;
 	else
 		parameter << StochasticEventGenerator::getParameter( name );
 	
@@ -226,8 +220,8 @@ void Poisson::setParameter(const string& name, const string& value)
 	stringstream parameter;
 	parameter << value;
 	if (name=="rate") {
-		parameter >> dRate;
-		dRate *= xTime->dt;
+		parameter >> poissonRate;
+		poissonRate *= xTime->dt;
 	}
 	else
 		StochasticEventGenerator::setParameter( name, value );
@@ -274,20 +268,14 @@ void Regular::prepareNextState()
 	regularCount--;
 	if (!regularCount) {
 		stochNextValue += 1.0;
+        eventNextValue = true;
 		regularCount = regularInterval;
 	}
+	else
+        eventNextValue = false;
 	stochNextStateIsPrepared = true;
 }
 
-bool Regular::hasEvent()
-{
-	return stochNextValue-stochCurrentValue>0.5 ? true : false;
-}
-
-uint Regular::getEventAmount()
-{
-	return hasEvent() ? 1 : 0;
-}
 
 string Regular::getParameter(const string& name) const
 {

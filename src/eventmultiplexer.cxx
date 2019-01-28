@@ -25,9 +25,10 @@ __________________________________________________________________________
 #include "../h/eventmultiplexer.hxx"
 
 // Construct
-EventMultiplexer::EventMultiplexer(Time* time, const string& name, const string& type)
+EventMultiplexer::EventMultiplexer(Time* time, const bool& mode, const string& name, const string& type)
 	: StochasticEventGenerator(time, name, type)
 {
+    multiMode = mode;
 }
 
 // add source
@@ -56,32 +57,47 @@ bool EventMultiplexer::removeSource( StochasticEventGenerator *source )
 // prepare next state
 void EventMultiplexer::prepareNextState()
 {
-	stochNextValue = stochCurrentValue;
-	for (uint i=0; i<multiSources.size(); i++)
-		if (multiSources[i]) {
-			if (!multiSources[i]->isNextStatePrepared()) {
-				stochNextStateIsPrepared = false;
-				return;
-			}
-			else if (multiSources[i]->hasEvent()) {
-				stochNextValue += 1.0;
-			}
-		}
-
-	stochNextStateIsPrepared = true;
-
+    if (!stochNextStateIsPrepared) {
+        stochNextValue = stochCurrentValue;
+        eventNextValue = false;
+        if (multiMode) {
+            for (uint i=0; i<multiSources.size(); i++) {
+                if (multiSources[i] && multiSources[i]->hasEvent()) {
+                    stochNextValue += 1.0;
+                    eventNextValue = true;
+                }
+            }
+        } else {
+            uint amount = 0;
+            for (uint i=0; i<multiSources.size(); i++) {
+                if (multiSources[i] && multiSources[i]->hasEvent())
+                    ++amount;
+            }
+            if (amount == multiSources.size()) {
+                stochNextValue += 1.0;
+                eventNextValue = true;
+            }
+        }
+        stochNextStateIsPrepared = true;
+    }
 }
 
-// has event
-bool EventMultiplexer::hasEvent()
+// proceed one time steop
+void EventMultiplexer::proceedToNextState()
 {
-	return stochNextValue>stochCurrentValue;
+    if (stochNextStateIsPrepared) {
+        multiEventAmount = uint(stochNextValue - stochCurrentValue);
+        stochCurrentValue = stochNextValue;
+        eventCurrentValue = eventNextValue;
+        stochNextStateIsPrepared = false;
+    }
 }
+
 
 // get number of events
 uint EventMultiplexer::getEventAmount()
 {
-	return uint( stochNextValue - stochCurrentValue );
+	return multiEventAmount;
 }
 
 

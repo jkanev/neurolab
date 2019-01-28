@@ -106,8 +106,8 @@ MlNeuron::MlNeuron(Time *time, double v_0, double theta, double spikeheight, dou
 	stochDescription = "LIF Neuron membrane";
 	
 	// assign values
-	mlneuronHasSpikeNow = false;
-	mlneuronHasSpikeNext = false;
+	eventCurrentValue = false;
+	eventNextValue = false;
 	mlneuronTheta = theta;	
 	mlneuronMembrane.setUnit( Unit("m","V") * Unit("u","F") );
 	physicalUnit = Unit("m","V");
@@ -131,21 +131,10 @@ void MlNeuron::prepareNextState()
 	// proceed if calculation was successful
 	if (stochNextStateIsPrepared) {
 		if (stochNextValue > mlneuronTheta)
-			mlneuronHasSpikeNext = true;
+			eventNextValue = true;
 		else 
-			mlneuronHasSpikeNext = false;
+			eventNextValue = false;
 	}
-}
-
-void MlNeuron::proceedToNextState()
-{
-	mlneuronHasSpikeNow = mlneuronHasSpikeNext;
-	SpikingNeuron::proceedToNextState();
-}
-
-bool MlNeuron::hasEvent()
-{
-	return false;
 }
 
 void MlNeuron::calibrate(int isi, int spikes, int maxtime, NoiseSource *noises)

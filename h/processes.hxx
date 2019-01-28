@@ -176,7 +176,8 @@ public:
 class Poisson: public StochasticEventGenerator, RandN
 {
 private:
-	double dRate;
+	double poissonRate;
+
 public:
 	
 	/// Create Poisson process.
@@ -188,16 +189,10 @@ public:
 	/// Destroy Poisson process.
 	~Poisson(){};
 	
-	/// Whether event is present.
-	virtual bool hasEvent();
-	
-	/// Whether event is present.
-	virtual uint getEventAmount();
-	
 	/// Calculate next time value.
 	virtual void prepareNextState();
 	
-	/// Get parameter.
+    /// Get parameter.
 	virtual string getParameter(const string& name) const;
 	
 	/// Set parameter.
@@ -225,12 +220,6 @@ public:
 	
 	/// Destroy Regular process.
 	~Regular(){};
-	
-	/// Whether event is present.
-	virtual bool hasEvent();
-	
-	/// Whether event is present.
-	virtual uint getEventAmount();
 	
 	/// Calculate next time value.
 	virtual void prepareNextState();

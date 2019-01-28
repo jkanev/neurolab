@@ -76,7 +76,6 @@ where
 class ThetaNeuron: public SpikingNeuron
 {
 private:
-	bool thetaSpike;
 	DifferentialEquation thetaMembrane;	
 
 public:
@@ -91,9 +90,6 @@ public:
 	
 	/// Next step
 	virtual void prepareNextState();
-	
-	/// Event?
-	virtual bool hasEvent();
 };
 
 #endif

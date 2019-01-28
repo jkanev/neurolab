@@ -55,14 +55,24 @@ class TimeDelay : public T
 			delaySource = source;
 		}
 		
+		// prepare next state for classes deriving from stoch
 		virtual void prepareNextState()
 		{
 			if (delaySource->isNextStatePrepared() ) {
-				delayData.next( delaySource->getNextValue() );
-				T::stochNextValue = delayData[1];
-				T::stochNextStateIsPrepared = true;
+                if (std::is_base_of<StochasticEventGenerator, T>::value) {
+                    delayData.next( delaySource->hasEvent() );
+                    T::stochNextValue = delayData[1];
+                    T::eventNextValue = bool(T::stochNextValue);
+                    T::stochNextStateIsPrepared = true;
+                }
+                else if (std::is_base_of<StochasticProcess, T>::value) {
+                    delayData.next( delaySource->getCurrentValue() );
+                    T::stochNextValue = delayData[1];
+                    T::stochNextStateIsPrepared = true;
+                }
 			}
 		}
+		
 };
 
 #endif

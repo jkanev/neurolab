@@ -98,8 +98,6 @@ public:
 class MlNeuron : public SpikingNeuron
 {
 private:
-	bool mlneuronHasSpikeNow; // is there a spike currently?
-	bool mlneuronHasSpikeNext; // will there be a spike after the next update?
 	DifferentialEquation mlneuronMembrane; // the membrane equation dV_t
 	DifferentialEquation mlneuronRelaxation; // relaxation constant dN_t
 	
@@ -172,12 +170,8 @@ public:
 	/** This removes the nth stimulus from the differential equation */
 	virtual void removeStimulus( int n );
 	
-	/// Return whether a spike is happening.
-	virtual bool hasEvent();
-	
 	/// step
 	virtual void prepareNextState();
-	virtual void proceedToNextState();
 };
 
 #endif

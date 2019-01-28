@@ -38,8 +38,6 @@ private:
 	DifferentialEquation ifneuronMembrane; // the membrane equation
 	
 protected:
-	bool ifneuronHasSpikeNow; // is there a spike currently?
-	bool ifneuronHasSpikeNext; // will there be a spike after the next update?
 	double ifneuronSpikeHeight; // height of a spike. This is cosmetical, really.
 	double ifneuronTheta; // threshold
 	
@@ -113,9 +111,6 @@ public:
 	
 	/// Return whether a spike is happening.
 	virtual bool hasEvent();
-	
-	/// Retrun the amount of current events
-	virtual uint getEventAmount() { return hasEvent() ? 1 : 0; };
 	
 	/// Set the next value of the process.
 	/** This includes both the value of the neuron and the membrane, which is a separate object.. */

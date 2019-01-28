@@ -96,9 +96,10 @@ public:
 	string sUserSettings; ///< optional user settings
 	string sUsedDimensions; ///< optional setting for "using" string (see gnuplot)
 	int nLineStyle; ///< the line type (0 - normal count, 1 - ..: special colour/style)
+	int nLineWidth; ///< the line width
 	
 	/// Construct.
-	Plot(string function, string name, string xlabel, string ylabel, string zlabel, int mode, int lineStyle=0) {
+	Plot(string function, string name, string xlabel, string ylabel, string zlabel, int mode, int lineStyle=0, int lineWidth=0) {
 		sFunction = function;
 		sName = name;
 		sXLabel = xlabel;
@@ -106,6 +107,7 @@ public:
 		sZLabel = zlabel;
 		nMode = mode;
 		nLineStyle = lineStyle;
+        nLineWidth = lineWidth;
 	};
 	/// Destruct.
 	~Plot(){};
@@ -158,7 +160,11 @@ public:
 	/** Sets the line style of the last plot. Style is an integer >= 0. In gnuplot, if many plots are executed, each plot gets a different colour (if in colour mode), or line style like dottet, dashed, etc. (if in monochrome mode). Using the setLineStyle function you can override this for the plot added last, and can specify a certain value (if you want multiple lines in the same color, for instance). If style==0, gnuplot defaults are used. */
 	void setLineStyle( const int &style );
 	
-	/// Set line addition.
+    /// Set line width.
+    /** Sets the line width of the last plot. Style is an integer >= 0. In gnuplot, if many plots are executed. If width==0, the setting is ignored, and the gnuplot default used. */
+    void setLineWidth( const int &width );
+    
+    /// Set line addition.
 	/** Sets an addition to the style of the last plot (intended for "using" commands). */
 	void setUsedDimensions( string s );
 
@@ -238,6 +244,7 @@ const DisplayAction savepdf(DSP_SAVE_PDF, "", &Display::save, &Display::addMode,
 DisplayAction addsetting( string variable, string value );
 DisplayAction setmode( const int mode );
 DisplayAction setLineStyle( const int n );
+DisplayAction setLineWidth( const int n );
 DisplayAction setTitle( const string s );
 DisplayAction setUsedDimensions( const vector<uint> &dimension);
 

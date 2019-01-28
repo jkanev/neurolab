@@ -207,6 +207,10 @@ public:
 /** Useful for event-triggered averages. */
 class StochasticEventGenerator : public StochasticVariable
 {
+protected:
+    bool eventCurrentValue;
+    bool eventNextValue;
+    
 public:
 	
 	/// Create.
@@ -217,10 +221,20 @@ public:
 	virtual ~StochasticEventGenerator() {};
 	
 	/// Whether an event is present.
-	virtual bool hasEvent() { return false; };
+	virtual bool hasEvent() { return eventCurrentValue; };
 
 	/// The amount of events present.
-	virtual uint getEventAmount() { return 0; };
+	virtual uint getEventAmount() { return eventCurrentValue ? 1 : 0; };
+    
+    /// Proceed one time step
+    virtual void proceedToNextState()
+    {
+        if (stochNextStateIsPrepared) {
+            stochCurrentValue = stochNextValue;
+            eventCurrentValue = eventNextValue;
+            stochNextStateIsPrepared = false;
+        }
+    };
 };
 
 /// An object which uses the randn function.

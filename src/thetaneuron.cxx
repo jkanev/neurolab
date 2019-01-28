@@ -48,24 +48,18 @@ void ThetaNeuron::addStimulus(StochasticVariable *dxt)
 //   next value
 void ThetaNeuron::prepareNextState()
 {
-	if(thetaSpike) {
-		thetaSpike = false;
+    if(eventCurrentValue) {
+		eventCurrentValue = false;
 	} else {
 		thetaMembrane.prepareNextState();
 		if ( thetaMembrane.getNextValue() >3.1415926535 ) {
 			thetaMembrane.setNextValue( -3.1415926535 );
-			thetaSpike = true;
+			eventCurrentValue = true;
 		}
 		if ( thetaMembrane.getNextValue() < -3.1415926535 ) {
 			thetaMembrane.setNextValue( 3.1415926535 );
-			thetaSpike = true;
+			eventCurrentValue = true;
 		}
 	}
 }
 
-//////////////////////////////////////////////////
-//   event?
-bool ThetaNeuron::hasEvent()
-{
-	return thetaSpike;
-}

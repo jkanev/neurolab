@@ -39,8 +39,8 @@ IfNeuron::IfNeuron(Time *time, double v_0, double theta, double spikeheight, dou
 	
 	// assign values
 	ifneuronSpikeHeight = spikeheight;
-	ifneuronHasSpikeNow = false;
-	ifneuronHasSpikeNext = false;
+	eventCurrentValue = false;
+	eventNextValue = false;
 	ifneuronTheta = theta;	
 	ifneuronMembrane.setUnit( Unit("m","V") * Unit("u","F") );
 	physicalUnit = Unit("m","V");
@@ -61,14 +61,14 @@ void IfNeuron::prepareNextState()
 	
 	// proceed if calculation was successful
 	if (stochNextStateIsPrepared) {
-		if (ifneuronHasSpikeNext) {
+		if (eventNextValue) {
 			ifneuronMembrane.init();
 			stochNextValue = ifneuronMembrane.getNextValue();
-			ifneuronHasSpikeNext = false;
+			eventNextValue = false;
 		} else {
 			if (stochNextValue>ifneuronTheta) {
 				stochNextValue = ifneuronSpikeHeight;
-				ifneuronHasSpikeNext = true;
+				eventNextValue = true;
 			}
 		}
 	}
@@ -78,12 +78,11 @@ void IfNeuron::proceedToNextState()
 {
 	SpikingNeuron::proceedToNextState();
 	ifneuronMembrane.proceedToNextState();
-	ifneuronHasSpikeNow = ifneuronHasSpikeNext;
 }
 
 bool IfNeuron::hasEvent()
 {
-	return ifneuronHasSpikeNow;
+	return eventCurrentValue;
 }
 
 void IfNeuron::calibrate(int isi, int spikes, int maxtime, NoiseSource *noises, double increment, double decrement)
