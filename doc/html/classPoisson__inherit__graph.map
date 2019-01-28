@@ -1,9 +1,0 @@
-<map id="Poisson" name="Poisson">
-<area shape="rect" id="node2" href="$classStochasticEventGenerator.html" title="An object which generates events. " alt="" coords="85,229,259,256"/>
-<area shape="rect" id="node3" href="$classStochasticVariable.html" title="A simple stochastic variable. " alt="" coords="107,155,237,181"/>
-<area shape="rect" id="node4" href="$classStochasticProcess.html" title="A stochastic variable. " alt="" coords="106,80,238,107"/>
-<area shape="rect" id="node5" href="$classParametric.html" title="Class describing objects which can be parametrized. " alt="" coords="5,5,91,32"/>
-<area shape="rect" id="node6" href="$classTimeDependent.html" title="Time dependent objects. " alt="" coords="115,5,229,32"/>
-<area shape="rect" id="node7" href="$classPhysical.html" title="A physical value. " alt="" coords="253,5,325,32"/>
-<area shape="rect" id="node8" href="$classRandN.html" title="An object which uses the randn function. " alt="" coords="283,229,346,256"/>
-</map>

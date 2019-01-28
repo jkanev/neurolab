@@ -1,9 +1,0 @@
-<map id="Estimator" name="Estimator">
-<area shape="rect" id="node3" href="$classConditionalEstimator.html" title="estimates conditional mean, var, etc. of a stochastic process " alt="" coords="269,5,412,32"/>
-<area shape="rect" id="node4" href="$classDependanceEstimator.html" title="Estimating dependencies of conditional variables. " alt="" coords="265,56,416,83"/>
-<area shape="rect" id="node5" href="$classProcessEstimator.html" title="Estimates mean, var, etc. of a stochastic process. " alt="" coords="277,107,404,133"/>
-<area shape="rect" id="node6" href="$classScalarEstimator.html" title="estimates mean, variance, etc. of a scalar stochastic variable " alt="" coords="283,157,398,184"/>
-<area shape="rect" id="node8" href="$classSeriesEstimator.html" title="Recorder for stochastic properties of series. " alt="" coords="283,208,398,235"/>
-<area shape="rect" id="node2" href="$classParametric.html" title="Class describing objects which can be parametrized. " alt="" coords="5,107,91,133"/>
-<area shape="rect" id="node7" href="$classIntervalEstimator.html" title="estimates interval distribution, mean, var, etc. of a time series " alt="" coords="464,157,585,184"/>
-</map>

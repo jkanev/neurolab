@@ -146,4 +146,4 @@ obj/eventplayer.o: h/eventplayer.hxx src/eventplayer.cxx
 	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS) src/eventplayer.cxx -o obj/eventplayer.o
 	
 clean:
-	rm -r obj/*; rm bin/*; rm lib/*; rm lib/.libs/*; echo "";
+	rm -r obj/*; rm bin/*; rm lib/*; rm lib/.libs/*; yes | rm doc/html/*; yes | rm doc/latex/*; echo "";

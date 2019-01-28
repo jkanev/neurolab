@@ -1,7 +1,0 @@
-<map id="ThetaNeuron" name="ThetaNeuron">
-<area shape="rect" id="node2" href="$classSpikingNeuron.html" title="Base class for all spiking neurons. " alt="" coords="56,229,163,256"/>
-<area shape="rect" id="node3" href="$classNeuron.html" title="class implementing a simple integrate&#45;and&#45;fire neuron " alt="" coords="5,155,69,181"/>
-<area shape="rect" id="node4" href="$classStochasticEventGenerator.html" title="An object which generates events. " alt="" coords="94,155,269,181"/>
-<area shape="rect" id="node5" href="$classStochasticVariable.html" title="A simple stochastic variable. " alt="" coords="116,80,247,107"/>
-<area shape="rect" id="node6" href="$classStochasticProcess.html" title="A stochastic variable. " alt="" coords="115,5,247,32"/>
-</map>

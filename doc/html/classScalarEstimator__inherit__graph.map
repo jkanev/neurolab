@@ -1,5 +1,0 @@
-<map id="ScalarEstimator" name="ScalarEstimator">
-<area shape="rect" id="node4" href="$classIntervalEstimator.html" title="estimates interval distribution, mean, var, etc. of a time series " alt="" coords="5,229,127,256"/>
-<area shape="rect" id="node2" href="$classEstimator.html" title="Base class for estimation of various stochastic properties. " alt="" coords="27,80,105,107"/>
-<area shape="rect" id="node3" href="$classParametric.html" title="Class describing objects which can be parametrized. " alt="" coords="23,5,109,32"/>
-</map>
