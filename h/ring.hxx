@@ -39,13 +39,14 @@ public:
 	Ring(int l) {
 		ringData = new T[l];
 		ringSize = l;
+        ringDelayedAdd = 0.0;
 		clear();
-	};
+    }
 
 	/// delete ring
 	~Ring() {
 		delete[] ringData;
-	};
+    }
 
 	/// clear ring
 	/** This writes initializes the ring with 0.0 and sets the initialized property to false. */
@@ -53,65 +54,80 @@ public:
 		ringIsInitialised = false;
 		init((T)0.0);
 		ringCurrentIndex = 0;
-	};
+        ringDelayedAdd = 0.0;
+    }
 	
 	/// initialise ring with value
 	/** Write a value into every element of the ring. @param d Value to use. */
 	void init(T d) {
-	for(int i=0; i<ringSize; i++)
-		ringData[i] = d;
-	};
+        for(int i=0; i<ringSize; i++)
+            ringData[i] = d;
+        ringDelayedAdd = 0.0;
+    }
  
 	/// next data for ring
 	/** Insert a new data point and proceed ring pointer. @param d Data to store. */
 	void next(T d) {
+        flush();
 		if(++ringCurrentIndex >= ringSize) {
 			ringCurrentIndex = 0;
 			ringIsInitialised = true;
 		}
 		ringData[ringCurrentIndex] = d;
-	};
+    }
 
 	/// is ring initialized?
 	/** returns true if all parts of the ring have been filled (by prepareNextState()) at least once. */
 	bool isInitialized() {
 		return ringIsInitialised;
-	};
+    }
 	
 	/// get data point
 	/** Retrieve data. @param index Index of data to use.
 	The index is always relative to the current position, and can be negative. */
 	const T &operator[](const int &index) const {
+        flush();
 		int i = ringCurrentIndex+index;
 		while (i >= ringSize)
 			i -= ringSize;
 		while (i < 0)
 			i += ringSize;
 		return ringData[i];
-	};
+    }
 
 	/// add two rings
 	/** @param r The ring which is to be added to this one. As a ring has infinite length, no length check is needed. If the added Ring is shorter than this ring, it will be added repeatedly, if it is longer than this ring, the first part of it will be added. */
-	void operator+=(const Ring<T> &r) {
+    void operator+=(const Ring<T> &r) {
+        flush();
 		for(int i=0; i<ringSize; i++)
-		ringData[i] += r[i];
-	};
+            ringData[i] += r[i];
+    }
 
 	/// add an element to all elements
 	/** @param n The element which is to be added to the ring. */
 	void operator+=(T n) {
-		for(int i=0; i<ringSize; i++)
-			ringData[i] += n;
-	};
+        ringDelayedAdd += n;
+    }
+
+    /// flush the delayed add to the ring
+    void flush() const {
+        if (ringDelayedAdd != 0.0) {
+            for(int i=0; i<ringSize; i++) {
+                ringData[i] += ringDelayedAdd;
+            }
+            ringDelayedAdd = 0.0;
+        }
+    }
 	
 	/// get length
 	/** @returns the length of the ring */
 	int length() {
 		return ringSize;
-	};
+    }
    
 protected:
 	T *ringData;  // the data
+    mutable T ringDelayedAdd;     // the last amount that was added to all members. kept separatate for optimisation (delayed adding).
 	int ringCurrentIndex;          // the current point
 	int ringSize;     // the length
 	bool ringIsInitialised;
