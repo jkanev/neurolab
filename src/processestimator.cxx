@@ -60,9 +60,9 @@ void ProcessEstimator::init()
 				aThree[i] += d*d*d;
 			}
 		if( nEstimate & EST_DENS )
-			for(uint i=0; i<nLength; i++) {
-				int bin = (int) floor( (aSample[i] - dDistOffset) / dDistScale + 0.5); // round
-				if( (bin <= nDist) && (bin >= 0) )
+            for(uint i=0; i<nLength; i++) {
+                ulong bin = ulong( floor( (aSample[i] - dDistOffset) / dDistScale + 0.5) ); // round
+                if( bin <= nDist )
 					aDist[ i ][ bin ]++;
 			}
 		nCurrent = 0;	
@@ -71,19 +71,19 @@ void ProcessEstimator::init()
 	
 //________________________________________
 // construct
-ProcessEstimator::ProcessEstimator(const Property& property, StochasticProcess *stochvar, Time *time,  int length)
-	: Estimator(stochvar, time)
+ProcessEstimator::ProcessEstimator(const Property& property, StochasticProcess *stochvar, Time *time,  uint length, const string& name, const string& type)
+    : Estimator(stochvar, time, name, type)
 {
 	nEstimate = property;
 	pSource = stochvar;
 	nLength = length;
 	nSamples = 0;
 	nCurrent = 0;
-	aDist = 0;
-	nDist = 0;
-	aOne = 0;
-	aTwo = 0;
-	aThree = 0;
+    aDist = nullptr;
+    nDist = 0;
+    aOne = nullptr;
+    aTwo = nullptr;
+    aThree = nullptr;
 	aSample = new double[nLength];
 	for(uint i=0; i<nLength; ++i)
 		aSample[i] = 0.0;
@@ -107,7 +107,7 @@ ProcessEstimator::ProcessEstimator(const Property& property, StochasticProcess *
 		aDist = new double *[nLength];
 		for( uint i=0; i<nLength; i++ ) {
 			aDist[i] = new double[nDist];
-			for(int j=0; j<nDist; ++j)
+            for(ulong j=0; j<nDist; ++j)
 				aDist[i][j] = 0.0;
 		}
 		aDistRange[0] = -5.0;
@@ -199,7 +199,7 @@ Matrix ProcessEstimator::getEstimate(const Property& p)
 			p.setDescription("probability");
 			a.setPhysical(2, p );
 		}
-		for(int j=0; j<nDist; j++)
+        for(uint j=0; j<nDist; j++)
 			for( uint i=0; i<nLength; i++ ) {
 			a[i][j][0] = (estimatorTime->dt * (double(i) * dDistScale) + dDistOffset);
 				a[i][j][1] = aDist[i][j] / samples;

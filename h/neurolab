@@ -29,6 +29,7 @@ __________________________________________________________________________
 #include "./estimator.hxx"
 #include "./scalarestimator.hxx"
 #include "./seriesestimator.hxx"
+#include "./spikeestimator.hxx"
 #include "./intervalestimator.hxx"
 #include "./conditionalestimator.hxx"
 #include "./processestimator.hxx"

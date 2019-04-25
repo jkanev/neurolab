@@ -21,8 +21,8 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA.
 __________________________________________________________________________
 */
 
-#ifndef __STOCHASTIC_HXX
-#define __STOCHASTIC_HXX
+#ifndef STOCHASTIC_HXX
+#define STOCHASTIC_HXX
 
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_real_distribution.hpp>
@@ -160,40 +160,41 @@ private:
 public:
 	
 	/// Create.
-	StochasticFunction(class Time *time, const string& name="", const string& type="Stochastic Function") : StochasticProcess(time, name, type) {};
-	
+    StochasticFunction(class Time *time, const string& name="", const string& type="Stochastic Function")
+        : StochasticProcess(time, name, type) {}
+
 	/// Returns the value at  the current time step.
 	/** Same as getCurrentValue(x). */
 	double operator()(double x) {
 		return getCurrentValue(x);
-	};
+    }
 	
 	/// Returns the increment at  the current time step.
 	/** Same as getIncrement(x). */
 	double d(double x) {
 		return getIncrement(x);
-	};
+    }
 	
 	/// Returns the value at  the next time step.
 	/** Calling this method sets the function input.*/
 	virtual double getCurrentValue(double x) {
 		stochCurrentValue = x;
 		return calculateCurrentValue();
-	};
+    }
 	
 	/// Returns the value at  the next time step.
 	/** Calling this method sets the function input.*/
 	virtual double getNextValue(double x) {
 		stochNextValue = x;
 		return calculateCurrentValue();
-	};
+    }
 	
 	/// Returns the increment at  the current time step.
 	/** Calling this method sets the function input. This method does not proceed the object's time. */
 	virtual double getIncrement(double xt) {
 		stochNextValue = xt;
 		return calculateNextValue() - calculateCurrentValue();
-	};
+    }
 	
 	/// Calculates the current value based on the current input.
 	virtual double calculateCurrentValue() = 0;
@@ -214,27 +215,20 @@ protected:
 public:
 	
 	/// Create.
-	StochasticEventGenerator(class Time *time, const string& name="", const string& type="Event Generator")
-		: StochasticVariable( time, name, type) {};
+    StochasticEventGenerator(class Time *time, const string& name="", const string& type="Event Generator")
+        : StochasticVariable( time, name, type) {}
 	
 	/// Destroy.
-	virtual ~StochasticEventGenerator() {};
+    virtual ~StochasticEventGenerator() {}
 	
 	/// Whether an event is present.
-	virtual bool hasEvent() { return eventCurrentValue; };
+    virtual bool hasEvent() { return eventCurrentValue; }
 
 	/// The amount of events present.
-	virtual uint getEventAmount() { return eventCurrentValue ? 1 : 0; };
+    virtual uint getEventAmount() { return eventCurrentValue ? 1 : 0; }
     
     /// Proceed one time step
-    virtual void proceedToNextState()
-    {
-        if (stochNextStateIsPrepared) {
-            stochCurrentValue = stochNextValue;
-            eventCurrentValue = eventNextValue;
-            stochNextStateIsPrepared = false;
-        }
-    };
+    virtual void proceedToNextState();
 };
 
 /// An object which uses the randn function.

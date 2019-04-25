@@ -275,10 +275,10 @@ int Display::plot()
 				case DSP_DOTS:
 					(*pFile) << "with dots "; 
 					break;
-				case DSP_IMPULSES:
-					(*pFile) << "with impulses "; 
-					break;
-				case DSP_BARS:
+                case DSP_IMAGE:
+                    (*pFile) << "with image ";
+                    break;
+                case DSP_BARS:
 					(*pFile) << "with boxes "; 
 					break;
 				case DSP_STEPS:

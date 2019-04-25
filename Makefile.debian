@@ -9,7 +9,7 @@ LIBS = -lm
 LIBRARY = $(DESTDIR)/usr/lib/libneurolab.so
 DEFINES = -D_GNUPLOT_CALL="\"/usr/bin/gnuplot \""
 
-OBJECTS = obj/parametric.o obj/stochastic.o obj/differentiable.o obj/processes.o obj/display.o obj/processestimator.o obj/conditionalestimator.o obj/scalarestimator.o obj/intervalestimator.o obj/matrix.o obj/ifneuron.o obj/mlneuron.o obj/synapse.o obj/wiener.o obj/function.o obj/physical.o obj/neuron.o obj/thetaneuron.o obj/noises.o obj/stochastic.o obj/dependanceestimator.o obj/seriesestimator.o obj/timedependent.o obj/estimator.o obj/eventmultiplexer.o obj/eventplayer.o
+OBJECTS = obj/parametric.o obj/stochastic.o obj/differentiable.o obj/processes.o obj/display.o obj/processestimator.o obj/conditionalestimator.o obj/scalarestimator.o obj/intervalestimator.o obj/matrix.o obj/ifneuron.o obj/mlneuron.o obj/synapse.o obj/wiener.o obj/function.o obj/physical.o obj/neuron.o obj/thetaneuron.o obj/noises.o obj/stochastic.o obj/dependanceestimator.o obj/seriesestimator.o obj/spikeestimator.o obj/timedependent.o obj/estimator.o obj/eventmultiplexer.o obj/eventplayer.o
 
 TESTPROGRAMS = bin/CoupledNeurons bin/ItoVsStrat bin/ItoVsStrat2 bin/ItoVsStrat3 bin/Functions bin/NoiseTest
 
@@ -102,6 +102,9 @@ obj/dependanceestimator.o: src/dependanceestimator.cxx h/dependanceestimator.hxx
 
 obj/seriesestimator.o: src/seriesestimator.cxx h/seriesestimator.hxx h/estimator.hxx h/ring.hxx obj/stochastic.o h/matrix.hxx h/graph.hxx h/physical.hxx
 	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS) src/seriesestimator.cxx -o obj/seriesestimator.o
+
+obj/spikeestimator.o: src/spikeestimator.cxx h/spikeestimator.hxx h/estimator.hxx obj/stochastic.o h/matrix.hxx h/graph.hxx h/physical.hxx
+	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS) src/spikeestimator.cxx -o obj/spikeestimator.o
 
 obj/physical.o: h/physical.hxx src/physical.cxx
 	libtool --mode=compile g++ -c $(FLAGS) $(DEFINES) $(IPATHS)  src/physical.cxx -o obj/physical.o

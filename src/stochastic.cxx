@@ -91,3 +91,12 @@ double RandN::dRandE()
 {
 	return RandN::dist(*RandN::randGenerator);
 };
+
+void StochasticEventGenerator::proceedToNextState()
+{
+    if (stochNextStateIsPrepared) {
+        stochCurrentValue = stochNextValue;
+        eventCurrentValue = eventNextValue;
+        stochNextStateIsPrepared = false;
+    }
+}

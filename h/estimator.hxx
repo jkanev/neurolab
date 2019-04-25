@@ -77,7 +77,7 @@ public:
 	/// Reset all estimation dependent values.
 	virtual void init() = 0;
 
-	int getSampleCount() { return nSamples; };
+    int getSampleCount() { return nSamples; }
 	
 	/// Destroy.
 	/** Un-Registers the class with the Time class for automatic running. */

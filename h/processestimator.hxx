@@ -35,14 +35,13 @@ using namespace std;
 class ProcessEstimator: public Estimator
 {
 private:
-	int nEstimate;  // what to record
 	unsigned int nCurrent;     // #timesteps after last init
 	unsigned int nLength;     // amount of timesteps to take
 	double *aSample; // last sample
 	double *aOne;    // recording first moment
 	double *aTwo;    // recording second moment
 	double *aThree;  // recording third moment
-	int nDist;      // length of aDist
+    ulong nDist;      // length of aDist
 	double aDistRange[2]; // range of dist
 	double dDistOffset; // offset of dist (helper variable)
 	double dDistScale; // scale of dist (helper variable)
@@ -59,7 +58,7 @@ public:
 	virtual Matrix getEstimate(const Property&);
 	
 	/// construct
-	ProcessEstimator(const Property&, StochasticProcess *, Time *, int length);
+    ProcessEstimator(const Property&, StochasticProcess *, Time *, uint length, const string& name="", const string& type="ProcessEstimator");
 	
 	/// destruct
 	virtual ~ProcessEstimator();
