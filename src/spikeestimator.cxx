@@ -138,7 +138,13 @@ Matrix SpikeEstimator::getSample()
 
 double SpikeEstimator::getMean()
 {
-    return double(spkOne / long(nSamples));
+    if (nSamples > 0.0)
+        // If we have collected samples, we return the standard distance.
+        return double(spkOne / long(nSamples));
+    else
+        // At least one neuron has not been spiking - it doesn't get any worse than that,
+        // we return the maximal distance.
+        return 1.0;
 }
 
 Matrix SpikeEstimator::getEstimate(const Property& what)

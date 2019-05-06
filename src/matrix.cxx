@@ -23,6 +23,7 @@ __________________________________________________________________________
 
 
 #include "../h/matrix.hxx"
+#include <algorithm>
 
 Matrix::Matrix(double *data, shared_array<double> parent, int* sizes, int dimension) : sMatrixName("reference")
 {
@@ -38,15 +39,15 @@ Matrix::Matrix(double *data, shared_array<double> parent, int* sizes, int dimens
 void Matrix::init(bool createStorage) 
 {
 	nData = 1;
-	int dimension = nMatrixDimension ? nMatrixDimension : 1;
-	pMult = new int[dimension];
-	pPhysicals = new Physical[dimension]();
-	for (int i=dimension-1; i+1; i--) {
+    int dimension = nMatrixDimension ? nMatrixDimension : 1;
+    pMult = new int[ulong(dimension)];
+    pPhysicals = new Physical[ulong(dimension)]();
+    for (ulong i=ulong(dimension)-1; i+1; i--) {
 		pMult[i] = nData;
 		nData *= pSize[i];
 	}
 	if (createStorage) {
-		pData = new double[nData];
+        pData = new double[ulong(nData)];
 		matrixParent = shared_array<double>(pData, MatrixDataDeleter(this));
 	}
 }
@@ -267,25 +268,28 @@ Matrix &Matrix::remove(vector<int> removal)
 
 Matrix Matrix::operator[](int i)
 {
-	int *sizes = new int[nMatrixDimension-1];
-	for(int s=1; s<nMatrixDimension; s++)
+    uint dimension = uint(nMatrixDimension==1 ? 1 : nMatrixDimension-1);
+    int *sizes = new int[dimension];
+    sizes[0] = 1;
+    for (uint s=1; s<uint(nMatrixDimension); s++)
 		sizes[s-1] = pSize[s];
- 	return Matrix( &(pData[i*pMult[0]]), matrixParent, sizes, nMatrixDimension-1 );
+    return Matrix( &(pData[i*pMult[0]]), matrixParent, sizes, dimension );
 }
 
 const Matrix Matrix::read(int i) const
 {
-	int *sizes = new int[nMatrixDimension-1];
-	for(int s=1; s<nMatrixDimension; s++)
-		sizes[s-1] = pSize[s];
-	return Matrix( &(pData[i*pMult[0]]), matrixParent, sizes, nMatrixDimension-1 );
+    uint dimension = uint(nMatrixDimension==1 ? 1 : nMatrixDimension-1);
+    int *sizes = new int[dimension];
+    sizes[0] = 1;
+    for (uint s=1; s<uint(nMatrixDimension); s++)
+         sizes[s-1] = pSize[s];
+    return Matrix( &(pData[i*pMult[0]]), matrixParent, sizes, dimension );
 }
 
 void Matrix::operator=(double d)
 {
-	if (!nMatrixDimension ) {
-		pData[0] = d;
-	}
+    for(int i=0; i<nData; i++)
+        pData[i] = d;
 }
 
 Matrix Matrix::operator()(int i, int j)
@@ -295,8 +299,8 @@ Matrix Matrix::operator()(int i, int j)
 
 void Matrix::operator++(int i)
 {
-	if( !nMatrixDimension )
-		pData[0] += 1.0;
+    for(int n=0; n<nData; n++)
+        pData[n] += i;
 }
 
 double Matrix::to_d()
