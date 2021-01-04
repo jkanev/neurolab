@@ -70,7 +70,7 @@ Matrix::Matrix() : sMatrixName("data")
 Matrix::Matrix( const Matrix &m ) : sMatrixName( m.sMatrixName )
 {
 	// do a shallow copy so we don't shift memory each time a fcn returns a matrix
-	copy( m, false );
+    copy( m, true );
 }
 
 void Matrix::copy( const Matrix &m, bool deep )

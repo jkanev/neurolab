@@ -25,7 +25,7 @@ __________________________________________________________________________
 #define __MATRIX_HXX_
 
 #include "physical.hxx"
-#include <shared_array.hpp>
+#include <boost/shared_array.hpp>
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -42,15 +42,15 @@ Implement Matrix multiplication and the (Matlab-known) functions cumsum, cummult
 class Matrix: public Physical
 {
 private:
-	bool bReference;     ///< wether we're a reference or not
-	double *pData;     ///< the data
+    bool bReference;	 ///< wether we're a reference or not
+    double *pData;	 ///< the data
 	shared_array<double> matrixParent; ///< pointer to parent data, if this is a reference. Used to inc the refcount of the parent if the data  of this matrix is only part of the data of the parent matrix (i.e. both pointers are different)
 	int nData; ///< size of pData
-	int *pSize;     ///< shape of matrix
-	int *pMult;     ///< multipliers for data retrieval
+    int *pSize;	 ///< shape of matrix
+    int *pMult;	 ///< multipliers for data retrieval
 	Physical *pPhysicals; ///< physical name for each dim.
-	int nMatrixDimension;     ///< which dimensionality
-	string sMatrixName;     ///< a user-defined name
+    int nMatrixDimension;	 ///< which dimensionality
+    string sMatrixName;	 ///< a user-defined name
 	
 	// private constructor
 	Matrix(double *data, shared_array<double> parent,  int* sizes, int dimension);
@@ -202,15 +202,15 @@ public:
 class MatrixDataDeleter
 {
 private:
-	bool bReference;
+    bool bReference;
 public:
 	MatrixDataDeleter( Matrix *m ) {
-		bReference = m->bReference;
+        bReference = m->bReference;
 	}
 	void operator()(double *data) {
-		if (!bReference)
-			delete[] data;
-	}
+        if (!bReference)
+            delete[] data;
+    }
 };
 
 

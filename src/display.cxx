@@ -302,7 +302,7 @@ int Display::plot()
 		
         // run terminal + gnuplStyleStyleot
 		ostringstream command("");
-		command << _GNUPLOT_CALL
+		command << GNUPLOT_EXECUTABLE
 			<< "-xrm \"gnuplot*background:#e0e0a0\" "
 			<< "-xrm \"gnuplot*line1Color:blue\" "
 			<< "-xrm \"gnuplot*line2Color:red\" "

@@ -121,6 +121,7 @@ ProcessEstimator::ProcessEstimator(const Property& property, StochasticProcess *
 // destruct
 ProcessEstimator::~ProcessEstimator()
 {
+    delete[] aSample;
 	if(aOne) delete[] aOne;
 	if(aTwo) delete[] aTwo;
 	if(aThree) delete[] aTwo;
