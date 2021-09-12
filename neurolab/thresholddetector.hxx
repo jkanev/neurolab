@@ -30,7 +30,7 @@ the threshold. */
 #ifndef THRESHOLD_DETECTOR_HXX
 #define THRESHOLD_DETECTOR_HXX
 
-#include "stochastic.hxx"
+#include <neurolab/stochastic.hxx>
 
 class ThresholdDetector : public StochasticEventGenerator
 {

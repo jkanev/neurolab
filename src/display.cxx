@@ -281,8 +281,8 @@ int Display::plot()
                 case DSP_BARS:
 					(*pFile) << "with boxes "; 
 					break;
-				case DSP_STEPS:
-					(*pFile) << "with steps "; 
+				case DSP_FILLEDCURVES:
+					(*pFile) << "with filledcurves y1=0";
 					break;
 				case DSP_LINESPOINTS:
 					(*pFile) << "with linespoints ";

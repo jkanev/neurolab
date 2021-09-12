@@ -1,13 +1,12 @@
-# Created by and for Qt Creator This file was created for editing the project sources only.
-# You may attempt to use it for building too, by modifying this file here.
 
 cmake_minimum_required(VERSION 3.5)
 project(neurolab VERSION 0.0.1 DESCRIPTION "Library to simulate stochastic differential equations for neural computation applications.")
 
 FIND_PACKAGE( Boost REQUIRED )
 FIND_PACKAGE( Gnuplot )
-INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
+INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} h)
 
+set(GNUPLOT_EXECUTABLE "\"/usr/bin/gnuplot \"")
 include(GNUInstallDirs)
 
 add_library(neurolab SHARED
@@ -19,7 +18,6 @@ add_library(neurolab SHARED
     src/eventmultiplexer.cxx
     src/eventplayer.cxx
     src/function.cxx
-    src/Functions.cxx
     src/ifneuron.cxx
     src/intervalestimator.cxx
     src/matrix.cxx
@@ -41,12 +39,13 @@ add_library(neurolab SHARED
 )
 
 set_target_properties(neurolab PROPERTIES VERSION ${PROJECT_VERSION})
-set_target_properties(neurolab PROPERTIES PUBLIC_HEADER h/neurolab)
 configure_file(neurolab.pc.in neurolab.pc @ONLY)
 target_include_directories(neurolab PRIVATE h)
 target_include_directories(neurolab PRIVATE src)
-target_compile_definitions(neurolab PRIVATE GNUPLOT_EXECUTABLE)
+target_compile_definitions(neurolab PRIVATE GNUPLOT_EXECUTABLE=${GNUPLOT_EXECUTABLE})
+target_compile_definitions(neurolab PRIVATE BOOST_BIND_GLOBAL_PLACEHOLDERS)
 install(TARGETS neurolab
 	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-	PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+	PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/neurolab)
 install(FILES ${CMAKE_BINARY_DIR}/neurolab.pc DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
+install(DIRECTORY neurolab DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})

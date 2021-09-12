@@ -25,8 +25,8 @@ __________________________________________________________________________
 #ifndef __DISPLAY_HXX
 #define __DISPLAY_HXX
 
-#include "matrix.hxx"
-#include "function.hxx"
+#include <neurolab/matrix.hxx>
+#include <neurolab/function.hxx>
 #include <cstdlib> // for system()
 #include <fstream>
 #include <iostream>

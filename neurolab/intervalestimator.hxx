@@ -21,28 +21,26 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA.
 __________________________________________________________________________
 */
 
-// main include file of neurolab library
+#ifndef INTERVAL_ESTIMATOR_H
+#define INTERVAL_ESTIMATOR_H
 
-#include "processes.hxx"
-#include "matrix.hxx"
-#include "graph.hxx"
-#include "estimator.hxx"
-#include "scalarestimator.hxx"
-#include "seriesestimator.hxx"
-#include "spikeestimator.hxx"
-#include "intervalestimator.hxx"
-#include "conditionalestimator.hxx"
-#include "processestimator.hxx"
-#include "covariation.hxx"
-#include "display.hxx"
-#include "ifneuron.hxx"
-#include "mlneuron.hxx"
-#include "wiener.hxx"
-#include "thetaneuron.hxx"
-#include "timedelay.hxx"
-#include "noises.hxx"
-#include "function.hxx"
-#include "thresholddetector.hxx"
-#include "dependanceestimator.hxx"
-#include "eventmultiplexer.hxx"
-#include "eventplayer.hxx"
+#include <neurolab/scalarestimator.hxx>
+#include <neurolab/processes.hxx>
+
+/// estimates interval distribution, mean, var, etc. of a time series
+/** This class gets an Event-pointer, and records mean, variance etc. of inter-event intervals. This is useful for any sort of point process - f.i. a Neuron, which emits spikes as events. */
+class IntervalEstimator: public ScalarEstimator
+{
+private:
+	int nTime;
+protected:
+	StochasticEventGenerator *pEvent;
+	const class Time *xTime; // time step size
+public:
+	IntervalEstimator(const Property&, StochasticEventGenerator *, class Time*); ///< Constructor
+	virtual ~IntervalEstimator(); ///< Destructor
+	virtual void collect(); ///< Eat next piece of data
+	virtual void init(); ///< reset all counters
+};
+
+#endif
