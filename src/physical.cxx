@@ -570,7 +570,7 @@ void Physical::setUnit(Unit u)
 string Physical::getDescription()
 {
 	if (physicalUnit.getName().length())
-		return physicalDescription + ", " + physicalUnit.getName();
+        return physicalDescription + " (" + physicalUnit.getSymbol() + ")";
 	else return physicalDescription;
 }
 
