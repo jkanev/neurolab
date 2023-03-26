@@ -148,7 +148,7 @@ Matrix ScalarEstimator::getEstimate(const Property& p)
 		}
 		for(int i=0; i<nDist; i++) {
 			a[i][0] = (double(i) * dDistScale) + dDistOffset;
-			a[i][1] = aDist[i] / samples;
+            a[i][1] = aDist[i] / samples / dDistScale;
 		}
 		return a;
 	}
