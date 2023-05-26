@@ -1,6 +1,6 @@
 
 cmake_minimum_required(VERSION 3.5)
-project(neurolab VERSION 0.0.1 DESCRIPTION "Library to simulate stochastic differential equations for neural computation applications.")
+project(neurolab VERSION 0.0.5 DESCRIPTION "Library to simulate stochastic differential equations for neural computation applications.")
 
 FIND_PACKAGE( Boost REQUIRED )
 FIND_PACKAGE( Gnuplot )
@@ -48,4 +48,5 @@ install(TARGETS neurolab
 	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 	PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/neurolab)
 install(FILES ${CMAKE_BINARY_DIR}/neurolab.pc DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
-install(DIRECTORY neurolab DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(DIRECTORY h/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/neurolab)
+

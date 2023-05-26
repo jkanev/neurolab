@@ -42,9 +42,36 @@ public:
 		clear();
     }
 
-	/// delete ring
+    /// New ring (copy constructor)
+    /** Assigns a ring from a ring. @param r The new value to write into this ring. */
+    Ring(const Ring<T> &r) {
+        delete[] ringData;
+        ringData = new T[r.ringSize];
+        ringSize = r.ringSize;
+        for (int i=0; i<ringSize; ++i)
+            ringData[i] = r.ringData[i];
+        ringCurrentIndex = r.ringCurrentIndex;
+        ringDelayedAdd = r.ringDelayedAdd;
+        ringCacheInvalid = r.ringCacheInvalid;
+    }
+
+    /// assignment
+    /** Basically the same as the copy constructor. @param r The new value to write into this ring. */
+    void operator=(const Ring<T> r) {
+        delete[] ringData;
+        ringData = new T[r.ringSize];
+        ringSize = r.ringSize;
+        for (int i=0; i<ringSize; ++i)
+            ringData[i] = r.ringData[i];
+        ringCurrentIndex = r.ringCurrentIndex;
+        ringDelayedAdd = r.ringDelayedAdd;
+        ringCacheInvalid = r.ringCacheInvalid;
+    }
+
+    /// delete ring
 	~Ring() {
 		delete[] ringData;
+        ringData = nullptr;
     }
 
 	/// clear ring
